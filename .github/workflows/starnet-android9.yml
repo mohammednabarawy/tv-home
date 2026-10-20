@@ -1,0 +1,36 @@
+name: StarNet Android 9 test APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'launcher/**'
+      - '.github/workflows/starnet-android9.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Android SDK
+        uses: android-actions/setup-android@v3
+      - name: SDK components
+        run: sdkmanager --install 'platforms;android-34' 'build-tools;34.0.0'
+      - name: Build APK (no receiver connection)
+        run: bash launcher/build-and-install.sh --build
+      - name: Check APK signature
+        run: "$ANDROID_HOME/build-tools/34.0.0/apksigner verify launcher/build/tvhome-starnet-android9.apk"
+      - name: Publish test APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: starnet-twin-4000-plus-test-apk
+          path: launcher/build/tvhome-starnet-android9.apk
+          if-no-files-found: error

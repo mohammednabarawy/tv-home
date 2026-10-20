@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
     private int cols;
 
     static final class App {
-        String pkg, label;
+        String pkg, label, category;
         ComponentName component;
         Drawable art;
         boolean isBanner;
@@ -343,13 +343,16 @@ public class MainActivity extends Activity {
         PackageManager pm = getPackageManager();
         android.content.pm.ChangedPackages changed = pm.getChangedPackages(packageSeq);
         if (changed != null) packageSeq = changed.getSequenceNumber();
-        Intent q = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
+        // StarNet hybrid receivers expose some applications only as regular Android apps.
         Map<String, App> byPkg = new HashMap<>();
-        for (ResolveInfo ri : pm.queryIntentActivities(q, 0)) {
+        for (String category : new String[]{Intent.CATEGORY_LEANBACK_LAUNCHER, Intent.CATEGORY_LAUNCHER}) {
+            Intent q = new Intent(Intent.ACTION_MAIN).addCategory(category);
+            for (ResolveInfo ri : pm.queryIntentActivities(q, 0)) {
             ActivityInfo ai = ri.activityInfo;
             if (hidden.contains(ai.packageName) || byPkg.containsKey(ai.packageName)) continue;
             App a = new App();
             a.pkg = ai.packageName;
+            a.category = category;
             a.label = String.valueOf(ri.loadLabel(pm));
             a.component = new ComponentName(ai.packageName, ai.name);
             Drawable banner = ai.loadBanner(pm);
@@ -358,12 +361,19 @@ public class MainActivity extends Activity {
             a.art = banner != null ? banner : ri.loadIcon(pm);
             a.color = sampleColor(a.pkg, a.art);
             byPkg.put(a.pkg, a);
+            }
         }
 
         List<App> dock = new ArrayList<>();
         for (String p : dockApps) if (byPkg.containsKey(p)) dock.add(byPkg.remove(p));
         List<App> rest = new ArrayList<>(byPkg.values());
         Collections.sort(rest, (x, y) -> x.label.compareToIgnoreCase(y.label));
+        // Ensure the dock works even if upstream Android TV app IDs aren't installed.
+        if (dock.isEmpty() && !rest.isEmpty()) {
+            int count = Math.min(5, rest.size());
+            dock.addAll(new ArrayList<>(rest.subList(0, count)));
+            rest.subList(0, count).clear();
+        }
 
         dockRow.removeAllViews();
         grid.removeAllViews();
@@ -459,7 +469,7 @@ public class MainActivity extends Activity {
         if (!inDock) box.addView(label, llp(-1, -2, 0, dp(10), 0, 0));
 
         card.setOnClickListener(v -> launch(new Intent(Intent.ACTION_MAIN)
-                .addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER)
+                .addCategory(app.category)
                 .setComponent(app.component)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)));
         card.setOnFocusChangeListener((v, has) -> {

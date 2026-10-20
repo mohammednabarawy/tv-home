@@ -22,7 +22,7 @@
     </queries>
 
     <application
-        android:label="Home"
+        android:label="StarNet Home (Beta)"
         android:icon="@drawable/ic_home"
         android:banner="@drawable/ic_home"
         android:allowBackup="false"
@@ -38,6 +38,15 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustNothing"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|uiMode|density">
+            <!-- Start as a normal application during safe validation, without switching HOME. -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.HOME" />

@@ -1,3 +1,5 @@
+> **StarNet Twin 4000 Plus port (experimental):** See [receiver-specific setup, safe install and diagnostics](docs/STARNET_TWIN_4000_PLUS.md). Do not run TCL debloat scripts on StarNet devices.
+
 # tv-home
 
 **Make a slow, ad-filled Android TV fast and clean again.** Debloat it over Wi-Fi and give it a
