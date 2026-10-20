@@ -43,3 +43,11 @@ Expected checks on the physical receiver: all top tabs and clock visible, main p
 The latest receiver screenshots show the top navigation and hero image rendering correctly, but a narrow strip of photographic imagery still appears between Favorites and Streaming & Media. When scrolling, some hero copy remains visible beneath the toolbar. This corresponds to disabled clipping (`setClipChildren(false)`) in both the ScrollView's content group and the photographic hero, transparent channel groups, and a partially transparent toolbar.
 
 This revision enables clipping on the content layout, hero wrapper, and hero image panel; gives channel container and each row an opaque dark-navy background; and makes the fixed toolbar surface fully opaque. Satellite DVB and stock Glide remain untouched. Test visual clipping, D-pad focus scale at row edges, and scrolling before merge.
+
+## Final remote UX refinements
+
+- The Home and Apps tabs now retain an active underline and brighter text, even when remote focus is on a card.
+- The Favorites long-press/Menu-key dialog now offers **Move Left**, **Move Right**, **Remove**, and **Cancel**, persisted in private app preferences. Neither the Android packages nor StarNet's system launcher are modified.
+- Long-press **Home** on the top navigation to rotate through the already bundled offline nature wallpapers. No internet or wallpaper access permissions are needed.
+- Entrance animation targets the fixed toolbar rather than the photographic hero (which moved out of its previous view hierarchy during the redesign).
+- Confirm hardware long-press behavior and focus order after the CI build on StarNet Android 9; availability of long-press OK depends on remote mapping.

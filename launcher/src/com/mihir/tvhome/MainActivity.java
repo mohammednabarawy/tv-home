@@ -113,7 +113,8 @@ public class MainActivity extends Activity {
     private View heroCard;
     private TextView heroBadge, heroTitle, heroSubtitle, heroActionBtn, heroFrameTag;
     private ImageView heroPreviewImage, heroArtwork;
-    private View showcaseView, favoritesView, browseAppsButton;
+    private View showcaseView, favoritesView, browseAppsButton, headerView;
+    private TextView homeNavTab, appsNavTab;
     private boolean catalogMode = false;
     private int homeHeroHeight;
     private FrameLayout heroPreviewBox;
@@ -295,6 +296,7 @@ public class MainActivity extends Activity {
         root.addView(toolbarScrim, lp(-1, dp(75), Gravity.TOP, 0, 0, 0, 0));
 
         View header = buildHeader();
+        headerView = header;
         header.setElevation(dp(18));
         root.addView(header, lp(-1, dp(62), Gravity.TOP, dp(48), dp(5), dp(48), 0));
         return root;
@@ -311,10 +313,18 @@ public class MainActivity extends Activity {
         tabs.setGravity(Gravity.CENTER_VERTICAL);
         tabs.setClipChildren(false);
         TextView homeTab = navTab("Home");
+        homeNavTab = homeTab;
         homeTab.setOnClickListener(v -> showAppCatalog(false));
+        // Press and hold OK on Home to change the landscape using bundled local photos.
+        homeTab.setOnLongClickListener(v -> {
+            nextWallpaper();
+            Toast.makeText(this, "Wallpaper changed", Toast.LENGTH_SHORT).show();
+            return true;
+        });
         TextView liveTab = navTab("Live TV");
         liveTab.setOnClickListener(v -> openSatelliteTv());
         TextView appsTab = navTab("Apps");
+        appsNavTab = appsTab;
         appsTab.setOnClickListener(v -> showAppCatalog(true));
         TextView glideTab = navTab("Original Glide");
         glideTab.setOnClickListener(v -> openOriginalHome());
@@ -352,7 +362,24 @@ public class MainActivity extends Activity {
         status.addView(settingsTab);
         pills.add(settingsTab);
         header.addView(status);
+        updateNavSelection();
         return header;
+    }
+
+    private void updateNavSelection() {
+        updateNavTab(homeNavTab, !catalogMode);
+        updateNavTab(appsNavTab, catalogMode);
+    }
+
+    private void updateNavTab(TextView tab, boolean active) {
+        if (tab == null) return;
+        tab.setTextColor(active || tab.hasFocus() ? Color.WHITE : 0xB3FFFFFF);
+        tab.setTypeface(Typeface.create(active ? "sans-serif-medium" : "sans-serif",
+                active ? Typeface.BOLD : Typeface.NORMAL));
+        int flags = tab.getPaintFlags();
+        tab.setPaintFlags(active || tab.hasFocus()
+                ? (flags | android.graphics.Paint.UNDERLINE_TEXT_FLAG)
+                : (flags & ~android.graphics.Paint.UNDERLINE_TEXT_FLAG));
     }
 
     private TextView navTab(String label) {
@@ -365,12 +392,17 @@ public class MainActivity extends Activity {
         tab.setClickable(true);
         tab.setBackground(new GradientDrawable());
         tab.setOnFocusChangeListener((v, hasFocus) -> {
-            tab.setTextColor(hasFocus ? Color.WHITE : 0xC8FFFFFF);
             tab.setScaleX(hasFocus ? 1.06f : 1f);
             tab.setScaleY(hasFocus ? 1.06f : 1f);
-            tab.setPaintFlags(hasFocus ?
-                    (tab.getPaintFlags() | android.graphics.Paint.UNDERLINE_TEXT_FLAG) :
-                    (tab.getPaintFlags() & ~android.graphics.Paint.UNDERLINE_TEXT_FLAG));
+            if (tab == homeNavTab || tab == appsNavTab) {
+                updateNavSelection();
+            } else {
+                tab.setTextColor(hasFocus ? Color.WHITE : 0xC8FFFFFF);
+                int flags = tab.getPaintFlags();
+                tab.setPaintFlags(hasFocus ?
+                        (flags | android.graphics.Paint.UNDERLINE_TEXT_FLAG) :
+                        (flags & ~android.graphics.Paint.UNDERLINE_TEXT_FLAG));
+            }
             if (hasFocus) lastFocusedId = v.getId();
         });
         return tab;
@@ -379,6 +411,7 @@ public class MainActivity extends Activity {
     /** Switch between elegant home and dedicated complete app catalog. */
     private void showAppCatalog(boolean showCatalog) {
         catalogMode = showCatalog;
+        updateNavSelection();
         if (hero != null) {
             ViewGroup.LayoutParams params = hero.getLayoutParams();
             params.height = catalogMode ? dp(82) : homeHeroHeight;
@@ -939,6 +972,26 @@ public class MainActivity extends Activity {
         }
     }
 
+    /** Persistent remote-friendly ordering, without modifying any installed application. */
+    private boolean moveFavorite(String pkg, int direction) {
+        List<String> list = getDockList();
+        int current = list.indexOf(pkg);
+        int target = current + direction;
+        if (current < 0 || target < 0 || target >= list.size()) return false;
+        Collections.swap(list, current, target);
+        saveDockList(list);
+        buildApps();
+        // Restore focus to the moved favorite instead of resetting to the first tile.
+        for (View candidate : dockCards) {
+            Object tag = candidate.getTag();
+            if (tag instanceof App && pkg.equals(((App) tag).pkg)) {
+                candidate.requestFocus();
+                break;
+            }
+        }
+        return true;
+    }
+
     private void removeAppFromDock(String pkg) {
         List<String> list = getDockList();
         if (list.remove(pkg)) {
@@ -1087,79 +1140,91 @@ public class MainActivity extends Activity {
         }
     }
 
+    /** Remote-friendly favorite controls: rearrange the dock without editing config.xml. */
     private void showRemoveDialog(App app) {
         Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         FrameLayout overlay = new FrameLayout(this);
-        overlay.setBackgroundColor(0xB3000000);
+        overlay.setBackgroundColor(0xD9000712);
 
         LinearLayout box = new LinearLayout(this);
         box.setOrientation(LinearLayout.VERTICAL);
-        box.setPadding(dp(32), dp(24), dp(32), dp(24));
+        box.setPadding(dp(26), dp(22), dp(26), dp(22));
         GradientDrawable bg = new GradientDrawable();
-        bg.setColor(0xF0202024);
+        bg.setColor(0xFF142238);
         bg.setCornerRadius(dp(18));
-        bg.setStroke(dp(1), 0x33FFFFFF);
+        bg.setStroke(dp(1), 0x55FFFFFF);
         box.setBackground(bg);
 
-        TextView t = text(20, "sans-serif-medium", Color.WHITE);
-        t.setText("Remove from Dock?");
-        box.addView(t);
+        TextView heading = text(20, "sans-serif-medium", Color.WHITE);
+        heading.setText("Customize " + app.label);
+        box.addView(heading, llp(-1, -2, 0, 0, 0, dp(6)));
 
-        TextView sub = text(13, "sans-serif", 0x99FFFFFF);
-        sub.setText("'" + app.label + "' will remain available in All Apps.");
-        box.addView(sub, llp(-2, -2, 0, dp(6), 0, dp(22)));
+        TextView hint = text(12, "sans-serif", 0xCCFFFFFF);
+        hint.setText("Move the app or remove it from Favorites. Installed apps are never deleted.");
+        hint.setMaxLines(2);
+        box.addView(hint, llp(-1, -2, 0, 0, 0, dp(17)));
 
-        LinearLayout btnRow = new LinearLayout(this);
-        btnRow.setOrientation(LinearLayout.HORIZONTAL);
-        btnRow.setGravity(Gravity.END);
+        LinearLayout actions = new LinearLayout(this);
+        actions.setGravity(Gravity.CENTER);
+        actions.setOrientation(LinearLayout.HORIZONTAL);
+        TextView left = favoriteDialogButton("◀ Left");
+        TextView right = favoriteDialogButton("Right ▶");
+        TextView remove = favoriteDialogButton("Remove");
+        TextView cancel = favoriteDialogButton("Cancel");
 
-        TextView cancelBtn = text(13, "sans-serif-medium", 0xCCFFFFFF);
-        cancelBtn.setText("Cancel");
-        cancelBtn.setPadding(dp(20), dp(10), dp(20), dp(10));
-        cancelBtn.setFocusable(true);
-        cancelBtn.setClickable(true);
-        cancelBtn.setId(View.generateViewId());
-        GradientDrawable cancelBg = new GradientDrawable();
-        cancelBg.setColor(0x26FFFFFF);
-        cancelBg.setCornerRadius(dp(10));
-        cancelBtn.setBackground(cancelBg);
-        cancelBtn.setOnFocusChangeListener((v, hasFocus) -> {
-            cancelBg.setColor(hasFocus ? 0xFFFFFFFF : 0x26FFFFFF);
-            cancelBtn.setTextColor(hasFocus ? 0xFF111111 : 0xCCFFFFFF);
+        int current = getDockList().indexOf(app.pkg);
+        int count = getDockList().size();
+        left.setEnabled(current > 0);
+        right.setEnabled(current >= 0 && current < count - 1);
+        left.setAlpha(left.isEnabled() ? 1f : 0.35f);
+        right.setAlpha(right.isEnabled() ? 1f : 0.35f);
+
+        left.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (moveFavorite(app.pkg, -1))
+                Toast.makeText(this, "Moved left", Toast.LENGTH_SHORT).show();
         });
-        cancelBtn.setOnClickListener(v -> dialog.dismiss());
-
-        TextView removeBtn = text(13, "sans-serif-medium", Color.WHITE);
-        removeBtn.setText("Remove");
-        removeBtn.setPadding(dp(20), dp(10), dp(20), dp(10));
-        removeBtn.setFocusable(true);
-        removeBtn.setClickable(true);
-        removeBtn.setId(View.generateViewId());
-        GradientDrawable remBg = new GradientDrawable();
-        remBg.setColor(0xFFD32F2F);
-        remBg.setCornerRadius(dp(10));
-        removeBtn.setBackground(remBg);
-        removeBtn.setOnFocusChangeListener((v, hasFocus) -> {
-            remBg.setColor(hasFocus ? 0xFFFF5252 : 0xFFD32F2F);
-            removeBtn.animate().scaleX(hasFocus ? 1.05f : 1f).scaleY(hasFocus ? 1.05f : 1f).setDuration(150).start();
+        right.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (moveFavorite(app.pkg, 1))
+                Toast.makeText(this, "Moved right", Toast.LENGTH_SHORT).show();
         });
-        removeBtn.setOnClickListener(v -> {
+        remove.setOnClickListener(v -> {
             dialog.dismiss();
             removeAppFromDock(app.pkg);
-            Toast.makeText(MainActivity.this, "Removed from Dock", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Removed from Favorites", Toast.LENGTH_SHORT).show();
         });
-
-        cancelBtn.setNextFocusRightId(removeBtn.getId());
-        removeBtn.setNextFocusLeftId(cancelBtn.getId());
-
-        btnRow.addView(cancelBtn, llp(-2, -2, 0, 0, dp(12), 0));
-        btnRow.addView(removeBtn, llp(-2, -2, 0, 0, 0, 0));
-        box.addView(btnRow, llp(-1, -2, 0, dp(10), 0, 0));
-
-        overlay.addView(box, new FrameLayout.LayoutParams(dp(440), -2, Gravity.CENTER));
+        cancel.setOnClickListener(v -> dialog.dismiss());
+        for (TextView button : new TextView[]{left, right, remove, cancel}) {
+            actions.addView(button, new LinearLayout.LayoutParams(0, dp(42), 1f));
+        }
+        box.addView(actions);
+        overlay.addView(box, new FrameLayout.LayoutParams(dp(590), -2, Gravity.CENTER));
         dialog.setContentView(overlay);
         dialog.show();
-        cancelBtn.requestFocus();
+        if (left.isEnabled()) left.requestFocus();
+        else if (right.isEnabled()) right.requestFocus();
+        else remove.requestFocus();
+    }
+
+    private TextView favoriteDialogButton(String name) {
+        TextView button = text(12, "sans-serif-medium", Color.WHITE);
+        button.setText(name);
+        button.setGravity(Gravity.CENTER);
+        button.setPadding(dp(5), 0, dp(5), 0);
+        button.setFocusable(true);
+        button.setClickable(true);
+        button.setId(View.generateViewId());
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(11));
+        bg.setColor(0x263B6287);
+        bg.setStroke(dp(1), 0x44FFFFFF);
+        button.setBackground(bg);
+        button.setOnFocusChangeListener((v, focus) -> {
+            bg.setColor(focus ? 0xFFE9F2FF : 0x263B6287);
+            button.setTextColor(focus ? 0xFF0C1A2C : Color.WHITE);
+        });
+        return button;
     }
 
     /** Open the real DVB alias, then use stock Glide as a recovery fallback. */
@@ -1556,7 +1621,9 @@ public class MainActivity extends Activity {
     // ---------------------------------------------------------------- entrance
 
     private void playEntrance() {
-        View header = hero.getChildAt(0);
+        // Toolbar is a separate root overlay, not a child of the scrolling hero.
+        View header = headerView;
+        if (header == null) return;
         header.setAlpha(0f);
         header.setTranslationY(-dp(12));
         header.animate().alpha(1f).translationY(0).setDuration(500).setStartDelay(80).start();
