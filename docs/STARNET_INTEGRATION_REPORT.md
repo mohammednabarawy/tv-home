@@ -73,7 +73,18 @@ Querying Android TV content providers from the device shell yielded the followin
 - `content://android.media.tv/watch_next_program` &rarr; `No result found.`
 - `content://android.media.tv/program` &rarr; `No result found.`
 
-The StarNet Twin 4000 Plus Android 9 firmware (`eng.freesa.20260915`) includes the standard Android TV frameworks, but third-party applications do not push content channels or watch next items to TvContract.
+#### 4.1.1 Launcher Application UID Verification (Phase 2 Audit)
+Executed on-device via `TvProviderAuditor` from the launcher process context (`com.mihir.tvhome`):
+- **Calling Process UID:** `10057`
+- **Calling Package:** `com.mihir.tvhome`
+- **Output Report Path:** `/data/user/0/com.mihir.tvhome/files/tvprovider_app_uid_audit.json`
+- **Audit Findings:**
+  1. `content://android.media.tv/preview_program` &rarr; **SUCCESS_EMPTY** (0 rows, cursor valid, 0 SecurityExceptions)
+  2. `content://android.media.tv/watch_next_program` &rarr; **SUCCESS_EMPTY** (0 rows, cursor valid, 0 SecurityExceptions)
+  3. `content://android.media.tv/channel` &rarr; **SUCCESS_EMPTY** (0 rows, cursor valid, 0 SecurityExceptions)
+  4. `content://android.media.tv/program` &rarr; **SUCCESS_EMPTY** (0 rows, cursor valid, 0 SecurityExceptions)
+
+**Architectural Consequence:** Read access to `TvContract` succeeds under application UID `10057`, proving permissions are granted. However, since the database is empty, the launcher hides the Continue Watching row and presents Level C app-level shelves. This strictly guarantees no fake posters or simulated progress are shown.
 
 ### 4.2 Nova STB (`com.logicyel.novastb`)
 - **Package Manifest Inspection:**

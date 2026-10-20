@@ -48,8 +48,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mihir.tvhome.content.ContentManager;
+import com.mihir.tvhome.content.TvProviderAuditor;
 import com.mihir.tvhome.model.MediaItem;
 import com.mihir.tvhome.model.MediaShelf;
+import com.mihir.tvhome.settings.LauncherSettings;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -117,15 +119,17 @@ public class MainActivity extends Activity {
     public static final int VIEW_HOME = 0;
     public static final int VIEW_DISCOVER = 1;
     public static final int VIEW_APPS = 2;
+    public static final int VIEW_SETTINGS = 3;
     private int currentViewMode = VIEW_HOME;
 
     private View heroCard;
     private TextView heroBadge, heroTitle, heroSubtitle, heroActionBtn, heroFrameTag;
     private ImageView heroPreviewImage, heroArtwork;
     private View showcaseView, favoritesView, browseAppsButton, headerView;
-    private TextView homeNavTab, liveNavTab, discoverNavTab, appsNavTab, glideNavTab, inputsNavTab;
-    private LinearLayout discoverContainer;
+    private TextView homeNavTab, liveNavTab, discoverNavTab, appsNavTab, glideNavTab, inputsNavTab, settingsTab;
+    private LinearLayout discoverContainer, settingsContainer;
     private final List<List<View>> discoverRows = new ArrayList<>();
+    private final List<List<View>> settingsRows = new ArrayList<>();
     private Bitmap currentWallpaperBitmap;
     private Bitmap satBackdropBitmap;
     private boolean isShowingSatBackdrop = false;
@@ -158,6 +162,7 @@ public class MainActivity extends Activity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         setContentView(buildUi());
         loadSatBackdropAsync();
+        TvProviderAuditor.runAudit(this);
         buildApps();
 
         IntentFilter pf = new IntentFilter();
@@ -214,7 +219,11 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (currentViewMode != VIEW_HOME) {
+            boolean wasSettings = (currentViewMode == VIEW_SETTINGS);
             setViewMode(VIEW_HOME);
+            if (wasSettings) {
+                buildApps();
+            }
             handler.post(() -> {
                 if (!dockCards.isEmpty()) dockCards.get(0).requestFocus();
             });
@@ -302,6 +311,15 @@ public class MainActivity extends Activity {
         discoverContainer.setBackgroundColor(0xFF081321);
         content.addView(discoverContainer, new LinearLayout.LayoutParams(-1, -2));
         discoverContainer.setVisibility(View.GONE);
+
+        settingsContainer = new LinearLayout(this);
+        settingsContainer.setOrientation(LinearLayout.VERTICAL);
+        settingsContainer.setClipChildren(false);
+        settingsContainer.setClipToPadding(false);
+        settingsContainer.setPadding(dp(48), dp(4), dp(48), dp(40));
+        settingsContainer.setBackgroundColor(0xFF081321);
+        content.addView(settingsContainer, new LinearLayout.LayoutParams(-1, -2));
+        settingsContainer.setVisibility(View.GONE);
 
         appsLabel = text(22, "sans-serif-medium", 0xFFE5E9F5);
         appsLabel.setText("All Apps");
@@ -395,8 +413,8 @@ public class MainActivity extends Activity {
         clockStack.addView(date);
         status.addView(clockStack, llp(-2, -2, dp(12), 0, dp(8), 0));
 
-        TextView settingsTab = navTab("⚙");
-        settingsTab.setOnClickListener(v -> launch(new Intent(Settings.ACTION_SETTINGS)));
+        settingsTab = navTab("⚙");
+        settingsTab.setOnClickListener(v -> setViewMode(VIEW_SETTINGS));
         status.addView(settingsTab);
         pills.add(settingsTab);
 
@@ -409,6 +427,7 @@ public class MainActivity extends Activity {
         updateNavTab(homeNavTab, currentViewMode == VIEW_HOME);
         updateNavTab(discoverNavTab, currentViewMode == VIEW_DISCOVER);
         updateNavTab(appsNavTab, currentViewMode == VIEW_APPS);
+        updateNavTab(settingsTab, currentViewMode == VIEW_SETTINGS);
     }
 
     private void updateNavTab(TextView tab, boolean active) {
@@ -451,9 +470,11 @@ public class MainActivity extends Activity {
                     setViewMode(VIEW_DISCOVER);
                 } else if (tab == appsNavTab && currentViewMode != VIEW_APPS) {
                     setViewMode(VIEW_APPS);
+                } else if (tab == settingsTab && currentViewMode != VIEW_SETTINGS) {
+                    setViewMode(VIEW_SETTINGS);
                 }
             }
-            if (tab == homeNavTab || tab == discoverNavTab || tab == appsNavTab) {
+            if (tab == homeNavTab || tab == discoverNavTab || tab == appsNavTab || tab == settingsTab) {
                 updateNavSelection();
             } else {
                 tab.setTextColor(hasFocus ? Color.WHITE : 0xC8FFFFFF);
@@ -466,7 +487,7 @@ public class MainActivity extends Activity {
         return tab;
     }
 
-    /** Switch between Home, Discover, and All Apps views. */
+    /** Switch between Home, Discover, All Apps, and Settings views. */
     private void setViewMode(int mode) {
         currentViewMode = mode;
         catalogMode = (mode == VIEW_APPS);
@@ -474,16 +495,17 @@ public class MainActivity extends Activity {
 
         if (hero != null) {
             ViewGroup.LayoutParams params = hero.getLayoutParams();
-            params.height = (mode == VIEW_APPS) ? dp(82) : homeHeroHeight;
+            params.height = (mode == VIEW_APPS || mode == VIEW_SETTINGS) ? dp(82) : homeHeroHeight;
             hero.setLayoutParams(params);
         }
 
-        if (showcaseView != null) showcaseView.setVisibility(mode == VIEW_APPS ? View.GONE : View.VISIBLE);
+        if (showcaseView != null) showcaseView.setVisibility((mode == VIEW_APPS || mode == VIEW_SETTINGS) ? View.GONE : View.VISIBLE);
         if (favoritesView != null) favoritesView.setVisibility(mode == VIEW_HOME ? View.VISIBLE : View.GONE);
         if (channelContainer != null) channelContainer.setVisibility(mode == VIEW_HOME ? View.VISIBLE : View.GONE);
         if (discoverContainer != null) discoverContainer.setVisibility(mode == VIEW_DISCOVER ? View.VISIBLE : View.GONE);
         if (appsLabel != null) appsLabel.setVisibility(mode == VIEW_APPS ? View.VISIBLE : View.GONE);
         if (grid != null) grid.setVisibility(mode == VIEW_APPS ? View.VISIBLE : View.GONE);
+        if (settingsContainer != null) settingsContainer.setVisibility(mode == VIEW_SETTINGS ? View.VISIBLE : View.GONE);
 
         if (scroll != null) scroll.scrollTo(0, 0);
 
@@ -516,6 +538,10 @@ public class MainActivity extends Activity {
                         discoverRows.get(0).get(0).requestFocus();
                     } else if (heroActionBtn != null) {
                         heroActionBtn.requestFocus();
+                    }
+                } else if (targetMode == VIEW_SETTINGS) {
+                    if (!settingsRows.isEmpty() && !settingsRows.get(0).isEmpty()) {
+                        settingsRows.get(0).get(0).requestFocus();
                     }
                 } else {
                     if (!dockCards.isEmpty()) {
@@ -834,10 +860,20 @@ public class MainActivity extends Activity {
         if (satellite != null) dock.add(satellite);
         List<String> currentDock = getDockList();
         boolean youtubeAdded = false;
+        String preferredYt = LauncherSettings.getPreferredYouTubeSetting(this);
         for (String p : currentDock) {
-            if (p.equals("com.google.android.youtube.tv") || p.equals("io.gh.reisxd.tizentube.fortaleza")) {
+            if (p.equals("com.google.android.youtube.tv")
+                    || p.equals("io.gh.reisxd.tizentube.fortaleza")
+                    || p.equals("com.google.android.youtube")) {
                 if (youtubeAdded) continue;
-                if (byPkg.containsKey(p)) {
+                String ytPkgToUse = p;
+                if (!LauncherSettings.YT_AUTO.equals(preferredYt)) {
+                    if (byPkg.containsKey(preferredYt)) ytPkgToUse = preferredYt;
+                }
+                if (byPkg.containsKey(ytPkgToUse)) {
+                    dock.add(byPkg.remove(ytPkgToUse));
+                    youtubeAdded = true;
+                } else if (byPkg.containsKey(p)) {
                     dock.add(byPkg.remove(p));
                     youtubeAdded = true;
                 }
@@ -896,6 +932,7 @@ public class MainActivity extends Activity {
         }
         buildChannelRows(allAppsForChannels, satellite, visibleFavorites);
         buildDiscoverRows(satellite, allAppsForChannels);
+        buildSettingsView(allAppsForChannels, satellite);
         showAppCatalogVisibilityOnly();
         wireFocus();
 
@@ -924,23 +961,35 @@ public class MainActivity extends Activity {
         channelContainer.removeAllViews();
         Set<String> used = new HashSet<>();
         List<App> live = categoryApps(new String[]{
-                "com.logicyel.novastb", "com.datesplus.iptv", "com.marvelactivecode.marvel"
+                "com.logicyel.novastb", "com.datesplus.iptv"
+        }, apps, favorites, used);
+        List<App> cinema = categoryApps(new String[]{
+                "com.marvelactivecode.marvel", "com.netflix.mediaclient", "com.stremio.one"
         }, apps, favorites, used);
         List<App> streaming = categoryApps(new String[]{
                 "io.gh.reisxd.tizentube.fortaleza", "com.google.android.youtube.tv",
-                "com.google.android.youtube", "org.xbmc.kodi",
-                "com.stremio.one", "org.jellyfin.androidtv", "com.netflix.mediaclient"
+                "com.google.android.youtube", "org.xbmc.kodi", "org.jellyfin.androidtv"
         }, apps, favorites, used);
         List<App> extras = new ArrayList<>();
-        if (live.size() >= 2) addChannelRow("LIVE TV & IPTV", live);
-        else extras.addAll(live);
-        if (streaming.size() >= 2) addChannelRow("STREAMING & MEDIA", streaming);
-        else extras.addAll(streaming);
+        if (LauncherSettings.isHomeRowVisible(this, LauncherSettings.ROW_LIVE_TV)) {
+            if (live.size() >= 2) addChannelRow("LIVE TV & IPTV", live);
+            else extras.addAll(live);
+        }
+        if (LauncherSettings.isHomeRowVisible(this, LauncherSettings.ROW_CINEMA)) {
+            if (cinema.size() >= 2) addChannelRow("CINEMA & VIDEO ON DEMAND", cinema);
+            else extras.addAll(cinema);
+        }
+        if (LauncherSettings.isHomeRowVisible(this, LauncherSettings.ROW_STREAMING)) {
+            if (streaming.size() >= 2) addChannelRow("STREAMING & MEDIA", streaming);
+            else extras.addAll(streaming);
+        }
         extras.addAll(categoryApps(new String[]{
                 "com.tosmart.filemanagerpro", "com.excellence.appstore",
                 "com.android.vending", "com.android.chrome"
         }, apps, favorites, used));
-        if (extras.size() >= 2) addChannelRow("MORE TO EXPLORE", extras);
+        if (LauncherSettings.isHomeRowVisible(this, LauncherSettings.ROW_UTILITIES)) {
+            if (extras.size() >= 2) addChannelRow("MORE TO EXPLORE", extras);
+        }
 
         TextView browse = text(13, "sans-serif-medium", 0xFFBBDFFF);
         browse.setText("Browse all installed apps   →");
@@ -970,6 +1019,7 @@ public class MainActivity extends Activity {
                                    Set<String> favorites, Set<String> claimed) {
         List<App> found = new ArrayList<>();
         for (String pkg : packages) {
+            if (!LauncherSettings.isServiceEnabled(this, pkg)) continue;
             App app = apps.get(pkg);
             if (app != null && !favorites.contains(pkg) && claimed.add(pkg)) found.add(app);
         }
@@ -1180,6 +1230,7 @@ public class MainActivity extends Activity {
         if (discoverContainer != null) discoverContainer.setVisibility(currentViewMode == VIEW_DISCOVER ? View.VISIBLE : View.GONE);
         if (grid != null) grid.setVisibility(currentViewMode == VIEW_APPS ? View.VISIBLE : View.GONE);
         if (appsLabel != null) appsLabel.setVisibility(currentViewMode == VIEW_APPS ? View.VISIBLE : View.GONE);
+        if (settingsContainer != null) settingsContainer.setVisibility(currentViewMode == VIEW_SETTINGS ? View.VISIBLE : View.GONE);
     }
 
     /** A StarNet satellite entry using the owner's observed Glide DVB activity alias. */
@@ -1645,6 +1696,12 @@ public class MainActivity extends Activity {
                 } else {
                     p.setNextFocusDownId(p.getId());
                 }
+            } else if (currentViewMode == VIEW_SETTINGS) {
+                if (!settingsRows.isEmpty() && !settingsRows.get(0).isEmpty()) {
+                    p.setNextFocusDownId(settingsRows.get(0).get(0).getId());
+                } else {
+                    p.setNextFocusDownId(p.getId());
+                }
             } else {
                 p.setNextFocusDownId(heroBtnId != View.NO_ID ? heroBtnId :
                         d > 0 ? dockCards.get(0).getId() : p.getId());
@@ -1728,7 +1785,389 @@ public class MainActivity extends Activity {
                 c.setNextFocusLeftId(col == 0 ? c.getId() : gridCards.get(j - 1).getId());
                 c.setNextFocusRightId(col == cols - 1 || j == g - 1 ? c.getId() : gridCards.get(j + 1).getId());
             }
+        } else if (currentViewMode == VIEW_SETTINGS) {
+            int lastSettingsRow = settingsRows.size() - 1;
+            for (int row = 0; row < settingsRows.size(); row++) {
+                List<View> current = settingsRows.get(row);
+                List<View> above = row == 0 ? Collections.<View>emptyList() : settingsRows.get(row - 1);
+                List<View> below = row == lastSettingsRow ? Collections.<View>emptyList() : settingsRows.get(row + 1);
+                for (int i = 0; i < current.size(); i++) {
+                    View c = current.get(i);
+                    c.setNextFocusLeftId(i == 0 ? c.getId() : current.get(i - 1).getId());
+                    c.setNextFocusRightId(i == current.size() - 1 ? c.getId() : current.get(i + 1).getId());
+                    c.setNextFocusUpId(above.isEmpty() ? (topId != View.NO_ID ? topId : c.getId()) :
+                            above.get(Math.min(i, above.size() - 1)).getId());
+                    c.setNextFocusDownId(below.isEmpty() ? c.getId() :
+                            below.get(Math.min(i, below.size() - 1)).getId());
+                }
+            }
         }
+    }
+
+    // ---------------------------------------------------------------- settings & preferences
+
+    private void buildSettingsView(Map<String, App> allApps, App satellite) {
+        settingsRows.clear();
+        settingsContainer.removeAllViews();
+
+        TextView title = text(22, "sans-serif-medium", 0xFFE5E9F5);
+        title.setText("Settings & Preferences");
+        settingsContainer.addView(title, llp(-1, -2, 0, dp(12), 0, dp(4)));
+
+        TextView subtitle = text(12, "sans-serif", 0x8CBADBEA);
+        subtitle.setText("Customize enabled services, preferred YouTube client, and home categories with your remote.");
+        settingsContainer.addView(subtitle, llp(-1, -2, 0, 0, 0, dp(24)));
+
+        // 1. Installed Services
+        TextView secServices = text(13, "sans-serif-medium", 0xDBFFFFFF);
+        secServices.setLetterSpacing(0.08f);
+        secServices.setText("SERVICES & CHANNELS");
+        settingsContainer.addView(secServices, llp(-1, -2, 0, 0, 0, dp(10)));
+
+        HorizontalScrollView hsvServices = new HorizontalScrollView(this);
+        hsvServices.setHorizontalScrollBarEnabled(false);
+        hsvServices.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        LinearLayout stripServices = new LinearLayout(this);
+        stripServices.setOrientation(LinearLayout.HORIZONTAL);
+        hsvServices.addView(stripServices, new HorizontalScrollView.LayoutParams(-2, -2));
+
+        List<View> serviceCards = new ArrayList<>();
+        if (satellite != null) {
+            View satCard = buildServiceToggleCard("com.tosmart.glide", "StarNet Live TV", satellite.art, hsvServices);
+            stripServices.addView(satCard, llp(dp(156), dp(112), 0, 0, dp(12), dp(4)));
+            serviceCards.add(satCard);
+        }
+        String[] targetPkgs = new String[]{
+                "com.logicyel.novastb", "com.marvelactivecode.marvel", "com.datesplus.iptv",
+                "io.gh.reisxd.tizentube.fortaleza", "com.google.android.youtube.tv",
+                "org.xbmc.kodi", "org.jellyfin.androidtv", "com.stremio.one", "com.netflix.mediaclient"
+        };
+        for (String pkg : targetPkgs) {
+            App a = allApps.get(pkg);
+            if (a != null) {
+                View card = buildServiceToggleCard(pkg, a.label != null ? a.label : pkg, a.art, hsvServices);
+                stripServices.addView(card, llp(dp(156), dp(112), 0, 0, dp(12), dp(4)));
+                serviceCards.add(card);
+            }
+        }
+        settingsContainer.addView(hsvServices, llp(-1, -2, 0, 0, 0, dp(26)));
+        if (!serviceCards.isEmpty()) settingsRows.add(serviceCards);
+
+        // 2. Preferred YouTube Application
+        TextView secYt = text(13, "sans-serif-medium", 0xDBFFFFFF);
+        secYt.setLetterSpacing(0.08f);
+        secYt.setText("DEFAULT YOUTUBE CLIENT");
+        settingsContainer.addView(secYt, llp(-1, -2, 0, 0, 0, dp(10)));
+
+        HorizontalScrollView hsvYt = new HorizontalScrollView(this);
+        hsvYt.setHorizontalScrollBarEnabled(false);
+        hsvYt.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        LinearLayout stripYt = new LinearLayout(this);
+        stripYt.setOrientation(LinearLayout.HORIZONTAL);
+        hsvYt.addView(stripYt, new HorizontalScrollView.LayoutParams(-2, -2));
+
+        List<View> ytCards = new ArrayList<>();
+        View cSmart = buildYouTubeOptionCard(LauncherSettings.YT_SMARTTUBE, "SmartTube 4K", "Ad-free TV streaming client", hsvYt);
+        View cGoogle = buildYouTubeOptionCard(LauncherSettings.YT_GOOGLE_TV, "YouTube TV", "Official Google Leanback app", hsvYt);
+        View cAuto = buildYouTubeOptionCard(LauncherSettings.YT_AUTO, "Auto-detect", "Prefer SmartTube if installed", hsvYt);
+        stripYt.addView(cSmart, llp(dp(220), dp(72), 0, 0, dp(12), dp(4)));
+        stripYt.addView(cGoogle, llp(dp(220), dp(72), 0, 0, dp(12), dp(4)));
+        stripYt.addView(cAuto, llp(dp(220), dp(72), 0, 0, dp(12), dp(4)));
+        ytCards.add(cSmart);
+        ytCards.add(cGoogle);
+        ytCards.add(cAuto);
+        settingsContainer.addView(hsvYt, llp(-1, -2, 0, 0, 0, dp(26)));
+        settingsRows.add(ytCards);
+
+        // 3. Home Screen Rows
+        TextView secRows = text(13, "sans-serif-medium", 0xDBFFFFFF);
+        secRows.setLetterSpacing(0.08f);
+        secRows.setText("HOME SCREEN ROWS");
+        settingsContainer.addView(secRows, llp(-1, -2, 0, 0, 0, dp(10)));
+
+        HorizontalScrollView hsvRows = new HorizontalScrollView(this);
+        hsvRows.setHorizontalScrollBarEnabled(false);
+        hsvRows.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        LinearLayout stripRows = new LinearLayout(this);
+        stripRows.setOrientation(LinearLayout.HORIZONTAL);
+        hsvRows.addView(stripRows, new HorizontalScrollView.LayoutParams(-2, -2));
+
+        List<View> rowCards = new ArrayList<>();
+        View rLive = buildRowToggleCard(LauncherSettings.ROW_LIVE_TV, "Live TV & Broadcast", hsvRows);
+        View rCinema = buildRowToggleCard(LauncherSettings.ROW_CINEMA, "Cinema & VOD", hsvRows);
+        View rStream = buildRowToggleCard(LauncherSettings.ROW_STREAMING, "Streaming & Media", hsvRows);
+        View rTools = buildRowToggleCard(LauncherSettings.ROW_UTILITIES, "Receiver Utilities", hsvRows);
+        stripRows.addView(rLive, llp(dp(190), dp(76), 0, 0, dp(12), dp(4)));
+        stripRows.addView(rCinema, llp(dp(190), dp(76), 0, 0, dp(12), dp(4)));
+        stripRows.addView(rStream, llp(dp(190), dp(76), 0, 0, dp(12), dp(4)));
+        stripRows.addView(rTools, llp(dp(190), dp(76), 0, 0, dp(12), dp(4)));
+        rowCards.add(rLive);
+        rowCards.add(rCinema);
+        rowCards.add(rStream);
+        rowCards.add(rTools);
+        settingsContainer.addView(hsvRows, llp(-1, -2, 0, 0, 0, dp(26)));
+        settingsRows.add(rowCards);
+
+        // 4. System Shortcuts & Diagnostics
+        TextView secSys = text(13, "sans-serif-medium", 0xDBFFFFFF);
+        secSys.setLetterSpacing(0.08f);
+        secSys.setText("SYSTEM & DIAGNOSTICS");
+        settingsContainer.addView(secSys, llp(-1, -2, 0, 0, 0, dp(10)));
+
+        LinearLayout stripSys = new LinearLayout(this);
+        stripSys.setOrientation(LinearLayout.HORIZONTAL);
+
+        List<View> sysCards = new ArrayList<>();
+        View btnSysSettings = buildSystemActionCard("⚙ Android Settings", "Open system settings", v -> launch(new Intent(Settings.ACTION_SETTINGS)));
+        View btnWifiSettings = buildSystemActionCard("📶 Wi-Fi Settings", "Configure wireless connection", v -> launch(new Intent(Settings.ACTION_WIFI_SETTINGS)));
+        View btnAudit = buildSystemActionCard("📡 Run TvProvider Audit", "Execute read-only probe", v -> {
+            TvProviderAuditor.AuditReport rep = TvProviderAuditor.runAudit(this);
+            Toast.makeText(this, "Audit Complete: App UID " + rep.callingUid + " checked " + rep.entries.size() + " URIs", Toast.LENGTH_LONG).show();
+        });
+        stripSys.addView(btnSysSettings, llp(dp(220), dp(72), 0, 0, dp(12), dp(4)));
+        stripSys.addView(btnWifiSettings, llp(dp(220), dp(72), 0, 0, dp(12), dp(4)));
+        stripSys.addView(btnAudit, llp(dp(220), dp(72), 0, 0, dp(12), dp(4)));
+        sysCards.add(btnSysSettings);
+        sysCards.add(btnWifiSettings);
+        sysCards.add(btnAudit);
+        settingsContainer.addView(stripSys, llp(-1, -2, 0, 0, 0, dp(40)));
+        settingsRows.add(sysCards);
+    }
+
+    private View buildServiceToggleCard(String pkg, String label, Drawable icon, HorizontalScrollView hsv) {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setGravity(Gravity.CENTER_HORIZONTAL);
+        card.setFocusable(true);
+        card.setClickable(true);
+        card.setId(View.generateViewId());
+        card.setPadding(dp(6), dp(8), dp(6), dp(6));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(0x9910192B);
+        bg.setCornerRadius(dp(12));
+        bg.setStroke(dp(1), 0x28FFFFFF);
+        card.setBackground(bg);
+
+        ImageView iv = new ImageView(this);
+        if (icon != null) iv.setImageDrawable(icon);
+        iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        card.addView(iv, new LinearLayout.LayoutParams(dp(42), dp(42)));
+
+        TextView title = text(11, "sans-serif-medium", Color.WHITE);
+        title.setText(label);
+        title.setSingleLine(true);
+        title.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        title.setGravity(Gravity.CENTER);
+        card.addView(title, llp(-1, -2, 0, dp(4), 0, dp(4)));
+
+        TextView badge = text(10, "sans-serif-medium", Color.WHITE);
+        badge.setGravity(Gravity.CENTER);
+        badge.setPadding(dp(8), dp(2), dp(8), dp(2));
+        GradientDrawable badgeBg = new GradientDrawable();
+        badgeBg.setCornerRadius(dp(8));
+        badge.setBackground(badgeBg);
+        card.addView(badge, llp(-2, -2, 0, 0, 0, 0));
+
+        Runnable updateBadge = () -> {
+            boolean enabled = LauncherSettings.isServiceEnabled(this, pkg);
+            badge.setText(enabled ? "✓ ENABLED" : "✕ HIDDEN");
+            badgeBg.setColor(enabled ? 0xFF1B5E20 : 0xFF37474F);
+        };
+        updateBadge.run();
+
+        card.setOnClickListener(v -> {
+            boolean nowEnabled = LauncherSettings.toggleService(this, pkg);
+            updateBadge.run();
+            Toast.makeText(this, label + (nowEnabled ? " enabled" : " hidden"), Toast.LENGTH_SHORT).show();
+        });
+        card.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                    v.performClick();
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        card.setOnFocusChangeListener((v, focused) -> {
+            bg.setStroke(dp(focused ? 2 : 1), focused ? 0xFFFFFFFF : 0x28FFFFFF);
+            bg.setColor(focused ? 0xDD162A48 : 0x9910192B);
+            v.animate().scaleX(focused ? 1.05f : 1f).scaleY(focused ? 1.05f : 1f).setDuration(155).start();
+            if (focused) {
+                lastFocusedId = v.getId();
+                hsv.smoothScrollTo(Math.max(0, v.getLeft() - dp(44)), 0);
+            }
+        });
+        return card;
+    }
+
+    private View buildYouTubeOptionCard(String value, String titleStr, String descStr, HorizontalScrollView hsv) {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setFocusable(true);
+        card.setClickable(true);
+        card.setId(View.generateViewId());
+        card.setPadding(dp(12), dp(10), dp(12), dp(8));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(0x9910192B);
+        bg.setCornerRadius(dp(12));
+        bg.setStroke(dp(1), 0x28FFFFFF);
+        card.setBackground(bg);
+
+        TextView title = text(12, "sans-serif-medium", Color.WHITE);
+        title.setText(titleStr);
+        card.addView(title);
+
+        TextView desc = text(10, "sans-serif", 0x8CBADBEA);
+        desc.setText(descStr);
+        card.addView(desc, llp(-1, -2, 0, dp(2), 0, dp(4)));
+
+        TextView status = text(10, "sans-serif-medium", 0xFF64B5F6);
+        card.addView(status);
+
+        Runnable refresh = () -> {
+            boolean active = value.equals(LauncherSettings.getPreferredYouTubeSetting(this));
+            status.setText(active ? "● SELECTED" : "○ SELECT");
+            status.setTextColor(active ? 0xFF81D4FA : 0x66FFFFFF);
+            bg.setStroke(dp(active ? 2 : 1), active ? 0xFF4FC3F7 : 0x28FFFFFF);
+        };
+        refresh.run();
+        card.setTag(refresh);
+
+        card.setOnClickListener(v -> {
+            LauncherSettings.setPreferredYouTubeSetting(this, value);
+            if (!settingsRows.isEmpty() && settingsRows.size() > 1) {
+                for (View c : settingsRows.get(1)) {
+                    if (c.getTag() instanceof Runnable) ((Runnable) c.getTag()).run();
+                }
+            }
+            Toast.makeText(this, titleStr + " selected as YouTube default", Toast.LENGTH_SHORT).show();
+        });
+        card.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                    v.performClick();
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        card.setOnFocusChangeListener((v, focused) -> {
+            boolean active = value.equals(LauncherSettings.getPreferredYouTubeSetting(this));
+            bg.setStroke(dp(focused ? 2 : (active ? 2 : 1)), focused ? 0xFFFFFFFF : (active ? 0xFF4FC3F7 : 0x28FFFFFF));
+            bg.setColor(focused ? 0xDD162A48 : 0x9910192B);
+            v.animate().scaleX(focused ? 1.04f : 1f).scaleY(focused ? 1.04f : 1f).setDuration(155).start();
+            if (focused) {
+                lastFocusedId = v.getId();
+                hsv.smoothScrollTo(Math.max(0, v.getLeft() - dp(44)), 0);
+            }
+        });
+        return card;
+    }
+
+    private View buildRowToggleCard(String rowId, String label, HorizontalScrollView hsv) {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setFocusable(true);
+        card.setClickable(true);
+        card.setId(View.generateViewId());
+        card.setPadding(dp(12), dp(10), dp(12), dp(8));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(0x9910192B);
+        bg.setCornerRadius(dp(12));
+        bg.setStroke(dp(1), 0x28FFFFFF);
+        card.setBackground(bg);
+
+        TextView title = text(12, "sans-serif-medium", Color.WHITE);
+        title.setText(label);
+        card.addView(title);
+
+        TextView badge = text(10, "sans-serif-medium", Color.WHITE);
+        badge.setPadding(dp(8), dp(2), dp(8), dp(2));
+        GradientDrawable badgeBg = new GradientDrawable();
+        badgeBg.setCornerRadius(dp(8));
+        badge.setBackground(badgeBg);
+        card.addView(badge, llp(-2, -2, 0, dp(6), 0, 0));
+
+        Runnable updateBadge = () -> {
+            boolean visible = LauncherSettings.isHomeRowVisible(this, rowId);
+            badge.setText(visible ? "✓ SHOW ON HOME" : "✕ HIDDEN");
+            badgeBg.setColor(visible ? 0xFF0D47A1 : 0xFF37474F);
+        };
+        updateBadge.run();
+
+        card.setOnClickListener(v -> {
+            boolean nowVisible = LauncherSettings.toggleHomeRow(this, rowId);
+            updateBadge.run();
+            Toast.makeText(this, label + (nowVisible ? " visible on Home" : " hidden from Home"), Toast.LENGTH_SHORT).show();
+        });
+        card.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                    v.performClick();
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        card.setOnFocusChangeListener((v, focused) -> {
+            bg.setStroke(dp(focused ? 2 : 1), focused ? 0xFFFFFFFF : 0x28FFFFFF);
+            bg.setColor(focused ? 0xDD162A48 : 0x9910192B);
+            v.animate().scaleX(focused ? 1.04f : 1f).scaleY(focused ? 1.04f : 1f).setDuration(155).start();
+            if (focused) {
+                lastFocusedId = v.getId();
+                hsv.smoothScrollTo(Math.max(0, v.getLeft() - dp(44)), 0);
+            }
+        });
+        return card;
+    }
+
+    private View buildSystemActionCard(String titleStr, String descStr, View.OnClickListener click) {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setFocusable(true);
+        card.setClickable(true);
+        card.setId(View.generateViewId());
+        card.setPadding(dp(12), dp(10), dp(12), dp(8));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(0x9910192B);
+        bg.setCornerRadius(dp(12));
+        bg.setStroke(dp(1), 0x28FFFFFF);
+        card.setBackground(bg);
+
+        TextView title = text(12, "sans-serif-medium", Color.WHITE);
+        title.setText(titleStr);
+        card.addView(title);
+
+        TextView desc = text(10, "sans-serif", 0x8CBADBEA);
+        desc.setText(descStr);
+        card.addView(desc, llp(-1, -2, 0, dp(4), 0, 0));
+
+        card.setOnClickListener(click);
+        card.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                    v.performClick();
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        card.setOnFocusChangeListener((v, focused) -> {
+            bg.setStroke(dp(focused ? 2 : 1), focused ? 0xFFFFFFFF : 0x28FFFFFF);
+            bg.setColor(focused ? 0xDD162A48 : 0x9910192B);
+            v.animate().scaleX(focused ? 1.04f : 1f).scaleY(focused ? 1.04f : 1f).setDuration(155).start();
+            if (focused) lastFocusedId = v.getId();
+        });
+        return card;
     }
 
     /** Catalog scroll independent of Home hero dimensions. */

@@ -11,6 +11,7 @@ import android.util.Log;
 import com.mihir.tvhome.MainActivity;
 import com.mihir.tvhome.model.MediaItem;
 import com.mihir.tvhome.model.MediaShelf;
+import com.mihir.tvhome.settings.LauncherSettings;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,25 +25,26 @@ import java.util.Set;
  * - Genuine records only: no fabricated trending movie posters or synthetic progress.
  * - Dynamic app detection: verified installed packages only.
  * - Safe TIF query fallback: hides empty shelves gracefully without exceptions.
+ * - Remote customizable: respects user service enablement and player preferences.
  */
 public class ContentManager {
 
     private static final String TAG = "ContentManager";
 
     // Known target package categories
-    private static final String[] LIVE_TV_PACKAGES = {
+    public static final String[] LIVE_TV_PACKAGES = {
             "com.tosmart.glide",
             "com.logicyel.novastb",
             "com.datesplus.iptv"
     };
 
-    private static final String[] CINEMA_PACKAGES = {
+    public static final String[] CINEMA_PACKAGES = {
             "com.marvelactivecode.marvel",
             "com.netflix.mediaclient",
             "com.stremio.one"
     };
 
-    private static final String[] STREAMING_PACKAGES = {
+    public static final String[] STREAMING_PACKAGES = {
             "io.gh.reisxd.tizentube.fortaleza",
             "com.google.android.youtube.tv",
             "com.google.android.youtube",
@@ -50,7 +52,7 @@ public class ContentManager {
             "org.jellyfin.androidtv"
     };
 
-    private static final String[] TOOL_PACKAGES = {
+    public static final String[] TOOL_PACKAGES = {
             "com.mxtech.videoplayer.pro",
             "com.esaba.downloader",
             "com.tosmart.filemanagerpro",
@@ -114,7 +116,7 @@ public class ContentManager {
 
     /**
      * Build categorized shelves for the Discover screen.
-     * All items are guaranteed to correspond to authentic, installed applications on the receiver.
+     * All items correspond to authentic, installed, user-enabled applications on the receiver.
      */
     public static List<MediaShelf> buildDiscoverShelves(
             Context context,
@@ -126,7 +128,7 @@ public class ContentManager {
 
         // 1. Live TV & Broadcast
         List<MediaItem> liveItems = new ArrayList<>();
-        if (satelliteApp != null) {
+        if (satelliteApp != null && LauncherSettings.isServiceEnabled(context, "com.tosmart.glide")) {
             Intent satIntent = new Intent(Intent.ACTION_MAIN)
                     .addCategory(Intent.CATEGORY_LAUNCHER)
                     .setComponent(satelliteApp.component)
@@ -147,6 +149,7 @@ public class ContentManager {
 
         for (String pkg : LIVE_TV_PACKAGES) {
             if ("com.tosmart.glide".equals(pkg)) continue;
+            if (!LauncherSettings.isServiceEnabled(context, pkg)) continue;
             MainActivity.App app = installedApps.get(pkg);
             if (app != null && claimed.add(pkg)) {
                 liveItems.add(createAppMediaItem(app, "Live Channels & Broadcast Streams"));
@@ -161,6 +164,7 @@ public class ContentManager {
         // 2. Cinema & Video On Demand
         List<MediaItem> cinemaItems = new ArrayList<>();
         for (String pkg : CINEMA_PACKAGES) {
+            if (!LauncherSettings.isServiceEnabled(context, pkg)) continue;
             MainActivity.App app = installedApps.get(pkg);
             if (app != null && claimed.add(pkg)) {
                 String sub = "Movies, Series & On-Demand";
@@ -175,14 +179,34 @@ public class ContentManager {
                     "Dedicated movie, series, and video-on-demand services", false, cinemaItems));
         }
 
-        // 3. Streaming & Media Hubs
+        // 3. Streaming & Media Hubs (Order respects preferred YouTube setting)
         List<MediaItem> streamItems = new ArrayList<>();
-        for (String pkg : STREAMING_PACKAGES) {
+        String preferredYt = LauncherSettings.getPreferredYouTubeSetting(context);
+        List<String> streamOrder = new ArrayList<>();
+        if (LauncherSettings.YT_GOOGLE_TV.equals(preferredYt)) {
+            streamOrder.add(LauncherSettings.YT_GOOGLE_TV);
+            streamOrder.add(LauncherSettings.YT_SMARTTUBE);
+            streamOrder.add(LauncherSettings.YT_STANDARD);
+        } else if (LauncherSettings.YT_STANDARD.equals(preferredYt)) {
+            streamOrder.add(LauncherSettings.YT_STANDARD);
+            streamOrder.add(LauncherSettings.YT_SMARTTUBE);
+            streamOrder.add(LauncherSettings.YT_GOOGLE_TV);
+        } else {
+            // Auto / SmartTube preferred
+            streamOrder.add(LauncherSettings.YT_SMARTTUBE);
+            streamOrder.add(LauncherSettings.YT_GOOGLE_TV);
+            streamOrder.add(LauncherSettings.YT_STANDARD);
+        }
+        streamOrder.add("org.xbmc.kodi");
+        streamOrder.add("org.jellyfin.androidtv");
+
+        for (String pkg : streamOrder) {
+            if (!LauncherSettings.isServiceEnabled(context, pkg)) continue;
             MainActivity.App app = installedApps.get(pkg);
             if (app != null && claimed.add(pkg)) {
                 String sub = "Streaming Video & Channels";
                 if (pkg.contains("tizentube")) sub = "SmartTube 4K Player";
-                if (pkg.contains("youtube")) sub = "YouTube TV Official Client";
+                if (pkg.contains("youtube")) sub = "YouTube TV Client";
                 if (pkg.contains("kodi")) sub = "Home Theater & Local Media";
                 if (pkg.contains("jellyfin")) sub = "Personal Media Streaming";
                 streamItems.add(createAppMediaItem(app, sub));
@@ -196,6 +220,7 @@ public class ContentManager {
         // 4. Tools & Utilities
         List<MediaItem> toolItems = new ArrayList<>();
         for (String pkg : TOOL_PACKAGES) {
+            if (!LauncherSettings.isServiceEnabled(context, pkg)) continue;
             MainActivity.App app = installedApps.get(pkg);
             if (app != null && claimed.add(pkg)) {
                 String sub = "Receiver Utility";
