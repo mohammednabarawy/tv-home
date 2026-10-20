@@ -3,14 +3,15 @@
      The DVB activity belongs to the Glide package, not a separate launcher app.
      No packages are disabled, removed, hidden or modified. -->
 <resources>
-    <!-- Dedicated DVB tile is inserted automatically before these favorites. -->
+    <!-- Dedicated DVB tile is inserted automatically as the first item in the dock.
+         The '+' (All Apps) tile is inserted automatically as the last item in the dock. -->
     <string-array name="dock_apps">
-        <item>com.logicyel.novastb</item>
-        <item>com.datesplus.iptv</item>
-        <item>com.marvelactivecode.marvel</item>
+        <item>com.google.android.youtube.tv</item>
         <item>io.gh.reisxd.tizentube.fortaleza</item>
-        <item>org.xbmc.kodi</item>
+        <item>com.logicyel.novastb</item>
+        <item>com.marvelactivecode.marvel</item>
         <item>com.stremio.one</item>
+        <item>com.android.vending</item>
     </string-array>
     <string-array name="hidden_apps" />
 

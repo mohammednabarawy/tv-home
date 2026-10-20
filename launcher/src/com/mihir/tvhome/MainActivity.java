@@ -71,6 +71,7 @@ public class MainActivity extends Activity {
         String pkg, label, category;
         ComponentName component;
         boolean isSatellite;
+        boolean isPlus;
         Drawable art;
         boolean isBanner;
         int color;
@@ -387,11 +388,23 @@ public class MainActivity extends Activity {
         // Keep Glide itself in the regular app list as an additional safe escape hatch.
         App satellite = buildSatelliteEntry(pm);
         if (satellite != null) dock.add(satellite);
-        for (String p : dockApps) if (byPkg.containsKey(p)) dock.add(byPkg.remove(p));
+        boolean youtubeAdded = false;
+        for (String p : dockApps) {
+            if (p.equals("com.google.android.youtube.tv") || p.equals("io.gh.reisxd.tizentube.fortaleza")) {
+                if (youtubeAdded) continue;
+                if (byPkg.containsKey(p)) {
+                    dock.add(byPkg.remove(p));
+                    youtubeAdded = true;
+                }
+            } else if (byPkg.containsKey(p)) {
+                dock.add(byPkg.remove(p));
+            }
+        }
+        dock.add(buildPlusEntry());
         List<App> rest = new ArrayList<>(byPkg.values());
         Collections.sort(rest, (x, y) -> x.label.compareToIgnoreCase(y.label));
         // Ensure the dock works even if upstream Android TV app IDs aren't installed.
-        if (dock.isEmpty() && !rest.isEmpty()) {
+        if (dock.size() <= 1 && !rest.isEmpty()) {
             int count = Math.min(5, rest.size());
             dock.addAll(new ArrayList<>(rest.subList(0, count)));
             rest.subList(0, count).clear();
@@ -405,7 +418,7 @@ public class MainActivity extends Activity {
         for (int i = 0; i < dock.size(); i++) {
             View tile = tile(dock.get(i), true);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0, -2, 1f);
-            p.setMargins(i == 0 ? 0 : dp(10), 0, i == dock.size() - 1 ? 0 : dp(10), 0);
+            p.setMargins(i == 0 ? 0 : dp(6), 0, i == dock.size() - 1 ? 0 : dp(6), 0);
             dockRow.addView(tile, p);
         }
         // If the firmware exposes only a couple of favorites, do not stretch them
@@ -457,14 +470,31 @@ public class MainActivity extends Activity {
             app.isSatellite = true;
             Drawable banner = ai.loadBanner(pm);
             if (banner == null) banner = ai.applicationInfo.loadBanner(pm);
-            app.isBanner = banner != null;
-            app.art = banner != null ? banner : ai.loadIcon(pm);
-            if (app.art == null) app.art = getDrawable(R.drawable.ic_home);
-            app.color = sampleColor("starnet-satellite", app.art);
+            if (banner != null) {
+                app.isBanner = true;
+                app.art = banner;
+                app.color = sampleColor("starnet-satellite", app.art);
+            } else {
+                app.isBanner = false;
+                app.art = getDrawable(R.drawable.ic_satellite);
+                app.color = 0xFF0288D1;
+            }
             return app;
         } catch (PackageManager.NameNotFoundException e) {
             return null; // Different Glide firmware: never guess another activity.
         }
+    }
+
+    /** An 'All Apps' shortcut placed at the end of the dock with a '+' icon. */
+    private App buildPlusEntry() {
+        App app = new App();
+        app.pkg = "com.mihir.tvhome.plus";
+        app.label = "+";
+        app.isPlus = true;
+        app.color = 0xFF3A3A3C;
+        app.art = getDrawable(R.drawable.ic_plus);
+        app.isBanner = false;
+        return app;
     }
 
     /** Open the real DVB alias, then use stock Glide as a recovery fallback. */
@@ -536,6 +566,9 @@ public class MainActivity extends Activity {
         card.setOnClickListener(v -> {
             if (app.isSatellite) {
                 openSatelliteTv();
+            } else if (app.isPlus) {
+                scroll.smoothScrollTo(0, hero.getHeight());
+                if (!gridCards.isEmpty()) gridCards.get(0).requestFocus();
             } else {
                 launch(new Intent(Intent.ACTION_MAIN)
                         .addCategory(app.category)
@@ -553,7 +586,7 @@ public class MainActivity extends Activity {
             if (!has) return;
             lastFocusedId = v.getId();
             if (inDock) {
-                title.setText(app.label);
+                title.setText(app.isPlus ? "All Apps" : app.label);
                 title.animate().alpha(1f).setDuration(200).start();
                 animateGlow(app.color);
                 fadeGlow(1f);
