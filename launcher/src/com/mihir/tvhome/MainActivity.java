@@ -3,11 +3,13 @@ package com.mihir.tvhome;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -37,10 +39,13 @@ import android.view.ViewOutlineProvider;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,12 +69,14 @@ public class MainActivity extends Activity {
     // Dock, hidden apps, Live TV and grid width come from res/values/config.xml.
     private String[] dockApps;
     private final Set<String> hidden = new HashSet<>();
-    private String liveTvPkg, inputPickerPkg;
+    private String satelliteTvPkg, satelliteTvActivity, inputPickerPkg;
     private int cols;
 
     static final class App {
-        String pkg, label;
+        String pkg, label, category;
         ComponentName component;
+        boolean isSatellite;
+        boolean isPlus;
         Drawable art;
         boolean isBanner;
         int color;
@@ -84,6 +91,8 @@ public class MainActivity extends Activity {
     private LinearLayout content, dockRow;
     private FrameLayout hero;
     private LinearLayout grid;
+    private LinearLayout channelContainer;
+    private final List<List<View>> channelRows = new ArrayList<>();
     private View glow;
     private ImageView wallBack, wallFront;
     private View gridShade;
@@ -101,6 +110,12 @@ public class MainActivity extends Activity {
     private int packageSeq;
     private PopupWindow inputsPopup;
 
+    private View heroCard;
+    private TextView heroBadge, heroTitle, heroSubtitle, heroActionBtn, heroFrameTag;
+    private ImageView heroPreviewImage;
+    private FrameLayout heroPreviewBox;
+    private App currentHeroApp;
+
     private final BroadcastReceiver tick = new BroadcastReceiver() {
         @Override public void onReceive(Context c, Intent i) { updateClock(); updateWifi(); }
     };
@@ -116,7 +131,8 @@ public class MainActivity extends Activity {
         dockApps = getResources().getStringArray(R.array.dock_apps);
         hidden.addAll(Arrays.asList(getResources().getStringArray(R.array.hidden_apps)));
         hidden.add(getPackageName());
-        liveTvPkg = getString(R.string.live_tv_package);
+        satelliteTvPkg = getString(R.string.satellite_tv_package);
+        satelliteTvActivity = getString(R.string.satellite_tv_activity);
         inputPickerPkg = getString(R.string.input_picker_package);
         cols = getResources().getInteger(R.integer.columns);
         getWindow().getDecorView().setSystemUiVisibility(
@@ -223,25 +239,30 @@ public class MainActivity extends Activity {
         content.setClipToPadding(false);
         scroll.addView(content, new FrameLayout.LayoutParams(-1, -2));
 
-        // Hero: exactly one screen tall, header on top, title + dock at the bottom.
+        // Shorter cinematic stage: the first horizontal channel is visible without a full-page scroll.
         hero = new FrameLayout(this);
         hero.setClipChildren(false);
         int screenH = getResources().getDisplayMetrics().heightPixels;
-        content.addView(hero, new LinearLayout.LayoutParams(-1, screenH));
+        int heroHeight = Math.max(dp(345), Math.round(screenH * 0.75f));
+        content.addView(hero, new LinearLayout.LayoutParams(-1, heroHeight));
 
         hero.addView(buildHeader(), lp(-1, -2, Gravity.TOP, dp(48), dp(36), dp(48), 0));
+
+        // Modern Hero Stage Showcase (Apple TV / Projectivy inspired)
+        hero.addView(buildHeroCard(), lp(-1, -2, Gravity.TOP, dp(48), dp(130), dp(48), 0));
 
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.VERTICAL);
         bottom.setClipChildren(false);
         bottom.setClipToPadding(false);
-        hero.addView(bottom, lp(-1, -2, Gravity.BOTTOM, dp(48), 0, dp(48), dp(30)));
+        hero.addView(bottom, lp(-1, -2, Gravity.BOTTOM, dp(48), 0, dp(48), dp(28)));
 
-        title = text(34, "sans-serif-light", Color.WHITE);
-        title.setShadowLayer(dp(18), 0, 0, 0x66000000);
+        title = text(13, "sans-serif-medium", 0x99FFFFFF);
+        title.setLetterSpacing(0.2f);
+        title.setShadowLayer(dp(10), 0, 0, 0x66000000);
         title.setSingleLine(true);
         bottom.addView(title, new LinearLayout.LayoutParams(-2, -2));
-        ((LinearLayout.LayoutParams) title.getLayoutParams()).setMargins(dp(8), 0, 0, dp(14));
+        ((LinearLayout.LayoutParams) title.getLayoutParams()).setMargins(dp(8), 0, 0, dp(10));
 
         dockRow = new LinearLayout(this);
         dockRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -256,8 +277,15 @@ public class MainActivity extends Activity {
         dockRow.setBackground(band);
         bottom.addView(dockRow, new LinearLayout.LayoutParams(-1, -2));
 
-        appsLabel = text(11, "sans-serif-medium", 0x99FFFFFF);
-        appsLabel.setText("ALL APPS");
+        channelContainer = new LinearLayout(this);
+        channelContainer.setOrientation(LinearLayout.VERTICAL);
+        channelContainer.setClipChildren(false);
+        channelContainer.setClipToPadding(false);
+        channelContainer.setPadding(dp(48), dp(6), dp(48), dp(16));
+        content.addView(channelContainer, new LinearLayout.LayoutParams(-1, -2));
+
+        appsLabel = text(12, "sans-serif-medium", 0xFFE5E9F5);
+        appsLabel.setText("ALL INSTALLED APPS");
         appsLabel.setLetterSpacing(0.22f);
         content.addView(appsLabel, llp(-2, -2, dp(68), dp(8), 0, dp(18)));
 
@@ -269,50 +297,86 @@ public class MainActivity extends Activity {
         return root;
     }
 
+    /** Google TV-inspired top tabs, preserving all stock StarNet activities and HOME behavior. */
     private View buildHeader() {
-        FrameLayout header = new FrameLayout(this);
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.HORIZONTAL);
+        header.setGravity(Gravity.CENTER_VERTICAL);
         header.setClipChildren(false);
+        header.setClipToPadding(false);
 
-        LinearLayout left = new LinearLayout(this);
-        left.setOrientation(LinearLayout.VERTICAL);
-        greeting = text(10, "sans-serif-medium", 0xB3FFFFFF);
-        greeting.setLetterSpacing(0.25f);
-        greeting.setSingleLine(true);
-        greeting.setPadding(0, 0, dp(16), 0);
-        left.addView(greeting);
+        LinearLayout tabs = new LinearLayout(this);
+        tabs.setOrientation(LinearLayout.HORIZONTAL);
+        tabs.setGravity(Gravity.CENTER_VERTICAL);
+        tabs.setClipChildren(false);
 
-        LinearLayout clockRow = new LinearLayout(this);
-        clockRow.setGravity(Gravity.BOTTOM);
-        clock = text(54, "sans-serif-thin", Color.WHITE);
-        clock.setIncludeFontPadding(false);
-        clockRow.addView(clock);
-        ampm = text(12, "sans-serif-light", 0xCCFFFFFF);
-        clockRow.addView(ampm, llp(-2, -2, dp(6), 0, 0, dp(8)));
-        left.addView(clockRow, llp(-2, -2, 0, dp(2), 0, dp(2)));
-
-        date = text(10, "sans-serif-medium", 0x99FFFFFF);
-        date.setSingleLine(true);
-        date.setPadding(0, 0, dp(16), 0); // letterSpacing is not counted in the measured width
-        date.setLetterSpacing(0.22f);
-        left.addView(date);
-        for (TextView t : new TextView[]{greeting, clock, ampm, date}) t.setShadowLayer(dp(10), 0, dp(1), 0xB3000000);
-        header.addView(left, new FrameLayout.LayoutParams(dp(420), -2, Gravity.START | Gravity.TOP));
-
-        LinearLayout right = new LinearLayout(this);
-        right.setGravity(Gravity.CENTER_VERTICAL);
-        right.setClipChildren(false);
-        TextView inputs = pill("Inputs", "⇥");
-        inputs.setOnClickListener(v -> showInputs(v));
-        wifiPill = pill("Wi-Fi", "◉");
-        wifiPill.setOnClickListener(v -> launch(new Intent(Settings.ACTION_WIFI_SETTINGS)));
-        TextView settings = pill("Settings", "⚙");
-        settings.setOnClickListener(v -> launch(new Intent(Settings.ACTION_SETTINGS)));
-        for (TextView p : new TextView[]{inputs, wifiPill, settings}) {
-            right.addView(p, llp(-2, dp(30), dp(10), 0, 0, 0));
+        TextView homeTab = pill("Home", "⌂");
+        homeTab.setOnClickListener(v -> {
+            scroll.smoothScrollTo(0, 0);
+            if (heroActionBtn != null) heroActionBtn.requestFocus();
+        });
+        TextView satelliteTab = pill("Live TV", "◉");
+        satelliteTab.setOnClickListener(v -> openSatelliteTv());
+        TextView appsTab = pill("Apps", "▦");
+        appsTab.setOnClickListener(v -> scrollToAllApps());
+        TextView glideTab = pill("Glide", "↩");
+        glideTab.setOnClickListener(v -> openOriginalHome());
+        TextView inputsTab = pill("Inputs", "⇥");
+        inputsTab.setOnClickListener(v -> showInputs(v));
+        for (TextView p : new TextView[]{homeTab, satelliteTab, appsTab, glideTab, inputsTab}) {
+            tabs.addView(p, llp(-2, dp(32), 0, 0, dp(7), 0));
             pills.add(p);
         }
-        header.addView(right, new FrameLayout.LayoutParams(-2, -2, Gravity.END | Gravity.TOP));
+        header.addView(tabs, new LinearLayout.LayoutParams(0, -2, 1f));
+
+        LinearLayout status = new LinearLayout(this);
+        status.setOrientation(LinearLayout.HORIZONTAL);
+        status.setGravity(Gravity.CENTER_VERTICAL);
+        status.setClipChildren(false);
+        wifiPill = pill("Wi-Fi", "◉");
+        wifiPill.setOnClickListener(v -> launch(new Intent(Settings.ACTION_WIFI_SETTINGS)));
+        status.addView(wifiPill, llp(-2, dp(32), dp(5), 0, 0, 0));
+        pills.add(wifiPill);
+
+        LinearLayout timeStack = new LinearLayout(this);
+        timeStack.setOrientation(LinearLayout.VERTICAL);
+        timeStack.setGravity(Gravity.CENTER);
+        greeting = text(9, "sans-serif-medium", 0x99FFFFFF);
+        clock = text(23, "sans-serif-medium", Color.WHITE);
+        ampm = text(10, "sans-serif", 0xB3FFFFFF);
+        date = text(9, "sans-serif", 0xB3FFFFFF);
+        LinearLayout clockLine = new LinearLayout(this);
+        clockLine.setGravity(Gravity.CENTER_VERTICAL);
+        clockLine.addView(clock);
+        clockLine.addView(ampm, llp(-2, -2, dp(4), 0, 0, 0));
+        timeStack.addView(clockLine);
+        timeStack.addView(date);
+        // Greeting remains updated by updateClock but is not added to save space.
+        status.addView(timeStack, llp(-2, -2, dp(12), 0, dp(10), 0));
+        TextView settingsTab = pill("Settings", "⚙");
+        settingsTab.setOnClickListener(v -> launch(new Intent(Settings.ACTION_SETTINGS)));
+        status.addView(settingsTab, llp(-2, dp(32), 0, 0, 0, 0));
+        pills.add(settingsTab);
+        header.addView(status);
         return header;
+    }
+
+    /** Smoothly scroll down to the full applications grid and focus first item. */
+    private void scrollToAllApps() {
+        scroll.smoothScrollTo(0, hero.getHeight());
+        if (!gridCards.isEmpty()) gridCards.get(0).requestFocus();
+    }
+
+    /** Return to the stock StarNet HOME. This never disables packages or changes the HOME setting. */
+    private void openOriginalHome() {
+        Intent home = new Intent(Intent.ACTION_MAIN)
+                .addCategory(Intent.CATEGORY_HOME)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        if (!launch(home)) {
+            android.widget.Toast.makeText(this,
+                    "Original Home is unavailable. Press the remote HOME key.",
+                    android.widget.Toast.LENGTH_LONG).show();
+        }
     }
 
     private TextView pill(String label, String glyph) {
@@ -337,33 +401,271 @@ public class MainActivity extends Activity {
         return p;
     }
 
+    // ---------------------------------------------------------------- hero stage
+
+    private View buildHeroCard() {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.HORIZONTAL);
+        card.setGravity(Gravity.CENTER_VERTICAL);
+        card.setPadding(dp(28), dp(18), dp(28), dp(18));
+        card.setClipChildren(false);
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(22));
+        bg.setColors(new int[]{0x59152238, 0x330B132B});
+        bg.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+        bg.setStroke(dp(1), 0x2EFFFFFF);
+        card.setBackground(bg);
+
+        // Left column: Badge, Title, Subtitle, Action button
+        LinearLayout left = new LinearLayout(this);
+        left.setOrientation(LinearLayout.VERTICAL);
+        left.setGravity(Gravity.CENTER_VERTICAL);
+        left.setLayoutParams(new LinearLayout.LayoutParams(0, -2, 1f));
+
+        heroBadge = text(10, "sans-serif-medium", 0xFF00E5FF);
+        heroBadge.setLetterSpacing(0.2f);
+        heroBadge.setSingleLine(true);
+        GradientDrawable badgeBg = new GradientDrawable();
+        badgeBg.setCornerRadius(dp(6));
+        badgeBg.setColor(0x40000000);
+        badgeBg.setStroke(dp(1), 0x22FFFFFF);
+        heroBadge.setBackground(badgeBg);
+        heroBadge.setPadding(dp(10), dp(3), dp(10), dp(3));
+        left.addView(heroBadge, new LinearLayout.LayoutParams(-2, -2));
+
+        heroTitle = text(26, "sans-serif", Color.WHITE);
+        heroTitle.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        heroTitle.setShadowLayer(dp(12), 0, dp(1), 0x99000000);
+        heroTitle.setSingleLine(true);
+        LinearLayout.LayoutParams titleLp = new LinearLayout.LayoutParams(-2, -2);
+        titleLp.setMargins(0, dp(6), 0, dp(4));
+        left.addView(heroTitle, titleLp);
+
+        heroSubtitle = text(12, "sans-serif", 0xB3FFFFFF);
+        heroSubtitle.setMaxLines(2);
+        heroSubtitle.setLineSpacing(dp(2), 1f);
+        heroSubtitle.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        LinearLayout.LayoutParams subLp = new LinearLayout.LayoutParams(-1, -2);
+        subLp.setMargins(0, 0, dp(24), dp(12));
+        left.addView(heroSubtitle, subLp);
+
+        heroActionBtn = text(12, "sans-serif-medium", 0xFFFFFFFF);
+        heroActionBtn.setGravity(Gravity.CENTER);
+        heroActionBtn.setPadding(dp(22), 0, dp(22), 0);
+        heroActionBtn.setFocusable(true);
+        heroActionBtn.setId(View.generateViewId());
+        GradientDrawable btnBg = new GradientDrawable();
+        btnBg.setCornerRadius(dp(18));
+        btnBg.setColor(0x4DFFFFFF);
+        btnBg.setStroke(dp(1), 0x33FFFFFF);
+        heroActionBtn.setBackground(btnBg);
+        heroActionBtn.setOnFocusChangeListener((v, has) -> {
+            btnBg.setColor(has ? 0xFFFFFFFF : 0x4DFFFFFF);
+            ((TextView) v).setTextColor(has ? 0xFF111111 : 0xFFFFFFFF);
+            v.animate().scaleX(has ? 1.06f : 1f).scaleY(has ? 1.06f : 1f)
+                    .setInterpolator(new OvershootInterpolator(2f)).setDuration(220).start();
+            if (has) {
+                lastFocusedId = v.getId();
+                scroll.smoothScrollTo(0, 0);
+                fadeGlow(1f);
+            }
+        });
+        heroActionBtn.setOnClickListener(v -> launchApp(currentHeroApp));
+        left.addView(heroActionBtn, new LinearLayout.LayoutParams(-2, dp(36)));
+
+        card.addView(left);
+
+        // Right column: Preview Monitor Frame
+        heroPreviewBox = new FrameLayout(this);
+        GradientDrawable boxBg = new GradientDrawable();
+        boxBg.setCornerRadius(dp(16));
+        boxBg.setColors(new int[]{0x4D000000, 0x80000000});
+        boxBg.setStroke(dp(1), 0x33FFFFFF);
+        heroPreviewBox.setBackground(boxBg);
+        heroPreviewBox.setOutlineProvider(new ViewOutlineProvider() {
+            @Override public void getOutline(View view, Outline outline) {
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), dp(16));
+            }
+        });
+        heroPreviewBox.setClipToOutline(true);
+
+        heroPreviewImage = new ImageView(this);
+        heroPreviewImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        heroPreviewImage.setPadding(dp(20), dp(14), dp(20), dp(14));
+        heroPreviewBox.addView(heroPreviewImage, new FrameLayout.LayoutParams(-1, -1));
+
+        heroFrameTag = text(9, "sans-serif-bold", 0xCCFFFFFF);
+        heroFrameTag.setText("PREVIEW");
+        heroFrameTag.setLetterSpacing(0.18f);
+        heroFrameTag.setPadding(dp(8), dp(2), dp(8), dp(2));
+        GradientDrawable tagBg = new GradientDrawable();
+        tagBg.setCornerRadius(dp(6));
+        tagBg.setColor(0x99000000);
+        heroFrameTag.setBackground(tagBg);
+        heroPreviewBox.addView(heroFrameTag, lp(-2, -2, Gravity.TOP | Gravity.END, 0, dp(8), dp(8), 0));
+
+        LinearLayout.LayoutParams boxLp = new LinearLayout.LayoutParams(dp(210), dp(130));
+        boxLp.setMargins(dp(16), 0, 0, 0);
+        card.addView(heroPreviewBox, boxLp);
+
+        heroCard = card;
+        return card;
+    }
+
+    private void updateHero(App app, boolean animate) {
+        if (app == null || heroCard == null) return;
+        currentHeroApp = app;
+
+        String badge = getAppBadge(app);
+        String titleText = app.label != null ? app.label : "";
+        String sub = getAppSubtitle(app);
+        String act = getAppActionText(app);
+        String tag = getAppFrameTag(app);
+        Drawable art = app.art;
+        int accentColor = app.color != 0 ? app.color : 0xFF00E5FF;
+
+        if (!animate) {
+            heroBadge.setText(badge);
+            heroBadge.setTextColor(accentColor);
+            heroTitle.setText(titleText);
+            heroSubtitle.setText(sub);
+            heroActionBtn.setText(act);
+            heroFrameTag.setText(tag);
+            heroPreviewImage.setImageDrawable(art);
+            heroCard.setAlpha(1f);
+            return;
+        }
+
+        heroCard.animate().alpha(0.35f).setDuration(90).withEndAction(() -> {
+            heroBadge.setText(badge);
+            heroBadge.setTextColor(accentColor);
+            heroTitle.setText(titleText);
+            heroSubtitle.setText(sub);
+            heroActionBtn.setText(act);
+            heroFrameTag.setText(tag);
+            heroPreviewImage.setImageDrawable(art);
+            heroCard.animate().alpha(1f).setDuration(150).start();
+        }).start();
+    }
+
+    private String getAppBadge(App app) {
+        if (app.isSatellite) return "● LIVE SATELLITE TV";
+        if (app.isPlus) return "＋ QUICK CUSTOMIZE";
+        if (app.pkg != null) {
+            if (app.pkg.contains("youtube") || app.pkg.contains("tizentube")) return "▶ STREAMING & VIDEO";
+            if (app.pkg.contains("novastb") || app.pkg.contains("datesplus")) return "⚡ NOVA IPTV PORTAL";
+            if (app.pkg.contains("marvel")) return "★ MARVEL ACTIVE";
+            if (app.pkg.contains("stremio") || app.pkg.contains("kodi")) return "🎬 MOVIES & SERIES";
+            if (app.pkg.contains("vending")) return "🛒 GOOGLE PLAY STORE";
+        }
+        return "● INSTALLED APPLICATION";
+    }
+
+    private String getAppSubtitle(App app) {
+        if (app.isSatellite) return "Direct satellite broadcast channels • Nilesat (7.0°W) & Hotbird\nPress OK to watch live full screen TV";
+        if (app.isPlus) return "Pin another favorite application to your dock for instant 1-click access";
+        if (app.pkg != null) {
+            if (app.pkg.contains("youtube") || app.pkg.contains("tizentube")) return "Watch trending videos, subscribed channels, and music playlists";
+            if (app.pkg.contains("novastb")) return "Nova STB IPTV live channels, sports broadcasts, and series";
+            if (app.pkg.contains("datesplus")) return "Dates+ live streaming and international television channels";
+            if (app.pkg.contains("marvel")) return "Marvel Active cinema, premium sports, and on-demand entertainment";
+            if (app.pkg.contains("stremio")) return "Organize and stream movies, TV shows, and video add-ons";
+            if (app.pkg.contains("kodi")) return "Open-source home theater media hub and local playback";
+            if (app.pkg.contains("vending")) return "Discover and install new Android TV apps and games";
+        }
+        return "Launch " + (app.label != null ? app.label : "application") + " on your StarNet receiver";
+    }
+
+    private String getAppActionText(App app) {
+        if (app.isSatellite) return "▶  Watch Live  (مشاهدة البث)";
+        if (app.isPlus) return "＋  Add to Dock  (إضافة للدوك)";
+        return "▶  Open App  (تشغيل التطبيق)";
+    }
+
+    private String getAppFrameTag(App app) {
+        if (app.isSatellite) return "🔴 LIVE";
+        if (app.isPlus) return "DOCK";
+        if (app.pkg != null) {
+            if (app.pkg.contains("youtube") || app.pkg.contains("tizentube")) return "4K VIDEO";
+            if (app.pkg.contains("novastb") || app.pkg.contains("datesplus")) return "IPTV HD";
+            if (app.pkg.contains("marvel")) return "CINEMA";
+            if (app.pkg.contains("stremio") || app.pkg.contains("kodi")) return "MEDIA";
+            if (app.pkg.contains("vending")) return "STORE";
+        }
+        return "APP";
+    }
+
+    private void launchApp(App app) {
+        if (app == null) return;
+        if (app.isSatellite) {
+            openSatelliteTv();
+        } else if (app.isPlus) {
+            showAppPicker();
+        } else {
+            launch(new Intent(Intent.ACTION_MAIN)
+                    .addCategory(app.category)
+                    .setComponent(app.component)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED));
+        }
+    }
+
     // ---------------------------------------------------------------- apps
 
     private void buildApps() {
         PackageManager pm = getPackageManager();
         android.content.pm.ChangedPackages changed = pm.getChangedPackages(packageSeq);
         if (changed != null) packageSeq = changed.getSequenceNumber();
-        Intent q = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
+        // StarNet hybrid receivers expose some applications only as regular Android apps.
         Map<String, App> byPkg = new HashMap<>();
-        for (ResolveInfo ri : pm.queryIntentActivities(q, 0)) {
-            ActivityInfo ai = ri.activityInfo;
-            if (hidden.contains(ai.packageName) || byPkg.containsKey(ai.packageName)) continue;
-            App a = new App();
-            a.pkg = ai.packageName;
-            a.label = String.valueOf(ri.loadLabel(pm));
-            a.component = new ComponentName(ai.packageName, ai.name);
-            Drawable banner = ai.loadBanner(pm);
-            if (banner == null) banner = ai.applicationInfo.loadBanner(pm);
-            a.isBanner = banner != null;
-            a.art = banner != null ? banner : ri.loadIcon(pm);
-            a.color = sampleColor(a.pkg, a.art);
-            byPkg.put(a.pkg, a);
+        for (String category : new String[]{Intent.CATEGORY_LEANBACK_LAUNCHER, Intent.CATEGORY_LAUNCHER}) {
+            Intent q = new Intent(Intent.ACTION_MAIN).addCategory(category);
+            for (ResolveInfo ri : pm.queryIntentActivities(q, 0)) {
+                ActivityInfo ai = ri.activityInfo;
+                if (hidden.contains(ai.packageName) || byPkg.containsKey(ai.packageName)) continue;
+                App a = new App();
+                a.pkg = ai.packageName;
+                a.category = category;
+                a.label = String.valueOf(ri.loadLabel(pm));
+                a.component = new ComponentName(ai.packageName, ai.name);
+                Drawable banner = ai.loadBanner(pm);
+                if (banner == null) banner = ai.applicationInfo.loadBanner(pm);
+                a.isBanner = banner != null;
+                a.art = banner != null ? banner : ri.loadIcon(pm);
+                a.color = sampleColor(a.pkg, a.art);
+                byPkg.put(a.pkg, a);
+            }
         }
 
+        // Keep the discovered map before pulling out favorites; category rows may share the same apps.
+        Map<String, App> allAppsForChannels = new HashMap<>(byPkg);
         List<App> dock = new ArrayList<>();
-        for (String p : dockApps) if (byPkg.containsKey(p)) dock.add(byPkg.remove(p));
+        // Satellite playback is an exported Glide activity-alias, not a separate Android app.
+        // Keep Glide itself in the regular app list as an additional safe escape hatch.
+        App satellite = buildSatelliteEntry(pm);
+        if (satellite != null) dock.add(satellite);
+        List<String> currentDock = getDockList();
+        boolean youtubeAdded = false;
+        for (String p : currentDock) {
+            if (p.equals("com.google.android.youtube.tv") || p.equals("io.gh.reisxd.tizentube.fortaleza")) {
+                if (youtubeAdded) continue;
+                if (byPkg.containsKey(p)) {
+                    dock.add(byPkg.remove(p));
+                    youtubeAdded = true;
+                }
+            } else if (byPkg.containsKey(p)) {
+                dock.add(byPkg.remove(p));
+            }
+        }
+        dock.add(buildPlusEntry());
         List<App> rest = new ArrayList<>(byPkg.values());
         Collections.sort(rest, (x, y) -> x.label.compareToIgnoreCase(y.label));
+        // Ensure the dock works even if upstream Android TV app IDs aren't installed.
+        if (dock.size() <= 1 && !rest.isEmpty()) {
+            int count = Math.min(5, rest.size());
+            dock.addAll(new ArrayList<>(rest.subList(0, count)));
+            rest.subList(0, count).clear();
+        }
 
         dockRow.removeAllViews();
         grid.removeAllViews();
@@ -373,8 +675,13 @@ public class MainActivity extends Activity {
         for (int i = 0; i < dock.size(); i++) {
             View tile = tile(dock.get(i), true);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0, -2, 1f);
-            p.setMargins(i == 0 ? 0 : dp(10), 0, i == dock.size() - 1 ? 0 : dp(10), 0);
+            p.setMargins(i == 0 ? 0 : dp(6), 0, i == dock.size() - 1 ? 0 : dp(6), 0);
             dockRow.addView(tile, p);
+        }
+        // If the firmware exposes only a couple of favorites, do not stretch them
+        // to half-screen giant cards: reserve at least five equal-width slots.
+        for (int i = dock.size(); i < 5; i++) {
+            dockRow.addView(new View(this), new LinearLayout.LayoutParams(0, dp(1), 1f));
         }
 
         LinearLayout row = null;
@@ -397,12 +704,433 @@ public class MainActivity extends Activity {
             row.addView(new View(this), p);
         }
         appsLabel.setVisibility(rest.isEmpty() ? View.GONE : View.VISIBLE);
+        buildChannelRows(allAppsForChannels, satellite);
         wireFocus();
 
-        if (!dock.isEmpty()) { title.setText(dock.get(0).label); setGlow(dock.get(0).color); }
+        if (!dock.isEmpty()) {
+            title.setText("FAVORITES  •  " + dock.get(0).label.toUpperCase(Locale.ENGLISH));
+            setGlow(dock.get(0).color);
+            updateHero(dock.get(0), false);
+        }
         View last = lastFocusedId == View.NO_ID ? null : findViewById(lastFocusedId);
         if (last != null) last.requestFocus();
         else if (!dockCards.isEmpty()) dockCards.get(0).requestFocus();
+    }
+
+    /**
+     * Offline-first channels: each item is an installed app or the observed DVB activity.
+     * Deliberately never invents shows, movie posters, recommendations, or watch progress.
+     */
+    private void buildChannelRows(Map<String, App> apps, App satellite) {
+        channelRows.clear();
+        channelContainer.removeAllViews();
+        addChannelRow("LIVE TV & IPTV", new String[]{
+                "com.logicyel.novastb", "com.datesplus.iptv",
+                "com.marvelactivecode.marvel", "com.excellence.appstore"
+        }, apps, satellite, true);
+        addChannelRow("STREAMING & MEDIA", new String[]{
+                "io.gh.reisxd.tizentube.fortaleza", "com.google.android.youtube.tv",
+                "com.google.android.youtube", "org.xbmc.kodi",
+                "com.stremio.one", "org.jellyfin.androidtv", "com.netflix.mediaclient"
+        }, apps, satellite, false);
+    }
+
+    private void addChannelRow(String heading, String[] packages,
+                               Map<String, App> apps, App satellite, boolean includeSatellite) {
+        List<App> visibleApps = new ArrayList<>();
+        if (includeSatellite && satellite != null) visibleApps.add(satellite);
+        Set<String> seen = new HashSet<>();
+        for (String pkg : packages) {
+            App a = apps.get(pkg);
+            if (a != null && seen.add(a.pkg)) visibleApps.add(a);
+        }
+        if (visibleApps.isEmpty()) return;
+
+        LinearLayout section = new LinearLayout(this);
+        section.setOrientation(LinearLayout.VERTICAL);
+        section.setClipChildren(false);
+        section.setClipToPadding(false);
+        TextView titleView = text(15, "sans-serif-medium", 0xFFE8E8F5);
+        titleView.setText(heading);
+        titleView.setShadowLayer(dp(5), 0, dp(2), 0xAA000000);
+        section.addView(titleView, llp(-1, -2, 0, dp(8), 0, dp(10)));
+
+        HorizontalScrollView horizontal = new HorizontalScrollView(this);
+        horizontal.setFillViewport(false);
+        horizontal.setHorizontalScrollBarEnabled(false);
+        horizontal.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        horizontal.setClipChildren(false);
+        horizontal.setClipToPadding(false);
+        LinearLayout strip = new LinearLayout(this);
+        strip.setOrientation(LinearLayout.HORIZONTAL);
+        strip.setGravity(Gravity.CENTER_VERTICAL);
+        strip.setClipChildren(false);
+        strip.setClipToPadding(false);
+        horizontal.addView(strip, new HorizontalScrollView.LayoutParams(-2, -2));
+
+        List<View> focusRow = new ArrayList<>();
+        for (App app : visibleApps) {
+            View card = channelTile(app, horizontal, section);
+            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(dp(165), dp(132));
+            cp.setMargins(dp(5), dp(6), dp(12), dp(6));
+            strip.addView(card, cp);
+            focusRow.add(card);
+        }
+        section.addView(horizontal, new LinearLayout.LayoutParams(-1, -2));
+        channelContainer.addView(section, llp(-1, -2, 0, 0, 0, dp(17)));
+        channelRows.add(focusRow);
+    }
+
+    /** Fixed-size focusable app card with predictable remote navigation. */
+    private View channelTile(App app, HorizontalScrollView horizontal, View section) {
+        LinearLayout outer = new LinearLayout(this);
+        outer.setOrientation(LinearLayout.VERTICAL);
+        outer.setGravity(Gravity.CENTER_HORIZONTAL);
+        outer.setFocusable(true);
+        outer.setClickable(true);
+        outer.setId(View.generateViewId());
+        outer.setPadding(dp(3), dp(3), dp(3), dp(3));
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(12));
+        bg.setColor(0x660D162C);
+        bg.setStroke(dp(2), 0x36FFFFFF);
+        outer.setBackground(bg);
+
+        FrameLayout picture = new FrameLayout(this);
+        picture.setBackgroundColor(0xB3182035);
+        ImageView icon = new ImageView(this);
+        icon.setImageDrawable(app.art);
+        icon.setScaleType(app.isBanner ? ImageView.ScaleType.CENTER_CROP : ImageView.ScaleType.FIT_CENTER);
+        icon.setPadding(app.isBanner ? 0 : dp(14), app.isBanner ? 0 : dp(12),
+                app.isBanner ? 0 : dp(14), app.isBanner ? 0 : dp(12));
+        picture.addView(icon, new FrameLayout.LayoutParams(-1, -1));
+        outer.addView(picture, new LinearLayout.LayoutParams(-1, dp(92)));
+        TextView label = text(11, "sans-serif-medium", Color.WHITE);
+        label.setText(app.label);
+        label.setMaxLines(1);
+        label.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        label.setGravity(Gravity.CENTER);
+        outer.addView(label, new LinearLayout.LayoutParams(-1, dp(29)));
+
+        outer.setOnClickListener(v -> launchApp(app));
+        outer.setOnFocusChangeListener((v, focused) -> {
+            bg.setStroke(dp(2), focused ? 0xFFFFFFFF : 0x36FFFFFF);
+            bg.setColor(focused ? 0xBF294164 : 0x660D162C);
+            v.animate().scaleX(focused ? 1.04f : 1f).scaleY(focused ? 1.04f : 1f)
+                    .setDuration(150).start();
+            if (!focused) return;
+            lastFocusedId = v.getId();
+            horizontal.smoothScrollTo(Math.max(0, v.getLeft() - dp(45)), 0);
+            int y = channelContainer.getTop() + section.getTop() - dp(95);
+            scroll.smoothScrollTo(0, Math.max(0, y));
+        });
+        return outer;
+    }
+
+    /** A StarNet satellite entry using the owner's observed Glide DVB activity alias. */
+    private App buildSatelliteEntry(PackageManager pm) {
+        if (satelliteTvPkg.isEmpty() || satelliteTvActivity.isEmpty()) return null;
+        ComponentName component = new ComponentName(satelliteTvPkg, satelliteTvActivity);
+        try {
+            ActivityInfo ai = pm.getActivityInfo(component, 0);
+            if (!ai.enabled || !ai.applicationInfo.enabled) return null;
+            App app = new App();
+            app.pkg = satelliteTvPkg;
+            app.label = "Live Satellite TV";
+            app.category = Intent.CATEGORY_LAUNCHER;
+            app.component = component;
+            app.isSatellite = true;
+            Drawable banner = ai.loadBanner(pm);
+            if (banner == null) banner = ai.applicationInfo.loadBanner(pm);
+            if (banner != null) {
+                app.isBanner = true;
+                app.art = banner;
+                app.color = sampleColor("starnet-satellite", app.art);
+            } else {
+                app.isBanner = false;
+                app.art = getDrawable(R.drawable.ic_satellite);
+                app.color = 0xFF0288D1;
+            }
+            return app;
+        } catch (PackageManager.NameNotFoundException e) {
+            return null; // Different Glide firmware: never guess another activity.
+        }
+    }
+
+    private static final String PREF_NAME = "starnet_dock_prefs";
+    private static final String KEY_DOCK = "dock_packages";
+
+    private List<String> getDockList() {
+        SharedPreferences sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        String saved = sp.getString(KEY_DOCK, null);
+        if (saved != null) {
+            List<String> list = new ArrayList<>();
+            for (String s : saved.split(",")) {
+                String trimmed = s.trim();
+                if (!trimmed.isEmpty()) list.add(trimmed);
+            }
+            return list;
+        }
+        List<String> def = new ArrayList<>();
+        Collections.addAll(def, getResources().getStringArray(R.array.dock_apps));
+        return def;
+    }
+
+    private void saveDockList(List<String> list) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            if (i > 0) sb.append(",");
+            sb.append(list.get(i));
+        }
+        getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+                .edit()
+                .putString(KEY_DOCK, sb.toString())
+                .apply();
+    }
+
+    private void addAppToDock(String pkg) {
+        List<String> list = getDockList();
+        if (!list.contains(pkg)) {
+            list.add(pkg);
+            saveDockList(list);
+            buildApps();
+        }
+    }
+
+    private void removeAppFromDock(String pkg) {
+        List<String> list = getDockList();
+        if (list.remove(pkg)) {
+            saveDockList(list);
+            buildApps();
+        }
+    }
+
+    /** An 'Add to Dock' shortcut placed at the end of the dock with a '+' icon. */
+    private App buildPlusEntry() {
+        App app = new App();
+        app.pkg = "com.mihir.tvhome.plus";
+        app.label = "Add to Dock";
+        app.isPlus = true;
+        app.color = 0xFF3A3A3C;
+        app.art = getDrawable(R.drawable.ic_plus);
+        app.isBanner = false;
+        return app;
+    }
+
+    private void showAppPicker() {
+        PackageManager pm = getPackageManager();
+        Map<String, App> allAvailable = new HashMap<>();
+        List<String> currentDock = getDockList();
+        for (String category : new String[]{Intent.CATEGORY_LEANBACK_LAUNCHER, Intent.CATEGORY_LAUNCHER}) {
+            Intent q = new Intent(Intent.ACTION_MAIN).addCategory(category);
+            for (ResolveInfo ri : pm.queryIntentActivities(q, 0)) {
+                ActivityInfo ai = ri.activityInfo;
+                if (hidden.contains(ai.packageName) || allAvailable.containsKey(ai.packageName)) continue;
+                if (currentDock.contains(ai.packageName)) continue;
+                if (ai.packageName.equals(satelliteTvPkg)) continue;
+                if (ai.packageName.equals(getPackageName())) continue;
+
+                App a = new App();
+                a.pkg = ai.packageName;
+                a.category = category;
+                a.label = String.valueOf(ri.loadLabel(pm));
+                a.component = new ComponentName(ai.packageName, ai.name);
+                Drawable banner = ai.loadBanner(pm);
+                if (banner == null) banner = ai.applicationInfo.loadBanner(pm);
+                a.isBanner = banner != null;
+                a.art = banner != null ? banner : ri.loadIcon(pm);
+                a.color = sampleColor(a.pkg, a.art);
+                allAvailable.put(a.pkg, a);
+            }
+        }
+
+        List<App> candidates = new ArrayList<>(allAvailable.values());
+        Collections.sort(candidates, (x, y) -> x.label.compareToIgnoreCase(y.label));
+
+        if (candidates.isEmpty()) {
+            Toast.makeText(this, "All available apps are already in the dock", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        FrameLayout overlay = new FrameLayout(this);
+        overlay.setBackgroundColor(0xD9000000);
+
+        LinearLayout container = new LinearLayout(this);
+        container.setOrientation(LinearLayout.VERTICAL);
+        container.setPadding(dp(36), dp(28), dp(36), dp(28));
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(0xF0202024);
+        bg.setCornerRadius(dp(20));
+        bg.setStroke(dp(1), 0x33FFFFFF);
+        container.setBackground(bg);
+
+        TextView header = text(22, "sans-serif-medium", Color.WHITE);
+        header.setText("Add App to Dock");
+        container.addView(header);
+
+        TextView sub = text(12, "sans-serif", 0x99FFFFFF);
+        sub.setText("Select an app to pin to your home screen dock");
+        container.addView(sub, llp(-2, -2, 0, dp(4), 0, dp(18)));
+
+        ScrollView scroller = new ScrollView(this);
+        scroller.setVerticalScrollBarEnabled(false);
+        scroller.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+        LinearLayout list = new LinearLayout(this);
+        list.setOrientation(LinearLayout.VERTICAL);
+        list.setClipChildren(false);
+
+        List<View> itemViews = new ArrayList<>();
+        for (int i = 0; i < candidates.size(); i++) {
+            App app = candidates.get(i);
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            row.setPadding(dp(16), dp(10), dp(16), dp(10));
+            row.setFocusable(true);
+            row.setClickable(true);
+            row.setId(View.generateViewId());
+
+            GradientDrawable rowBg = new GradientDrawable();
+            rowBg.setColor(0x1AFFFFFF);
+            rowBg.setCornerRadius(dp(12));
+            row.setBackground(rowBg);
+
+            ImageView icon = new ImageView(this);
+            icon.setImageDrawable(app.art);
+            icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            row.addView(icon, new LinearLayout.LayoutParams(dp(36), dp(36)));
+
+            TextView label = text(15, "sans-serif", 0xE6FFFFFF);
+            label.setText(app.label);
+            label.setSingleLine(true);
+            row.addView(label, llp(-1, -2, dp(18), 0, 0, 0));
+
+            row.setOnFocusChangeListener((v, hasFocus) -> {
+                rowBg.setColor(hasFocus ? 0xFFFFFFFF : 0x1AFFFFFF);
+                label.setTextColor(hasFocus ? 0xFF111111 : 0xE6FFFFFF);
+                v.animate().scaleX(hasFocus ? 1.03f : 1f).scaleY(hasFocus ? 1.03f : 1f).setDuration(160).start();
+            });
+
+            row.setOnClickListener(v -> {
+                dialog.dismiss();
+                addAppToDock(app.pkg);
+                Toast.makeText(MainActivity.this, "Added " + app.label + " to Dock", Toast.LENGTH_SHORT).show();
+            });
+
+            list.addView(row, llp(-1, -2, 0, dp(4), 0, dp(4)));
+            itemViews.add(row);
+        }
+
+        for (int i = 0; i < itemViews.size(); i++) {
+            View v = itemViews.get(i);
+            v.setNextFocusUpId(i > 0 ? itemViews.get(i - 1).getId() : v.getId());
+            v.setNextFocusDownId(i < itemViews.size() - 1 ? itemViews.get(i + 1).getId() : v.getId());
+            v.setNextFocusLeftId(v.getId());
+            v.setNextFocusRightId(v.getId());
+        }
+
+        scroller.addView(list, new FrameLayout.LayoutParams(-1, -2));
+        container.addView(scroller, new LinearLayout.LayoutParams(-1, dp(340)));
+
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(dp(540), -2, Gravity.CENTER);
+        overlay.addView(container, lp);
+
+        dialog.setContentView(overlay);
+        dialog.show();
+
+        if (!itemViews.isEmpty()) {
+            itemViews.get(0).requestFocus();
+        }
+    }
+
+    private void showRemoveDialog(App app) {
+        Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        FrameLayout overlay = new FrameLayout(this);
+        overlay.setBackgroundColor(0xB3000000);
+
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+        box.setPadding(dp(32), dp(24), dp(32), dp(24));
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(0xF0202024);
+        bg.setCornerRadius(dp(18));
+        bg.setStroke(dp(1), 0x33FFFFFF);
+        box.setBackground(bg);
+
+        TextView t = text(20, "sans-serif-medium", Color.WHITE);
+        t.setText("Remove from Dock?");
+        box.addView(t);
+
+        TextView sub = text(13, "sans-serif", 0x99FFFFFF);
+        sub.setText("'" + app.label + "' will remain available in All Apps.");
+        box.addView(sub, llp(-2, -2, 0, dp(6), 0, dp(22)));
+
+        LinearLayout btnRow = new LinearLayout(this);
+        btnRow.setOrientation(LinearLayout.HORIZONTAL);
+        btnRow.setGravity(Gravity.END);
+
+        TextView cancelBtn = text(13, "sans-serif-medium", 0xCCFFFFFF);
+        cancelBtn.setText("Cancel");
+        cancelBtn.setPadding(dp(20), dp(10), dp(20), dp(10));
+        cancelBtn.setFocusable(true);
+        cancelBtn.setClickable(true);
+        cancelBtn.setId(View.generateViewId());
+        GradientDrawable cancelBg = new GradientDrawable();
+        cancelBg.setColor(0x26FFFFFF);
+        cancelBg.setCornerRadius(dp(10));
+        cancelBtn.setBackground(cancelBg);
+        cancelBtn.setOnFocusChangeListener((v, hasFocus) -> {
+            cancelBg.setColor(hasFocus ? 0xFFFFFFFF : 0x26FFFFFF);
+            cancelBtn.setTextColor(hasFocus ? 0xFF111111 : 0xCCFFFFFF);
+        });
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        TextView removeBtn = text(13, "sans-serif-medium", Color.WHITE);
+        removeBtn.setText("Remove");
+        removeBtn.setPadding(dp(20), dp(10), dp(20), dp(10));
+        removeBtn.setFocusable(true);
+        removeBtn.setClickable(true);
+        removeBtn.setId(View.generateViewId());
+        GradientDrawable remBg = new GradientDrawable();
+        remBg.setColor(0xFFD32F2F);
+        remBg.setCornerRadius(dp(10));
+        removeBtn.setBackground(remBg);
+        removeBtn.setOnFocusChangeListener((v, hasFocus) -> {
+            remBg.setColor(hasFocus ? 0xFFFF5252 : 0xFFD32F2F);
+            removeBtn.animate().scaleX(hasFocus ? 1.05f : 1f).scaleY(hasFocus ? 1.05f : 1f).setDuration(150).start();
+        });
+        removeBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            removeAppFromDock(app.pkg);
+            Toast.makeText(MainActivity.this, "Removed from Dock", Toast.LENGTH_SHORT).show();
+        });
+
+        cancelBtn.setNextFocusRightId(removeBtn.getId());
+        removeBtn.setNextFocusLeftId(cancelBtn.getId());
+
+        btnRow.addView(cancelBtn, llp(-2, -2, 0, 0, dp(12), 0));
+        btnRow.addView(removeBtn, llp(-2, -2, 0, 0, 0, 0));
+        box.addView(btnRow, llp(-1, -2, 0, dp(10), 0, 0));
+
+        overlay.addView(box, new FrameLayout.LayoutParams(dp(440), -2, Gravity.CENTER));
+        dialog.setContentView(overlay);
+        dialog.show();
+        cancelBtn.requestFocus();
+    }
+
+    /** Open the real DVB alias, then use stock Glide as a recovery fallback. */
+    private void openSatelliteTv() {
+        Intent satellite = new Intent(Intent.ACTION_MAIN)
+                .addCategory(Intent.CATEGORY_LAUNCHER)
+                .setComponent(new ComponentName(satelliteTvPkg, satelliteTvActivity))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        if (!launch(satellite)) {
+            android.widget.Toast.makeText(this, "Satellite shortcut unavailable; opening Glide",
+                    android.widget.Toast.LENGTH_LONG).show();
+            openOriginalHome();
+        }
     }
 
     /** A 16:9 card with the app's banner; the name shows under it while focused. */
@@ -458,10 +1186,20 @@ public class MainActivity extends Activity {
         label.setAlpha(0f);
         if (!inDock) box.addView(label, llp(-1, -2, 0, dp(10), 0, 0));
 
-        card.setOnClickListener(v -> launch(new Intent(Intent.ACTION_MAIN)
-                .addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER)
-                .setComponent(app.component)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)));
+        card.setOnClickListener(v -> launchApp(app));
+        if (inDock && !app.isSatellite && !app.isPlus) {
+            card.setOnLongClickListener(v -> {
+                showRemoveDialog(app);
+                return true;
+            });
+            card.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
+                    showRemoveDialog(app);
+                    return true;
+                }
+                return false;
+            });
+        }
         card.setOnFocusChangeListener((v, has) -> {
             float s = has ? (inDock ? 1.12f : 1.1f) : 1f;
             v.animate().scaleX(s).scaleY(s).translationZ(has ? dp(14) : 0)
@@ -472,8 +1210,10 @@ public class MainActivity extends Activity {
             if (!has) return;
             lastFocusedId = v.getId();
             if (inDock) {
-                title.setText(app.label);
+                title.setText("FAVORITES  •  " + (app.label != null ? app.label.toUpperCase(Locale.ENGLISH) : ""));
                 title.animate().alpha(1f).setDuration(200).start();
+                updateHero(app, true);
+                if (heroActionBtn != null) heroActionBtn.setNextFocusDownId(v.getId());
                 animateGlow(app.color);
                 fadeGlow(1f);
                 scroll.smoothScrollTo(0, 0);
@@ -488,33 +1228,63 @@ public class MainActivity extends Activity {
         return box;
     }
 
-    /** Explicit D-pad targets: one row per press, ends of rows and of the top bar don't wrap. */
+    /** Explicit four-way remote navigation across top tabs, hero, favorites and channel rows. */
     private void wireFocus() {
         int d = dockCards.size(), g = gridCards.size();
+        int heroBtnId = heroActionBtn != null ? heroActionBtn.getId() : View.NO_ID;
+        int topId = !pills.isEmpty() ? pills.get(0).getId() : View.NO_ID;
+        int firstChannelId = channelRows.isEmpty() ? View.NO_ID : channelRows.get(0).get(0).getId();
+        int lastChannelRow = channelRows.size() - 1;
+
         for (int i = 0; i < pills.size(); i++) {
             View p = pills.get(i);
             p.setNextFocusLeftId(i == 0 ? p.getId() : pills.get(i - 1).getId());
             p.setNextFocusRightId(i == pills.size() - 1 ? p.getId() : pills.get(i + 1).getId());
             p.setNextFocusUpId(p.getId());
-            p.setNextFocusDownId(d > 0 ? dockCards.get(Math.min(d - 1, d / 2)).getId() : p.getId());
+            p.setNextFocusDownId(heroBtnId != View.NO_ID ? heroBtnId :
+                    d > 0 ? dockCards.get(0).getId() : p.getId());
         }
-        int topId = pills.get(0).getId();
+
+        if (heroActionBtn != null) {
+            heroActionBtn.setNextFocusUpId(topId != View.NO_ID ? topId : heroBtnId);
+            heroActionBtn.setNextFocusDownId(d > 0 ? dockCards.get(0).getId() :
+                    firstChannelId != View.NO_ID ? firstChannelId : heroBtnId);
+            heroActionBtn.setNextFocusLeftId(heroBtnId);
+            heroActionBtn.setNextFocusRightId(heroBtnId);
+        }
+
         for (int i = 0; i < d; i++) {
             View c = dockCards.get(i);
-            c.setNextFocusUpId(topId);
+            c.setNextFocusUpId(heroBtnId != View.NO_ID ? heroBtnId : topId);
             c.setNextFocusLeftId(i == 0 ? c.getId() : dockCards.get(i - 1).getId());
             c.setNextFocusRightId(i == d - 1 ? c.getId() : dockCards.get(i + 1).getId());
-            c.setNextFocusDownId(g > 0 ? gridCards.get(Math.min(i, g - 1)).getId() : c.getId());
+            c.setNextFocusDownId(firstChannelId != View.NO_ID ?
+                    channelRows.get(0).get(Math.min(i, channelRows.get(0).size() - 1)).getId() :
+                    g > 0 ? gridCards.get(Math.min(i, g - 1)).getId() : c.getId());
         }
+        for (int row = 0; row < channelRows.size(); row++) {
+            List<View> current = channelRows.get(row);
+            List<View> above = row == 0 ? dockCards : channelRows.get(row - 1);
+            List<View> below = row == lastChannelRow ? gridCards : channelRows.get(row + 1);
+            for (int i = 0; i < current.size(); i++) {
+                View c = current.get(i);
+                c.setNextFocusLeftId(i == 0 ? c.getId() : current.get(i - 1).getId());
+                c.setNextFocusRightId(i == current.size() - 1 ? c.getId() : current.get(i + 1).getId());
+                c.setNextFocusUpId(above.isEmpty() ? heroBtnId : above.get(Math.min(i, above.size() - 1)).getId());
+                c.setNextFocusDownId(below.isEmpty() ? c.getId() : below.get(Math.min(i, below.size() - 1)).getId());
+            }
+        }
+
         int lastRow = (g - 1) / cols;
+        List<View> beforeGrid = lastChannelRow >= 0 ? channelRows.get(lastChannelRow) : dockCards;
         for (int j = 0; j < g; j++) {
             View c = gridCards.get(j);
             int r = j / cols, col = j % cols;
-            c.setNextFocusUpId(r == 0
-                    ? (d > 0 ? dockCards.get(Math.min(col, d - 1)).getId() : topId)
-                    : gridCards.get(j - cols).getId());
-            c.setNextFocusDownId(j + cols < g ? gridCards.get(j + cols).getId()
-                    : r < lastRow ? gridCards.get(g - 1).getId() : c.getId());
+            int topTarget = beforeGrid.isEmpty() ? heroBtnId :
+                    beforeGrid.get(Math.min(col, beforeGrid.size() - 1)).getId();
+            c.setNextFocusUpId(r == 0 ? topTarget : gridCards.get(j - cols).getId());
+            c.setNextFocusDownId(j + cols < g ? gridCards.get(j + cols).getId() :
+                    r < lastRow ? gridCards.get(g - 1).getId() : c.getId());
             c.setNextFocusLeftId(col == 0 ? c.getId() : gridCards.get(j - 1).getId());
             c.setNextFocusRightId(col == cols - 1 || j == g - 1 ? c.getId() : gridCards.get(j + 1).getId());
         }
@@ -561,7 +1331,8 @@ public class MainActivity extends Activity {
                 if (!launch(i)) openPackage(inputPickerPkg);
             }));
         }
-        if (isInstalled(liveTvPkg)) rows.add(inputRow("Live TV", () -> openPackage(liveTvPkg)));
+        if (buildSatelliteEntry(getPackageManager()) != null)
+            rows.add(inputRow("Live Satellite TV", this::openSatelliteTv));
         if (inputs.isEmpty() && isInstalled(inputPickerPkg)) rows.add(inputRow("All sources…", () -> openPackage(inputPickerPkg)));
 
         if (rows.isEmpty()) rows.add(inputRow("Settings", () -> launch(new Intent(Settings.ACTION_SETTINGS))));

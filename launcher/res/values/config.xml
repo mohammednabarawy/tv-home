@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Launcher settings. Edit, then run launcher/build-and-install.sh.
-  Package names: tools/venv/bin/python -I tools/tv.py 'pm list packages'
--->
+<!-- StarNet 4000 Twin Plus, Android 9. Confirmed against owner's ADB report.
+     The DVB activity belongs to the Glide package, not a separate launcher app.
+     No packages are disabled, removed, hidden or modified. -->
 <resources>
-    <!-- Dock apps, left to right. Apps that aren't installed are skipped. -->
+    <!-- Dedicated DVB tile is inserted automatically as the first item in the dock.
+         The '+' (All Apps) tile is inserted automatically as the last item in the dock. -->
     <string-array name="dock_apps">
-        <item>com.apple.atve.androidtv.appletv</item>
         <item>com.google.android.youtube.tv</item>
-        <item>in.startv.hotstar</item>
-        <item>com.netflix.ninja</item>
-        <item>com.amazon.amazonvideo.livingroom</item>
+        <item>io.gh.reisxd.tizentube.fortaleza</item>
+        <item>com.logicyel.novastb</item>
+        <item>com.marvelactivecode.marvel</item>
+        <item>com.stremio.one</item>
+        <item>com.android.vending</item>
     </string-array>
+    <string-array name="hidden_apps" />
 
-    <!-- Never shown as tiles: system helpers, and the Live TV app (it's in the Inputs menu). -->
-    <string-array name="hidden_apps">
-        <item>com.tcl.tv</item>
-        <item>com.tcl.suspension</item>
-        <item>com.tcl.t_solo</item>
-        <item>com.tcl.dashboard</item>
-    </string-array>
+    <!-- Exact Glide activity alias observed through ADB; do not substitute Glide Home. -->
+    <string name="satellite_tv_package" translatable="false">com.tosmart.glide</string>
+    <string name="satellite_tv_activity" translatable="false">com.tosmart.glide.DvbAlias</string>
+    <string name="input_picker_package" translatable="false"></string>
 
-    <!-- The TV's Live TV / tuner app, listed last in the Inputs menu. Empty to leave it out.
-         Common ones: com.tcl.tv (TCL), com.mediatek.wwtv.tvcenter (Xiaomi, many MediaTek sets),
-         com.google.android.tv (Google Live Channels), com.sony.dtv.tvx (Sony). -->
-    <string name="live_tv_package" translatable="false">com.tcl.tv</string>
-
-    <!-- The manufacturer's own source picker, used if switching to an input directly fails. -->
-    <string name="input_picker_package" translatable="false">com.tcl.suspension</string>
-
-    <!-- Tiles per row in the grid. -->
     <integer name="columns">5</integer>
 </resources>
