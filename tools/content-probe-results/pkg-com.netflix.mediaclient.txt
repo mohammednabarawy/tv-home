@@ -1,0 +1,562 @@
+Activity Resolver Table:
+  Schemes:
+      http:
+        1c5bc56 com.netflix.mediaclient/.ui.launch.NetflixComLaunchActivity filter 44747fe
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Path: "PatternMatcher{GLOB: /browse}"
+          Path: "PatternMatcher{GLOB: /.*/browse}"
+          Path: "PatternMatcher{GLOB: /browse/genre/.*}"
+          Path: "PatternMatcher{GLOB: /.*/browse/genre/.*}"
+          Path: "PatternMatcher{GLOB: /browse/coming-soon}"
+          Path: "PatternMatcher{GLOB: /browse/my-list}"
+          Path: "PatternMatcher{GLOB: /.*/browse/coming-soon}"
+          Path: "PatternMatcher{GLOB: /browse/audio-description}"
+          Path: "PatternMatcher{GLOB: /.*/browse/audio-description}"
+          Path: "PatternMatcher{GLOB: /specials/.*}"
+          Path: "PatternMatcher{GLOB: /Kids/title/.*}"
+          Path: "PatternMatcher{GLOB: /Kids/character/.*}"
+          Path: "PatternMatcher{GLOB: /game}"
+          Path: "PatternMatcher{GLOB: /game/.*}"
+          Path: "PatternMatcher{GLOB: /.*/game/.*}"
+          Path: "PatternMatcher{GLOB: /title/.*}"
+          Path: "PatternMatcher{GLOB: /.*/title/.*}"
+          Path: "PatternMatcher{GLOB: /watch/.*}"
+          Path: "PatternMatcher{GLOB: /.*/watch/.*}"
+          Path: "PatternMatcher{GLOB: /nmwatch/.*}"
+          Path: "PatternMatcher{GLOB: /.*/nmwatch/.*}"
+          Path: "PatternMatcher{GLOB: /clips/.*}"
+          Path: "PatternMatcher{GLOB: /search}"
+          Path: "PatternMatcher{GLOB: /search/.*}"
+          Path: "PatternMatcher{GLOB: /.*/search}"
+          Path: "PatternMatcher{GLOB: /.*/search/.*}"
+          Path: "PatternMatcher{GLOB: /add/.*}"
+          Path: "PatternMatcher{GLOB: /.*/add/.*}"
+          Path: "PatternMatcher{GLOB: /download/.*}"
+          Path: "PatternMatcher{GLOB: /.*/download/.*}"
+          Path: "PatternMatcher{GLOB: /sync/.*}"
+          Path: "PatternMatcher{GLOB: /.*/sync/.*}"
+          Path: "PatternMatcher{GLOB: /profiles}"
+          Path: "PatternMatcher{GLOB: /.*/profiles}"
+          Path: "PatternMatcher{GLOB: /profiles/icon.*}"
+          Path: "PatternMatcher{GLOB: /.*/profiles/icon.*}"
+          Path: "PatternMatcher{GLOB: /mobilehelp}"
+          Path: "PatternMatcher{GLOB: /like/.*}"
+          Path: "PatternMatcher{GLOB: /.*/like/.*}"
+          Path: "PatternMatcher{GLOB: /dislike/.*}"
+          Path: "PatternMatcher{GLOB: /.*/dislike/.*}"
+          Path: "PatternMatcher{GLOB: /love/.*}"
+          Path: "PatternMatcher{GLOB: /.*/love/.*}"
+          Path: "PatternMatcher{GLOB: /notification/.*}"
+          Path: "PatternMatcher{PREFIX: /profiles/icon}"
+          Path: "PatternMatcher{PREFIX: /profiles/icon}"
+          Path: "PatternMatcher{GLOB: /extras/.*}"
+          Path: "PatternMatcher{GLOB: /extrasFeed}"
+          Path: "PatternMatcher{GLOB: /extrasFeed/.*}"
+          Path: "PatternMatcher{GLOB: /extrasfeed}"
+          Path: "PatternMatcher{GLOB: /extrasfeed/.*}"
+          Path: "PatternMatcher{GLOB: /remind-me/.*}"
+          Path: "PatternMatcher{GLOB: /account/signup}"
+          Path: "PatternMatcher{GLOB: /hook/.*}"
+          Path: "PatternMatcher{GLOB: /oAuth2Init}"
+          Path: "PatternMatcher{GLOB: /oAuth2Login}"
+          Path: "PatternMatcher{GLOB: /youraccount}"
+          Path: "PatternMatcher{GLOB: /youraccountlite}"
+          Path: "PatternMatcher{GLOB: /yourAccount}"
+          Path: "PatternMatcher{GLOB: /yourAccountLite}"
+          AutoVerify=true
+        1c5bc56 com.netflix.mediaclient/.ui.launch.NetflixComLaunchActivity filter 6bd3b5f
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "nflx"
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Path: "PatternMatcher{PREFIX: /Browse}"
+          Path: "PatternMatcher{PREFIX: /browse}"
+          AutoVerify=true
+        1c5bc56 com.netflix.mediaclient/.ui.launch.NetflixComLaunchActivity filter 12369ac
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "app.netflix.com": -1
+          Authority: "qr.netflix.com": -1
+          Path: "PatternMatcher{GLOB: /connection/.*}"
+          Path: "PatternMatcher{GLOB: /C/.*}"
+          Path: "PatternMatcher{GLOB: /oAuth2Init}"
+          Path: "PatternMatcher{PREFIX: /438c60eb}"
+          Path: "PatternMatcher{GLOB: /bU4kXkYg/.*}"
+          Path: "PatternMatcher{PREFIX: /Browse}"
+          Path: "PatternMatcher{PREFIX: /browse}"
+          AutoVerify=true
+        1c5bc56 com.netflix.mediaclient/.ui.launch.NetflixComLaunchActivity filter d4e9675
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "msg.netflix.com": -1
+          Authority: "msg.netflix.com": -1
+          AutoVerify=true
+      nflx:
+        1c5bc56 com.netflix.mediaclient/.ui.launch.NetflixComLaunchActivity filter 6bd3b5f
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "nflx"
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Path: "PatternMatcher{PREFIX: /Browse}"
+          Path: "PatternMatcher{PREFIX: /browse}"
+          AutoVerify=true
+        11794d7 com.netflix.mediaclient/.acquisition.screens.signupContainer.SignupNativeDeepLinkActivity filter fcbe60a
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "nflx"
+          Authority: "www.netflix.com": -1
+          Path: "PatternMatcher{PREFIX: /confirmpageinfosignout}"
+          Path: "PatternMatcher{PREFIX: /loginfromregistration}"
+          AutoVerify=true
+      https:
+        1c5bc56 com.netflix.mediaclient/.ui.launch.NetflixComLaunchActivity filter 44747fe
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Path: "PatternMatcher{GLOB: /browse}"
+          Path: "PatternMatcher{GLOB: /.*/browse}"
+          Path: "PatternMatcher{GLOB: /browse/genre/.*}"
+          Path: "PatternMatcher{GLOB: /.*/browse/genre/.*}"
+          Path: "PatternMatcher{GLOB: /browse/coming-soon}"
+          Path: "PatternMatcher{GLOB: /browse/my-list}"
+          Path: "PatternMatcher{GLOB: /.*/browse/coming-soon}"
+          Path: "PatternMatcher{GLOB: /browse/audio-description}"
+          Path: "PatternMatcher{GLOB: /.*/browse/audio-description}"
+          Path: "PatternMatcher{GLOB: /specials/.*}"
+          Path: "PatternMatcher{GLOB: /Kids/title/.*}"
+          Path: "PatternMatcher{GLOB: /Kids/character/.*}"
+          Path: "PatternMatcher{GLOB: /game}"
+          Path: "PatternMatcher{GLOB: /game/.*}"
+          Path: "PatternMatcher{GLOB: /.*/game/.*}"
+          Path: "PatternMatcher{GLOB: /title/.*}"
+          Path: "PatternMatcher{GLOB: /.*/title/.*}"
+          Path: "PatternMatcher{GLOB: /watch/.*}"
+          Path: "PatternMatcher{GLOB: /.*/watch/.*}"
+          Path: "PatternMatcher{GLOB: /nmwatch/.*}"
+          Path: "PatternMatcher{GLOB: /.*/nmwatch/.*}"
+          Path: "PatternMatcher{GLOB: /clips/.*}"
+          Path: "PatternMatcher{GLOB: /search}"
+          Path: "PatternMatcher{GLOB: /search/.*}"
+          Path: "PatternMatcher{GLOB: /.*/search}"
+          Path: "PatternMatcher{GLOB: /.*/search/.*}"
+          Path: "PatternMatcher{GLOB: /add/.*}"
+          Path: "PatternMatcher{GLOB: /.*/add/.*}"
+          Path: "PatternMatcher{GLOB: /download/.*}"
+          Path: "PatternMatcher{GLOB: /.*/download/.*}"
+          Path: "PatternMatcher{GLOB: /sync/.*}"
+          Path: "PatternMatcher{GLOB: /.*/sync/.*}"
+          Path: "PatternMatcher{GLOB: /profiles}"
+          Path: "PatternMatcher{GLOB: /.*/profiles}"
+          Path: "PatternMatcher{GLOB: /profiles/icon.*}"
+          Path: "PatternMatcher{GLOB: /.*/profiles/icon.*}"
+          Path: "PatternMatcher{GLOB: /mobilehelp}"
+          Path: "PatternMatcher{GLOB: /like/.*}"
+          Path: "PatternMatcher{GLOB: /.*/like/.*}"
+          Path: "PatternMatcher{GLOB: /dislike/.*}"
+          Path: "PatternMatcher{GLOB: /.*/dislike/.*}"
+          Path: "PatternMatcher{GLOB: /love/.*}"
+          Path: "PatternMatcher{GLOB: /.*/love/.*}"
+          Path: "PatternMatcher{GLOB: /notification/.*}"
+          Path: "PatternMatcher{PREFIX: /profiles/icon}"
+          Path: "PatternMatcher{PREFIX: /profiles/icon}"
+          Path: "PatternMatcher{GLOB: /extras/.*}"
+          Path: "PatternMatcher{GLOB: /extrasFeed}"
+          Path: "PatternMatcher{GLOB: /extrasFeed/.*}"
+          Path: "PatternMatcher{GLOB: /extrasfeed}"
+          Path: "PatternMatcher{GLOB: /extrasfeed/.*}"
+          Path: "PatternMatcher{GLOB: /remind-me/.*}"
+          Path: "PatternMatcher{GLOB: /account/signup}"
+          Path: "PatternMatcher{GLOB: /hook/.*}"
+          Path: "PatternMatcher{GLOB: /oAuth2Init}"
+          Path: "PatternMatcher{GLOB: /oAuth2Login}"
+          Path: "PatternMatcher{GLOB: /youraccount}"
+          Path: "PatternMatcher{GLOB: /youraccountlite}"
+          Path: "PatternMatcher{GLOB: /yourAccount}"
+          Path: "PatternMatcher{GLOB: /yourAccountLite}"
+          AutoVerify=true
+        1c5bc56 com.netflix.mediaclient/.ui.launch.NetflixComLaunchActivity filter 6bd3b5f
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "nflx"
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Authority: "www.netflix.com": -1
+          Path: "PatternMatcher{PREFIX: /Browse}"
+          Path: "PatternMatcher{PREFIX: /browse}"
+          AutoVerify=true
+        1c5bc56 com.netflix.mediaclient/.ui.launch.NetflixComLaunchActivity filter 12369ac
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "app.netflix.com": -1
+          Authority: "qr.netflix.com": -1
+          Path: "PatternMatcher{GLOB: /connection/.*}"
+          Path: "PatternMatcher{GLOB: /C/.*}"
+          Path: "PatternMatcher{GLOB: /oAuth2Init}"
+          Path: "PatternMatcher{PREFIX: /438c60eb}"
+          Path: "PatternMatcher{GLOB: /bU4kXkYg/.*}"
+          Path: "PatternMatcher{PREFIX: /Browse}"
+          Path: "PatternMatcher{PREFIX: /browse}"
+          AutoVerify=true
+        1c5bc56 com.netflix.mediaclient/.ui.launch.NetflixComLaunchActivity filter d4e9675
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "msg.netflix.com": -1
+          Authority: "msg.netflix.com": -1
+          AutoVerify=true
+
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        bae11c4 com.netflix.mediaclient/.ui.launch.UIWebViewActivity filter ac7580
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+        41f78ad com.netflix.mediaclient/.ui.launch.UIWebViewTabletActivity filter 63b37b9
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+      android.intent.action.SEARCH:
+        af947e2 com.netflix.mediaclient/.ui.search.SearchActivity filter fa42e7b
+          Action: "android.intent.action.SEARCH"
+        ad6a773 com.netflix.mediaclient/o.inG filter d337498
+          Action: "android.intent.action.SEARCH"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      android.intent.action.BATTERY_OKAY:
+        a5c8630 com.netflix.mediaclient/o.aPr$b filter 1d2325a
+          Action: "android.intent.action.BATTERY_OKAY"
+          Action: "android.intent.action.BATTERY_LOW"
+      android.intent.action.ACTION_POWER_DISCONNECTED:
+        367f2a9 com.netflix.mediaclient/o.aPr$a filter 7a82205
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          Action: "android.intent.action.ACTION_POWER_DISCONNECTED"
+      com.netflix.mediaclient.intent.action.NOTIFICATION_BROWSER_REDIRECT:
+        6e8002e com.netflix.mediaclient/.service.pushnotification.NotificationReceiver filter 7902a49
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_CANCELED"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_BROWSER_REDIRECT"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_MOVIE_DETAILS"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_SHOW_DETAILS"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_PLAY"
+      com.netflix.mediaclient.ui.perf.PerfTestManager.DUMP_PERF_CAPTURE_DATA:
+        26a47cf com.netflix.mediaclient/o.htz filter 2ba6f4e
+          Action: "com.netflix.mediaclient.ui.perf.PerfTestManager.DUMP_PERF_CAPTURE_DATA"
+          Action: "com.netflix.mediaclient.ui.perf.PerfTestManager.STOP_PERF_CAPTURE_DATA"
+          Action: "com.netflix.mediaclient.ui.perf.PerfTestManager.LOG_PERF_DATA_AND_SHUTDOWN_APP"
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        23bd55c com.netflix.mediaclient/androidx.profileinstaller.ProfileInstallReceiver filter c4b2b2
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      android.intent.action.DEVICE_STORAGE_LOW:
+        fa41065 com.netflix.mediaclient/o.aPr$c filter d730c8b
+          Action: "android.intent.action.DEVICE_STORAGE_LOW"
+          Action: "android.intent.action.DEVICE_STORAGE_OK"
+      android.net.conn.CONNECTIVITY_CHANGE:
+        8f7f13a com.netflix.mediaclient/o.aPr$e filter 650e168
+          Action: "android.net.conn.CONNECTIVITY_CHANGE"
+      com.netflix.mediaclient.intent.action.NOTIFICATION_SHOW_DETAILS:
+        6e8002e com.netflix.mediaclient/.service.pushnotification.NotificationReceiver filter 7902a49
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_CANCELED"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_BROWSER_REDIRECT"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_MOVIE_DETAILS"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_SHOW_DETAILS"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_PLAY"
+      android.intent.action.DEVICE_STORAGE_OK:
+        fa41065 com.netflix.mediaclient/o.aPr$c filter d730c8b
+          Action: "android.intent.action.DEVICE_STORAGE_LOW"
+          Action: "android.intent.action.DEVICE_STORAGE_OK"
+      com.netflix.mediaclient.intent.action.NOTIFICATION_CANCELED:
+        6e8002e com.netflix.mediaclient/.service.pushnotification.NotificationReceiver filter 7902a49
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_CANCELED"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_BROWSER_REDIRECT"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_MOVIE_DETAILS"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_SHOW_DETAILS"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_PLAY"
+      com.google.android.play.core.assetpacks.receiver.ACTION_SESSION_UPDATE:
+        9ed91eb com.netflix.mediaclient/com.google.android.play.core.assetpacks.SessionStateBroadcastReceiver filter 4a4a97c
+          Action: "com.google.android.play.core.assetpacks.receiver.ACTION_SESSION_UPDATE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        23bd55c com.netflix.mediaclient/androidx.profileinstaller.ProfileInstallReceiver filter a06ac14
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      com.google.android.c2dm.intent.RECEIVE:
+        35eeb48 com.netflix.mediaclient/com.google.firebase.iid.FirebaseInstanceIdReceiver filter b9f586f
+          Action: "com.google.android.c2dm.intent.RECEIVE"
+      com.netflix.mediaclient.ui.perf.PerfTestManager.LOG_PERF_DATA_AND_SHUTDOWN_APP:
+        26a47cf com.netflix.mediaclient/o.htz filter 2ba6f4e
+          Action: "com.netflix.mediaclient.ui.perf.PerfTestManager.DUMP_PERF_CAPTURE_DATA"
+          Action: "com.netflix.mediaclient.ui.perf.PerfTestManager.STOP_PERF_CAPTURE_DATA"
+          Action: "com.netflix.mediaclient.ui.perf.PerfTestManager.LOG_PERF_DATA_AND_SHUTDOWN_APP"
+      android.intent.action.BATTERY_LOW:
+        a5c8630 com.netflix.mediaclient/o.aPr$b filter 1d2325a
+          Action: "android.intent.action.BATTERY_OKAY"
+          Action: "android.intent.action.BATTERY_LOW"
+      android.intent.action.TIMEZONE_CHANGED:
+        cca4de1 com.netflix.mediaclient/o.aPu filter 38dd981
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.TIME_SET:
+        cca4de1 com.netflix.mediaclient/o.aPu filter 38dd981
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      androidx.profileinstaller.action.SKIP_FILE:
+        23bd55c com.netflix.mediaclient/androidx.profileinstaller.ProfileInstallReceiver filter 8bd8cbd
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      com.netflix.mediaclient.intent.action.NOTIFICATION_PLAY:
+        6e8002e com.netflix.mediaclient/.service.pushnotification.NotificationReceiver filter 7902a49
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_CANCELED"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_BROWSER_REDIRECT"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_MOVIE_DETAILS"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_SHOW_DETAILS"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_PLAY"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        23bd55c com.netflix.mediaclient/androidx.profileinstaller.ProfileInstallReceiver filter 9de8203
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.BOOT_COMPLETED:
+        cca4de1 com.netflix.mediaclient/o.aPu filter 38dd981
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.extra.CHOSEN_COMPONENT:
+        2e3e706 com.netflix.mediaclient/.android.sharing.impl.ShareReceiver filter cfd0502
+          Action: "android.intent.extra.CHOSEN_COMPONENT"
+      android.intent.action.ACTION_POWER_CONNECTED:
+        367f2a9 com.netflix.mediaclient/o.aPr$a filter 7a82205
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          Action: "android.intent.action.ACTION_POWER_DISCONNECTED"
+      com.netflix.mediaclient.ui.perf.PerfTestManager.STOP_PERF_CAPTURE_DATA:
+        26a47cf com.netflix.mediaclient/o.htz filter 2ba6f4e
+          Action: "com.netflix.mediaclient.ui.perf.PerfTestManager.DUMP_PERF_CAPTURE_DATA"
+          Action: "com.netflix.mediaclient.ui.perf.PerfTestManager.STOP_PERF_CAPTURE_DATA"
+          Action: "com.netflix.mediaclient.ui.perf.PerfTestManager.LOG_PERF_DATA_AND_SHUTDOWN_APP"
+      com.netflix.mediaclient.intent.action.USER_STATUS:
+        1161c7 com.netflix.mediaclient/.service.user.PartnerReceiver filter cdee13
+          Action: "com.netflix.mediaclient.intent.action.USER_STATUS"
+      androidx.work.diagnostics.REQUEST_DIAGNOSTICS:
+        a1b73f4 com.netflix.mediaclient/androidx.work.impl.diagnostics.DiagnosticsReceiver filter 383e667
+          Action: "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+      android.intent.action.MY_PACKAGE_REPLACED:
+        dbce71d com.netflix.mediaclient/o.cYR filter bea5850
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+      com.netflix.mediaclient.intent.action.NOTIFICATION_MOVIE_DETAILS:
+        6e8002e com.netflix.mediaclient/.service.pushnotification.NotificationReceiver filter 7902a49
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_CANCELED"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_BROWSER_REDIRECT"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_MOVIE_DETAILS"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_SHOW_DETAILS"
+          Action: "com.netflix.mediaclient.intent.action.NOTIFICATION_PLAY"
+      androidx.work.impl.background.systemalarm.UpdateProxies:
+        5476d92 com.netflix.mediaclient/androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver filter 6711a26
+          Action: "androidx.work.impl.background.systemalarm.UpdateProxies"
+
+Service Resolver Table:
+  Non-Data Actions:
+      com.netflix.intent.action.BIND:
+        3b85363 com.netflix.mediaclient/com.netflix.partner.PService filter a55764d permission com.netflix.partner
+          Action: "com.netflix.intent.action.BIND"
+      com.google.firebase.MESSAGING_EVENT:
+        75db60 com.netflix.mediaclient/.service.fcm.FcmService filter f9b177
+          Action: "com.google.firebase.MESSAGING_EVENT"
+        745d819 com.netflix.mediaclient/o.cum filter 76d01e4
+          Action: "com.google.firebase.MESSAGING_EVENT"
+          mPriority=-500, mOrder=0, mHasPartialTypes=false
+
+Provider Resolver Table:
+  Non-Data Actions:
+      com.netflix.android.action.ngpdiscover:
+        40f128b com.netflix.mediaclient/.ngpstore.impl.storage.cp.NgpContentProvider filter 5e1e776
+          Action: "com.netflix.android.action.ngpdiscover"
+
+Permissions:
+  Permission [com.netflix.mediaclient.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (cead0de):
+    sourcePackage=com.netflix.mediaclient
+    uid=10041 gids=null type=0 prot=signature
+    perm=Permission{552c2bf com.netflix.mediaclient.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{a4d4d8c com.netflix.mediaclient/10041}
+
+Permissions:
+  Permission [com.netflix.nfgsdk.permission.ngpstore] (6d2dcd5):
+    sourcePackage=com.netflix.mediaclient
+    uid=10041 gids=null type=0 prot=signature
+    perm=Permission{8cf1cea com.netflix.nfgsdk.permission.ngpstore}
+    packageSetting=PackageSetting{a4d4d8c com.netflix.mediaclient/10041}
+
+Permissions:
+  Permission [com.netflix.partner] (1facbdb):
+    sourcePackage=com.netflix.mediaclient
+    uid=10041 gids=null type=0 prot=signature|privileged
+    perm=Permission{847b678 com.netflix.partner}
+    packageSetting=PackageSetting{a4d4d8c com.netflix.mediaclient/10041}
+
+Registered ContentProviders:
+  com.netflix.mediaclient/com.google.firebase.provider.FirebaseInitProvider:
+    Provider{2cb10c3 com.netflix.mediaclient/com.google.firebase.provider.FirebaseInitProvider}
+  com.netflix.mediaclient/o.aLf:
+    Provider{7798ebc com.netflix.mediaclient/o.aLf}
+  com.netflix.mediaclient/o.aaz:
+    Provider{9a73e45 com.netflix.mediaclient/o.aaz}
+  com.netflix.mediaclient/o.bgq:
+    Provider{f8cb99a com.netflix.mediaclient/o.bgq}
+  com.netflix.mediaclient/.ngpstore.impl.storage.cp.NgpContentProvider:
+    Provider{40f128b com.netflix.mediaclient/.ngpstore.impl.storage.cp.NgpContentProvider}
+
+ContentProvider Authorities:
+  [com.netflix.mediaclient.bugsnag-startup]:
+    Provider{f8cb99a com.netflix.mediaclient/o.bgq}
+      applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+  [com.netflix.mediaclient.firebaseinitprovider]:
+    Provider{2cb10c3 com.netflix.mediaclient/com.google.firebase.provider.FirebaseInitProvider}
+      applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+  [com.netflix.mediaclient]:
+    Provider{40f128b com.netflix.mediaclient/.ngpstore.impl.storage.cp.NgpContentProvider}
+      applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+  [com.netflix.mediaclient.androidx-startup]:
+    Provider{7798ebc com.netflix.mediaclient/o.aLf}
+      applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+  [com.netflix.mediaclient.provider]:
+    Provider{9a73e45 com.netflix.mediaclient/o.aaz}
+      applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+
+Key Set Manager:
+  [com.netflix.mediaclient]
+      Signing KeySets: 14
+
+Packages:
+  Package [com.netflix.mediaclient] (a4d4d8c):
+    userId=10041
+    pkg=Package{8f17151 com.netflix.mediaclient}
+    codePath=/system/app/Netflix
+    resourcePath=/system/app/Netflix
+    legacyNativeLibraryDir=/system/app/Netflix/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=62733 minSdk=28 targetSdk=34
+    versionName=9.14.0 build 9 62733
+    splits=[base]
+    apkSigningVersion=3
+    applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA LARGE_HEAP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_UNRESIZEABLE HAS_DOMAIN_URLS PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/com.netflix.mediaclient
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      org.apache.http.legacy
+      androidx.window.extensions
+      androidx.window.sidecar
+    usesLibraryFiles:
+      /system/framework/org.apache.http.legacy.boot.jar
+    timeStamp=2008-12-31 19:00:00
+    firstInstallTime=2008-12-31 19:00:00
+    lastUpdateTime=2008-12-31 19:00:00
+    signatures=PackageSignatures{4fa1db6 version:3, signatures:[bcfa260e], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA LARGE_HEAP ]
+    declared permissions:
+      com.netflix.nfgsdk.permission.ngpstore: prot=signature, INSTALLED
+      com.netflix.mediaclient.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+      com.netflix.partner: prot=signature|privileged, INSTALLED
+    requested permissions:
+      com.netflix.partner.activation.permission.CHANNEL_ID
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.BLUETOOTH
+      android.permission.CHANGE_WIFI_MULTICAST_STATE
+      android.permission.INTERNET
+      android.permission.WAKE_LOCK
+      android.permission.RECORD_AUDIO
+      android.permission.MODIFY_AUDIO_SETTINGS
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.FOREGROUND_SERVICE
+      com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+      com.amazon.permission.SET_FLAG_NOSOFTKEYS
+      android.permission.BLUETOOTH_CONNECT
+      android.permission.VIBRATE
+      android.permission.FOREGROUND_SERVICE_DATA_SYNC
+      android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK
+      android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE
+      android.permission.FOREGROUND_SERVICE_PHONE_CALL
+      android.permission.FOREGROUND_SERVICE_MICROPHONE
+      android.permission.MANAGE_OWN_CALLS
+      android.permission.POST_NOTIFICATIONS
+      com.netflix.nfgsdk.permission.ngpstore
+      com.google.android.c2dm.permission.RECEIVE
+      com.google.android.gms.permission.AD_ID
+      android.permission.RECEIVE_BOOT_COMPLETED
+      com.netflix.mediaclient.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+      android.permission.READ_EXTERNAL_STORAGE
+    install permissions:
+      com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE: granted=true
+      com.google.android.c2dm.permission.RECEIVE: granted=true
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      com.netflix.mediaclient.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.BLUETOOTH: granted=true
+      android.permission.CHANGE_WIFI_MULTICAST_STATE: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      com.netflix.nfgsdk.permission.ngpstore: granted=true
+      android.permission.MANAGE_OWN_CALLS: granted=true
+      android.permission.VIBRATE: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=-4292869849 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3002, 3003]
+      runtime permissions:
+
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  [com.netflix.mediaclient]
+    path: /system/app/Netflix/Netflix.apk
+      arm: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [com.netflix.mediaclient]
+     Netflix.apk - 20894

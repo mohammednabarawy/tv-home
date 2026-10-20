@@ -1,0 +1,304 @@
+Activity Resolver Table:
+  Full MIME Types:
+      audio/*:
+        f261164 com.stremio.one/androidx.media3.session.BluetoothValidationActivity filter da61849
+          Action: "android.intent.action.VIEW"
+          Scheme: "content"
+          Authority: "media": -1
+          Path: "PatternMatcher{PREFIX: /internal/audio/media/}"
+          Type: "audio"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Wild MIME Types:
+      audio:
+        f261164 com.stremio.one/androidx.media3.session.BluetoothValidationActivity filter da61849
+          Action: "android.intent.action.VIEW"
+          Scheme: "content"
+          Authority: "media": -1
+          Path: "PatternMatcher{PREFIX: /internal/audio/media/}"
+          Type: "audio"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Schemes:
+      stremio:
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter dc71b4c
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{LITERAL: /board}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter dff795
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{LITERAL: /search}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter f0a00aa
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{LITERAL: /library}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter f2449b
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{LITERAL: /discover}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter 2f0a038
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{GLOB: /discover/.*/.*/.*}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter 4957811
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{PREFIX: /addons/}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter c5f7d76
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{GLOB: /addons/.*/.*/.*}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter c268f77
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Authority: "manifest.json": -1 WILD
+          Path: "PatternMatcher{LITERAL: /}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter 92b87e4
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{GLOB: /detail/.*/.*}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter 948844d
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{GLOB: /detail/.*/.*/.*}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter cbdfb02
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{PREFIX: /player/}"
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter 4eaac13
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "stremio"
+          Path: "PatternMatcher{GLOB: /player/.*/.*/.*/.*/.*/.*}"
+      magnet:
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter 4002f7f
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "magnet"
+      http:
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter 20b3e50
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "magnet": -1
+          Path: "PatternMatcher{LITERAL: /}"
+      https:
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter 20b3e50
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "magnet": -1
+          Path: "PatternMatcher{LITERAL: /}"
+      content:
+        f261164 com.stremio.one/androidx.media3.session.BluetoothValidationActivity filter da61849
+          Action: "android.intent.action.VIEW"
+          Scheme: "content"
+          Authority: "media": -1
+          Path: "PatternMatcher{PREFIX: /internal/audio/media/}"
+          Type: "audio"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter eaf89e
+          Action: "android.intent.action.MAIN"
+          Action: "android.intent.action.SEARCH"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+      android.intent.action.SEARCH:
+        3da0fcd com.stremio.one/com.stremio.tv.MainActivity filter eaf89e
+          Action: "android.intent.action.MAIN"
+          Action: "android.intent.action.SEARCH"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+
+  MIME Typed Actions:
+      android.intent.action.VIEW:
+        f261164 com.stremio.one/androidx.media3.session.BluetoothValidationActivity filter da61849
+          Action: "android.intent.action.VIEW"
+          Scheme: "content"
+          Authority: "media": -1
+          Path: "PatternMatcher{PREFIX: /internal/audio/media/}"
+          Type: "audio"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        a376082 com.stremio.one/androidx.profileinstaller.ProfileInstallReceiver filter ba4d20
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        a376082 com.stremio.one/androidx.profileinstaller.ProfileInstallReceiver filter 2809952
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        a376082 com.stremio.one/androidx.profileinstaller.ProfileInstallReceiver filter 6e47423
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        a376082 com.stremio.one/androidx.profileinstaller.ProfileInstallReceiver filter 992c6d9
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.BOOT_COMPLETED:
+        f87e393 com.stremio.one/com.stremio.tv.providers.BootReceiver filter d78f687
+          Action: "android.intent.action.REBOOT"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Category: "android.intent.category.DEFAULT"
+        ae4dfd0 com.stremio.one/androidx.work.impl.background.systemalarm.RescheduleReceiver filter b0849b4
+          Action: "android.intent.action.BOOT_COMPLETED"
+      androidx.work.diagnostics.REQUEST_DIAGNOSTICS:
+        a84dbc9 com.stremio.one/androidx.work.impl.diagnostics.DiagnosticsReceiver filter e3469dd
+          Action: "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+      android.intent.action.MEDIA_BUTTON:
+        bff02ce com.stremio.one/androidx.media.session.MediaButtonReceiver filter 10dd6c6
+          Action: "android.intent.action.MEDIA_BUTTON"
+      android.intent.action.REBOOT:
+        f87e393 com.stremio.one/com.stremio.tv.providers.BootReceiver filter d78f687
+          Action: "android.intent.action.REBOOT"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Category: "android.intent.category.DEFAULT"
+
+Service Resolver Table:
+  Non-Data Actions:
+      android.media.browse.MediaBrowserService:
+        7c325ef com.stremio.one/com.stremio.common.players.MediaPlaybackService filter 42b24a1 permission android.permission.BIND_MEDIA_BROWSER_SERVICE
+          Action: "android.media.browse.MediaBrowserService"
+
+Permissions:
+  Permission [com.stremio.one.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (98028fc):
+    sourcePackage=com.stremio.one
+    uid=10052 gids=null type=0 prot=signature
+    perm=Permission{6f66b85 com.stremio.one.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{98c7dda com.stremio.one/10052}
+
+Registered ContentProviders:
+  com.stremio.one/com.stremio.tv.providers.MediaContentProvider:
+    Provider{1bace64 com.stremio.one/com.stremio.tv.providers.MediaContentProvider}
+  com.stremio.one/com.google.firebase.provider.FirebaseInitProvider:
+    Provider{6ec9239 com.stremio.one/com.google.firebase.provider.FirebaseInitProvider}
+  com.stremio.one/androidx.startup.InitializationProvider:
+    Provider{5cc52b6 com.stremio.one/androidx.startup.InitializationProvider}
+
+ContentProvider Authorities:
+  [com.stremio.one.firebaseinitprovider]:
+    Provider{6ec9239 com.stremio.one/com.google.firebase.provider.FirebaseInitProvider}
+      applicationInfo=ApplicationInfo{bd752d com.stremio.one}
+  [com.stremio.one.content]:
+    Provider{1bace64 com.stremio.one/com.stremio.tv.providers.MediaContentProvider}
+      applicationInfo=ApplicationInfo{bd752d com.stremio.one}
+  [com.stremio.one.androidx-startup]:
+    Provider{5cc52b6 com.stremio.one/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{bd752d com.stremio.one}
+
+Key Set Manager:
+  [com.stremio.one]
+      Signing KeySets: 21
+
+Packages:
+  Package [com.stremio.one] (98c7dda):
+    userId=10052
+    pkg=Package{fc6320b com.stremio.one}
+    codePath=/data/app/com.stremio.one-qS8zvfaKEWc0gNpD2aPUUg==
+    resourcePath=/data/app/com.stremio.one-qS8zvfaKEWc0gNpD2aPUUg==
+    legacyNativeLibraryDir=/data/app/com.stremio.one-qS8zvfaKEWc0gNpD2aPUUg==/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=41048578 minSdk=24 targetSdk=36
+    versionName=1.11.2
+    splits=[base, config.armeabi_v7a, config.hdpi]
+    apkSigningVersion=3
+    applicationInfo=ApplicationInfo{bd752d com.stremio.one}
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP LARGE_HEAP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION HAS_DOMAIN_URLS PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/com.stremio.one
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      android.ext.adservices
+      androidx.window.extensions
+      androidx.window.sidecar
+    timeStamp=2026-10-10 01:22:16
+    firstInstallTime=2026-10-10 01:22:21
+    lastUpdateTime=2026-10-10 01:22:21
+    installerPackageName=com.android.vending
+    signatures=PackageSignatures{a24d8e8 version:3, signatures:[b2857ecb], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP LARGE_HEAP ]
+    declared permissions:
+      com.stremio.one.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.INTERNET
+      android.permission.RECORD_AUDIO
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.FOREGROUND_SERVICE
+      android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK
+      android.permission.POST_NOTIFICATIONS
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.WAKE_LOCK
+      com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+      com.google.android.gms.permission.AD_ID
+      android.permission.ACCESS_ADSERVICES_ATTRIBUTION
+      android.permission.ACCESS_ADSERVICES_AD_ID
+      com.android.providers.tv.permission.WRITE_EPG_DATA
+      com.android.providers.tv.permission.READ_EPG_DATA
+      com.stremio.one.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE: granted=true
+      com.stremio.one.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.android.providers.tv.permission.READ_EPG_DATA: granted=true
+      android.permission.INTERNET: granted=true
+      com.android.providers.tv.permission.WRITE_EPG_DATA: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=-4292735870 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+      enabledComponents:
+        androidx.work.impl.background.systemalarm.RescheduleReceiver
+
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  [com.stremio.one]
+    path: /data/app/com.stremio.one-qS8zvfaKEWc0gNpD2aPUUg==/base.apk
+      arm: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [com.stremio.one]
+     base.apk - 11193

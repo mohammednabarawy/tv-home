@@ -1,0 +1,129 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        1b836 com.logicyel.novastb/com.logicyel.utv.StartActivity filter bd2db80
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        6a01337 com.logicyel.novastb/androidx.profileinstaller.ProfileInstallReceiver filter 5af28b2
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        6a01337 com.logicyel.novastb/androidx.profileinstaller.ProfileInstallReceiver filter 372b214
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        6a01337 com.logicyel.novastb/androidx.profileinstaller.ProfileInstallReceiver filter 9901abd
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        6a01337 com.logicyel.novastb/androidx.profileinstaller.ProfileInstallReceiver filter 5a6c003
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+
+Permissions:
+  Permission [com.logicyel.novastb.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (b8d20a4):
+    sourcePackage=com.logicyel.novastb
+    uid=10046 gids=null type=0 prot=signature
+    perm=Permission{de10e0d com.logicyel.novastb.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{62921c2 com.logicyel.novastb/10046}
+
+Registered ContentProviders:
+  com.logicyel.novastb/com.squareup.picasso.PicassoProvider:
+    Provider{e80f670 com.logicyel.novastb/com.squareup.picasso.PicassoProvider}
+  com.logicyel.novastb/com.google.firebase.provider.FirebaseInitProvider:
+    Provider{dd7099c com.logicyel.novastb/com.google.firebase.provider.FirebaseInitProvider}
+  com.logicyel.novastb/androidx.startup.InitializationProvider:
+    Provider{9aef30b com.logicyel.novastb/androidx.startup.InitializationProvider}
+  com.logicyel.novastb/androidx.core.content.FileProvider:
+    Provider{9b54325 com.logicyel.novastb/androidx.core.content.FileProvider}
+
+ContentProvider Authorities:
+  [com.logicyel.novastb.com.squareup.picasso]:
+    Provider{e80f670 com.logicyel.novastb/com.squareup.picasso.PicassoProvider}
+      applicationInfo=ApplicationInfo{1b7e186 com.logicyel.novastb}
+  [com.logicyel.novastb.provider]:
+    Provider{9b54325 com.logicyel.novastb/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{1b7e186 com.logicyel.novastb}
+  [com.logicyel.novastb.androidx-startup]:
+    Provider{9aef30b com.logicyel.novastb/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{1b7e186 com.logicyel.novastb}
+  [com.logicyel.novastb.firebaseinitprovider]:
+    Provider{dd7099c com.logicyel.novastb/com.google.firebase.provider.FirebaseInitProvider}
+      applicationInfo=ApplicationInfo{1b7e186 com.logicyel.novastb}
+
+Key Set Manager:
+  [com.logicyel.novastb]
+      Signing KeySets: 15
+
+Packages:
+  Package [com.logicyel.novastb] (62921c2):
+    userId=10046
+    pkg=Package{5d8abd3 com.logicyel.novastb}
+    codePath=/data/app/com.logicyel.novastb-l4Qa8YQoybhEd_Y0uLuGpA==
+    resourcePath=/data/app/com.logicyel.novastb-l4Qa8YQoybhEd_Y0uLuGpA==
+    legacyNativeLibraryDir=/data/app/com.logicyel.novastb-l4Qa8YQoybhEd_Y0uLuGpA==/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=354 minSdk=23 targetSdk=35
+    versionName=3.354
+    splits=[base]
+    apkSigningVersion=2
+    applicationInfo=ApplicationInfo{1b7e186 com.logicyel.novastb}
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/com.logicyel.novastb
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-07-13 18:33:51
+    firstInstallTime=2026-07-13 18:33:54
+    lastUpdateTime=2026-07-13 18:33:54
+    installerPackageName=com.excellence.appstore
+    signatures=PackageSignatures{9cda310 version:2, signatures:[de39b3], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    declared permissions:
+      com.logicyel.novastb.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.WAKE_LOCK
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.READ_PHONE_STATE
+      android.permission.VIBRATE
+      android.permission.CAMERA
+      com.google.android.gms.permission.AD_ID
+      com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+      com.logicyel.novastb.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+      android.permission.READ_EXTERNAL_STORAGE
+    install permissions:
+      com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE: granted=true
+      android.permission.INTERNET: granted=true
+      com.logicyel.novastb.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.VIBRATE: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=-4292738766 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+        android.permission.READ_PHONE_STATE: granted=true
+
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  [com.logicyel.novastb]
+    path: /data/app/com.logicyel.novastb-l4Qa8YQoybhEd_Y0uLuGpA==/base.apk
+      arm: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [com.logicyel.novastb]
+     base.apk - 2582

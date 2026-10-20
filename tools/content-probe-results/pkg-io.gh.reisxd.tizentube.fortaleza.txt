@@ -1,0 +1,112 @@
+Activity Resolver Table:
+  Schemes:
+      http:
+        9ed9ed2 io.gh.reisxd.tizentube.fortaleza/dev.cobalt.app.MainActivity filter cacee1f
+          Action: "android.intent.action.VIEW"
+          Action: "android.media.action.MEDIA_PLAY_FROM_SEARCH"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "youtube.com": -1
+          Authority: "www.youtube.com": -1
+          Authority: "m.youtube.com": -1
+          Authority: "youtu.be": -1
+          Path: "PatternMatcher{GLOB: .*}"
+      https:
+        9ed9ed2 io.gh.reisxd.tizentube.fortaleza/dev.cobalt.app.MainActivity filter cacee1f
+          Action: "android.intent.action.VIEW"
+          Action: "android.media.action.MEDIA_PLAY_FROM_SEARCH"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "youtube.com": -1
+          Authority: "www.youtube.com": -1
+          Authority: "m.youtube.com": -1
+          Authority: "youtu.be": -1
+          Path: "PatternMatcher{GLOB: .*}"
+
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        9ed9ed2 io.gh.reisxd.tizentube.fortaleza/dev.cobalt.app.MainActivity filter 1af0dbe
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+          Category: "android.intent.category.DEFAULT"
+
+Registered ContentProviders:
+  io.gh.reisxd.tizentube.fortaleza/androidx.startup.InitializationProvider:
+    Provider{4c578cf io.gh.reisxd.tizentube.fortaleza/androidx.startup.InitializationProvider}
+
+ContentProvider Authorities:
+  [io.gh.reisxd.tizentube.fortaleza.androidx-startup]:
+    Provider{4c578cf io.gh.reisxd.tizentube.fortaleza/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{7400955 io.gh.reisxd.tizentube.fortaleza}
+
+Key Set Manager:
+  [io.gh.reisxd.tizentube.fortaleza]
+      Signing KeySets: 20
+
+Packages:
+  Package [io.gh.reisxd.tizentube.fortaleza] (8fccba3):
+    userId=10051
+    pkg=Package{cc08ea0 io.gh.reisxd.tizentube.fortaleza}
+    codePath=/data/app/io.gh.reisxd.tizentube.fortaleza-T0Q2alQdEgn-PFGMB80ePQ==
+    resourcePath=/data/app/io.gh.reisxd.tizentube.fortaleza-T0Q2alQdEgn-PFGMB80ePQ==
+    legacyNativeLibraryDir=/data/app/io.gh.reisxd.tizentube.fortaleza-T0Q2alQdEgn-PFGMB80ePQ==/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=1 minSdk=24 targetSdk=34
+    versionName=: Fortaleza EC ┬«
+    splits=[base]
+    apkSigningVersion=2
+    applicationInfo=ApplicationInfo{7400955 io.gh.reisxd.tizentube.fortaleza}
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION HAS_DOMAIN_URLS ]
+    dataDir=/data/user/0/io.gh.reisxd.tizentube.fortaleza
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-09-04 01:07:42
+    firstInstallTime=2026-09-04 01:07:44
+    lastUpdateTime=2026-09-04 01:07:44
+    installerPackageName=com.android.packageinstaller
+    signatures=PackageSignatures{931aa59 version:2, signatures:[d7f1f224], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    requested permissions:
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.GET_ACCOUNTS
+      android.permission.INTERNET
+      android.permission.MODIFY_AUDIO_SETTINGS
+      android.permission.RECORD_AUDIO
+      android.permission.FOREGROUND_SERVICE
+      android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK
+      com.google.android.gms.permission.AD_ID
+    install permissions:
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+    User 0: ceDataInode=-4292736200 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  [io.gh.reisxd.tizentube.fortaleza]
+    path: /data/app/io.gh.reisxd.tizentube.fortaleza-T0Q2alQdEgn-PFGMB80ePQ==/base.apk
+      arm: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [io.gh.reisxd.tizentube.fortaleza]
+     base.apk - 530

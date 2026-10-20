@@ -1,5 +1,7 @@
 > **StarNet Twin 4000 Plus port (experimental):** See [receiver-specific setup, safe install and diagnostics](docs/STARNET_TWIN_4000_PLUS.md). Do not run TCL debloat scripts on StarNet devices.
 
+> **Current StarNet 3.1 edition:** [Arabic RTL design, optional default launcher selection, and HD photo screensavers](docs/PREMIUM_ARABIC.md). Earlier notes about StarNet test builds without HOME registration are historical.
+
 # tv-home
 
 **Make a slow, ad-filled Android TV fast and clean again.** Debloat it over Wi-Fi and give it a

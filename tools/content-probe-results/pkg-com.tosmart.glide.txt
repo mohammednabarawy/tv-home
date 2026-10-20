@@ -1,0 +1,748 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      com.tostart.issuepush.FEEDBACK_LIST:
+        b26b157 com.tosmart.glide/com.tosmart.issuepush.views.feedbacks.FeedbackListActivity filter 6504646
+          Action: "android.intent.action.VIEW"
+          Action: "com.tostart.issuepush.FEEDBACK_LIST"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.MAIN:
+        9cc3444 com.tosmart.glide/.init.InitActivity filter 49ad304
+          Action: "android.intent.action.MAIN"
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.HOME"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.MONKEY"
+        477292d com.tosmart.glide/.DvbAlias filter b4f40ed
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+        b166e62 com.tosmart.glide/com.tosmart.launcher.vague.HomePageActivity filter 5073c2b
+          Action: "android.intent.action.MAIN"
+          Action: "com.tosmart.launcher.main.menu"
+          Category: "android.intent.category.MONKEY"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.VIEW:
+        9cc3444 com.tosmart.glide/.init.InitActivity filter 49ad304
+          Action: "android.intent.action.MAIN"
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.HOME"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.MONKEY"
+        ffb0bf3 com.tosmart.glide/com.excellence.osd.epgpro.ui.EpgProActivity filter 1a0dc7a
+          Action: "android.intent.action.VIEW"
+          Action: "com.tosmart.action.epg_pro"
+          Category: "android.intent.category.DEFAULT"
+        b26b157 com.tosmart.glide/com.tosmart.issuepush.views.feedbacks.FeedbackListActivity filter 6504646
+          Action: "android.intent.action.VIEW"
+          Action: "com.tostart.issuepush.FEEDBACK_LIST"
+          Category: "android.intent.category.DEFAULT"
+        c7a50b0 com.tosmart.glide/com.tosmart.issuepush.views.issue.IssueListActivity filter 5bb7007
+          Action: "android.intent.action.VIEW"
+          Action: "com.tostart.issuepush.ISSUE_LIST"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.home:
+        cca2b29 com.tosmart.glide/.home.HomeActivity filter ad50b22
+          Action: "android.intent.action.home"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.action.epg_pro:
+        ffb0bf3 com.tosmart.glide/com.excellence.osd.epgpro.ui.EpgProActivity filter 1a0dc7a
+          Action: "android.intent.action.VIEW"
+          Action: "com.tosmart.action.epg_pro"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.action.NavHost:
+        5f10eae com.tosmart.glide/com.tosmart.dvb.common.NavHostActivity filter 36bfee9
+          Action: "com.tosmart.action.NavHost"
+          Category: "com.tosmart.azure.category"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.action.home.timer:
+        2b0744f com.tosmart.glide/com.tosmart.dvb.common.home.timer.EventTimerActivity filter ddcb76e
+          Action: "com.tosmart.action.home.timer"
+          Category: "com.tosmart.azure.category"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.action.prayertime:
+        cabc7dc com.tosmart.glide/com.tosmart.dvb.common.prayer.PrayerTimeActivity filter 9577e9c
+          Action: "com.tosmart.action.prayertime"
+          Category: "com.tosmart.azure.category"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.launcher.ui.CHANGE_WALLPAPER:
+        c3150e5 com.tosmart.glide/com.tosmart.launcher.ottlauncher.ui.wallpaper.WallpaperActivity filter 73ba221
+          Action: "com.tosmart.launcher.ui.CHANGE_WALLPAPER"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.launcher.glide.app:
+        dc367ba com.tosmart.glide/com.tosmart.launcher.vague.app.AllAppsActivity filter cabe888
+          Action: "com.tosmart.launcher.glide.app"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.launcher.main.menu:
+        b166e62 com.tosmart.glide/com.tosmart.launcher.vague.HomePageActivity filter 5073c2b
+          Action: "android.intent.action.MAIN"
+          Action: "com.tosmart.launcher.main.menu"
+          Category: "android.intent.category.MONKEY"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.home.menu.navigation:
+        9aa066b com.tosmart.glide/com.tosmart.dvb.common.mainmenu.LeanbackMainActivity filter b7ca0a5
+          Action: "com.tosmart.home.menu.navigation"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.action.ExtNavHost:
+        d1b85c8 com.tosmart.glide/com.tosmart.stb_extend.ext_view.navigation.ExtNavHostActivity filter d741b70
+          Action: "com.tosmart.action.ExtNavHost"
+          Category: "com.tosmart.azure.category"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.action.home.shorcut:
+        82b1661 com.tosmart.glide/com.tosmart.dvb.common.home.shortcutsetting.ShortcutSettingActivity filter 3f1ce0f
+          Action: "com.tosmart.action.home.shorcut"
+          Category: "com.tosmart.azure.category"
+          Category: "android.intent.category.DEFAULT"
+      com.tostart.issuepush.ISSUE_LIST:
+        c7a50b0 com.tosmart.glide/com.tosmart.issuepush.views.issue.IssueListActivity filter 5bb7007
+          Action: "android.intent.action.VIEW"
+          Action: "com.tostart.issuepush.ISSUE_LIST"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.action.update.netupdate:
+        b304586 com.tosmart.glide/com.tosmart.stb_extend.ext_view.view.NetUpdateActivity filter 46649b3
+          Action: "com.tosmart.action.update.netupdate"
+          Category: "android.intent.category.DEFAULT"
+
+Receiver Resolver Table:
+  Schemes:
+      package:
+        4609e47 com.tosmart.glide/com.tosmart.ott.receiver.InstallUninstallBroadcastReceiver filter 74cdf1f
+          Action: "android.intent.action.PACKAGE_ADDED"
+          Action: "android.intent.action.PACKAGE_REMOVED"
+          Action: "android.intent.action.PACKAGE_REPLACED"
+          Scheme: "package"
+        f473674 com.tosmart.glide/com.excellence.multiscreen.appmarket.InstallReceiver filter 65bacca
+          Action: "android.intent.action.PACKAGE_ADDED"
+          Action: "android.intent.action.PACKAGE_REMOVED"
+          Scheme: "package"
+      file:
+        5a1b79d com.tosmart.glide/com.tosmart.ott.receiver.UsbConnectBroadcastReceiver filter 8b0a26c
+          Action: "android.intent.action.MEDIA_MOUNTED"
+          Action: "android.intent.action.MEDIA_UNMOUNTED"
+          Scheme: "file"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+
+  Non-Data Actions:
+      com.osd.start_init_server:
+        c3b3412 com.tosmart.glide/com.dvb.init.InitReceiver filter eacbe7d
+          Action: "com.osd.start_init_server"
+          mPriority=30, mOrder=0, mHasPartialTypes=false
+        c3b3412 com.tosmart.glide/com.dvb.init.InitReceiver filter 3456172
+          Action: "com.osd.start_init_server"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        6fed7e3 com.tosmart.glide/androidx.profileinstaller.ProfileInstallReceiver filter 5efcb96
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      com.tosmart.action.ENTER_STANDBY:
+        cdb45e0 com.tosmart.glide/com.tosmart.dvb.common.power.PowerActionReceiver filter 86769c3
+          Action: "com.tosmart.action.POWER_OFF"
+          Action: "com.tosmart.action.ENTER_STANDBY"
+          Action: "com.tosmart.action.QUIT_STANDBY"
+          Action: "com.dvb.spring.POWER_FINISH_BROADCAST"
+          mPriority=30, mOrder=0, mHasPartialTypes=false
+      com.dvb.spring.POWER_FINISH_BROADCAST:
+        cdb45e0 com.tosmart.glide/com.tosmart.dvb.common.power.PowerActionReceiver filter 86769c3
+          Action: "com.tosmart.action.POWER_OFF"
+          Action: "com.tosmart.action.ENTER_STANDBY"
+          Action: "com.tosmart.action.QUIT_STANDBY"
+          Action: "com.dvb.spring.POWER_FINISH_BROADCAST"
+          mPriority=30, mOrder=0, mHasPartialTypes=false
+      com.tosmart.action.POWER_OFF:
+        cdb45e0 com.tosmart.glide/com.tosmart.dvb.common.power.PowerActionReceiver filter 86769c3
+          Action: "com.tosmart.action.POWER_OFF"
+          Action: "com.tosmart.action.ENTER_STANDBY"
+          Action: "com.tosmart.action.QUIT_STANDBY"
+          Action: "com.dvb.spring.POWER_FINISH_BROADCAST"
+          mPriority=30, mOrder=0, mHasPartialTypes=false
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        6fed7e3 com.tosmart.glide/androidx.profileinstaller.ProfileInstallReceiver filter 13b7958
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      android.intent.action.TIMEZONE_CHANGED:
+        3e73099 com.tosmart.glide/com.excellence.osd.epgpro.service.TimeZoneChangedReceiver filter f4bc579
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.TIME_SET:
+        9947f5e com.tosmart.glide/com.tosmart.osd.DataInterfaceCustomReceive filter 1ea4e3b
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+      androidx.profileinstaller.action.SKIP_FILE:
+        6fed7e3 com.tosmart.glide/androidx.profileinstaller.ProfileInstallReceiver filter 75baab1
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        6fed7e3 com.tosmart.glide/androidx.profileinstaller.ProfileInstallReceiver filter 3259317
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.BOOT_COMPLETED:
+        3bd0f3f com.tosmart.glide/com.tosmart.launcher.ottlauncher.ui.wallpaper.broadcast.BootBroadcastReceiver filter e0422be
+          Action: "android.intent.action.BOOT_COMPLETED"
+        9947f5e com.tosmart.glide/com.tosmart.osd.DataInterfaceCustomReceive filter 1ea4e3b
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+      android.intent.action.gmscreen.CAST_BROADCAST:
+        bdee00c com.tosmart.glide/com.excellence.multiscreen.casturl.CastReceiver filter 3a4035
+          Action: "android.intent.action.gmscreen.CAST_BROADCAST"
+          Category: "android.intent.category.DEFAULT"
+      com.tosmart.action.VOLUME_DOWN:
+        b713d55 com.tosmart.glide/com.tosmart.dvb.common.receiver.DvbVolumeControlReceiver filter 613a240
+          Action: "com.tosmart.action.VOLUME_UP"
+          Action: "com.tosmart.action.VOLUME_DOWN"
+          Action: "com.tosmart.action.VOLUME_MUTE"
+          Action: "com.tosmart.action.SET_VOLUME"
+          mPriority=800, mOrder=0, mHasPartialTypes=false
+      com.tosmart.action.VOLUME_MUTE:
+        b713d55 com.tosmart.glide/com.tosmart.dvb.common.receiver.DvbVolumeControlReceiver filter 613a240
+          Action: "com.tosmart.action.VOLUME_UP"
+          Action: "com.tosmart.action.VOLUME_DOWN"
+          Action: "com.tosmart.action.VOLUME_MUTE"
+          Action: "com.tosmart.action.SET_VOLUME"
+          mPriority=800, mOrder=0, mHasPartialTypes=false
+      com.tosmart.action.VOLUME_UP:
+        b713d55 com.tosmart.glide/com.tosmart.dvb.common.receiver.DvbVolumeControlReceiver filter 613a240
+          Action: "com.tosmart.action.VOLUME_UP"
+          Action: "com.tosmart.action.VOLUME_DOWN"
+          Action: "com.tosmart.action.VOLUME_MUTE"
+          Action: "com.tosmart.action.SET_VOLUME"
+          mPriority=800, mOrder=0, mHasPartialTypes=false
+      com.tosmart.action.QUIT_STANDBY:
+        cdb45e0 com.tosmart.glide/com.tosmart.dvb.common.power.PowerActionReceiver filter 86769c3
+          Action: "com.tosmart.action.POWER_OFF"
+          Action: "com.tosmart.action.ENTER_STANDBY"
+          Action: "com.tosmart.action.QUIT_STANDBY"
+          Action: "com.dvb.spring.POWER_FINISH_BROADCAST"
+          mPriority=30, mOrder=0, mHasPartialTypes=false
+      com.tosmart.action.SET_VOLUME:
+        b713d55 com.tosmart.glide/com.tosmart.dvb.common.receiver.DvbVolumeControlReceiver filter 613a240
+          Action: "com.tosmart.action.VOLUME_UP"
+          Action: "com.tosmart.action.VOLUME_DOWN"
+          Action: "com.tosmart.action.VOLUME_MUTE"
+          Action: "com.tosmart.action.SET_VOLUME"
+          mPriority=800, mOrder=0, mHasPartialTypes=false
+
+Service Resolver Table:
+  Non-Data Actions:
+      com.tosmart.glide.messenger:
+        4a5336a com.tosmart.glide/com.blankj.utilcode.util.MessengerUtils$ServerService filter 7d08cd4
+          Action: "com.tosmart.glide.messenger"
+      com.tosmart.market.action.DOWNLOAD:
+        dfd605b com.tosmart.glide/com.tosmart.appmarketcore.download.DownloadService filter 39d227
+          Action: "com.tosmart.market.action.DOWNLOAD"
+      com.ad.ACTION_BIND_AD_SERVICE:
+        99ff0f8 com.tosmart.glide/com.ad.AdvertisementService filter 7605ce6 permission com.ad.permission.BIND_AD_SERVICE
+          Action: "com.ad.ACTION_BIND_AD_SERVICE"
+
+Preferred Activities User 0:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        11bc77c com.tosmart.glide/.init.InitActivity
+         mMatch=0x100000 mAlways=true
+          Selected from:
+            com.tosmart.glide/.init.InitActivity
+            com.android.tv.settings/.system.FallbackHome
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.HOME"
+          Category: "android.intent.category.DEFAULT"
+
+Permissions:
+  Permission [com.tosmart.dvb.common.permission.READ_PROGRAM_INDEX] (c5559d1):
+    sourcePackage=com.tosmart.glide
+    uid=1000 gids=null type=0 prot=signature
+    perm=Permission{a5b1c36 com.tosmart.dvb.common.permission.READ_PROGRAM_INDEX}
+    packageSetting=PackageSetting{6c0424b com.tosmart.glide/1000}
+
+Permissions:
+  Permission [com.dvb.service.permission.WRITE_CONFIG] (327a737):
+    sourcePackage=com.tosmart.glide
+    uid=1000 gids=null type=0 prot=signature
+    perm=Permission{85f24a4 com.dvb.service.permission.WRITE_CONFIG}
+    packageSetting=PackageSetting{6c0424b com.tosmart.glide/1000}
+
+Permissions:
+  Permission [com.dvb.service.permission.READ_CONFIG] (884c20d):
+    sourcePackage=com.tosmart.glide
+    uid=1000 gids=null type=0 prot=normal
+    perm=Permission{6b4c5c2 com.dvb.service.permission.READ_CONFIG}
+    packageSetting=PackageSetting{6c0424b com.tosmart.glide/1000}
+
+Permissions:
+  Permission [com.tosmart.glide.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (5457fd3):
+    sourcePackage=com.tosmart.glide
+    uid=1000 gids=null type=0 prot=signature
+    perm=Permission{bbbe710 com.tosmart.glide.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{6c0424b com.tosmart.glide/1000}
+
+Registered ContentProviders:
+  com.tosmart.glide/androidx.startup.InitializationProvider:
+    Provider{5c87209 com.tosmart.glide/androidx.startup.InitializationProvider}
+  com.tosmart.glide/com.blankj.utilcode.util.UtilsFileProvider:
+    Provider{50d7c0e com.tosmart.glide/com.blankj.utilcode.util.UtilsFileProvider}
+  com.tosmart.glide/com.tosmart.appmarketcore.ContextProvider:
+    Provider{35e462f com.tosmart.glide/com.tosmart.appmarketcore.ContextProvider}
+  com.tosmart.glide/com.tosmart.dvb.common.provider.ProgramContentProvider:
+    Provider{fe0643c com.tosmart.glide/com.tosmart.dvb.common.provider.ProgramContentProvider}
+  com.tosmart.glide/com.tosmart.issuepush.model.IssueProvider:
+    Provider{37d25c5 com.tosmart.glide/com.tosmart.issuepush.model.IssueProvider}
+  com.tosmart.glide/com.tosmart.launcher.ottlauncher.ui.wallpaper.provider.WallpaperProvider:
+    Provider{9294b1a com.tosmart.glide/com.tosmart.launcher.ottlauncher.ui.wallpaper.provider.WallpaperProvider}
+  com.tosmart.glide/me.jessyan.autosize.InitProvider:
+    Provider{b93164b com.tosmart.glide/me.jessyan.autosize.InitProvider}
+  com.tosmart.glide/com.provider.BoxConfigProvider:
+    Provider{76d8828 com.tosmart.glide/com.provider.BoxConfigProvider}
+  com.tosmart.glide/androidx.core.content.FileProvider:
+    Provider{f5941 com.tosmart.glide/androidx.core.content.FileProvider}
+  com.tosmart.glide/com.excellence.basetoolslibrary.assist.Provider:
+    Provider{d00fee6 com.tosmart.glide/com.excellence.basetoolslibrary.assist.Provider}
+  com.tosmart.glide/com.tosmart.ott.provider.AppProvider:
+    Provider{2facc27 com.tosmart.glide/com.tosmart.ott.provider.AppProvider}
+  com.tosmart.glide/com.provider.ReadOnlyConfigProvider:
+    Provider{c26fed4 com.tosmart.glide/com.provider.ReadOnlyConfigProvider}
+
+ContentProvider Authorities:
+  [com.tosmart.glide.autosize-init-provider]:
+    Provider{b93164b com.tosmart.glide/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.glide.contextprovider]:
+    Provider{37d25c5 com.tosmart.glide/com.tosmart.issuepush.model.IssueProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.glide.contextProvider]:
+    Provider{35e462f com.tosmart.glide/com.tosmart.appmarketcore.ContextProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.glide.provider.AppProvider]:
+    Provider{2facc27 com.tosmart.glide/com.tosmart.ott.provider.AppProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.dvb.service.readonly.provider]:
+    Provider{c26fed4 com.tosmart.glide/com.provider.ReadOnlyConfigProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.dvb.service.provider]:
+    Provider{76d8828 com.tosmart.glide/com.provider.BoxConfigProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.glide.provider]:
+    Provider{d00fee6 com.tosmart.glide/com.excellence.basetoolslibrary.assist.Provider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.excellence.osd.fileProvider]:
+    Provider{f5941 com.tosmart.glide/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.dvb.common.program.provider]:
+    Provider{fe0643c com.tosmart.glide/com.tosmart.dvb.common.provider.ProgramContentProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.glide.androidx-startup]:
+    Provider{5c87209 com.tosmart.glide/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.launcher.ottlauncher.ui.wallpaper.provider]:
+    Provider{9294b1a com.tosmart.glide/com.tosmart.launcher.ottlauncher.ui.wallpaper.provider.WallpaperProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.glide.utilcode.fileprovider]:
+    Provider{50d7c0e com.tosmart.glide/com.blankj.utilcode.util.UtilsFileProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+
+Key Set Manager:
+  [com.tosmart.glide]
+      Signing KeySets: 1
+
+Packages:
+  Package [com.tosmart.glide] (6c0424b):
+    userId=1000
+    sharedUser=SharedUserSetting{f4e2372 android.uid.system/1000}
+    pkg=Package{f3e03c3 com.tosmart.glide}
+    codePath=/product/app/glide
+    resourcePath=/product/app/glide
+    legacyNativeLibraryDir=/product/app/glide/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=1 minSdk=26 targetSdk=35
+    versionName=1.0
+    splits=[base]
+    apkSigningVersion=3
+    applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION PARTIALLY_DIRECT_BOOT_AWARE PRODUCT ]
+    dataDir=/data/user/0/com.tosmart.glide
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      androidx.window.extensions
+      androidx.window.sidecar
+    timeStamp=2008-12-31 19:00:00
+    firstInstallTime=2008-12-31 19:00:00
+    lastUpdateTime=2008-12-31 19:00:00
+    signatures=PackageSignatures{e5f3440 version:3, signatures:[b4addb29], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    declared permissions:
+      com.osd.permission.ACCESS_OSD_WAKEUP_ACTION: prot=normal
+      com.tosmart.dvb.common.permission.READ_PROGRAM_INDEX: prot=signature, INSTALLED
+      com.dvb.service.permission.READ_CONFIG: prot=normal, INSTALLED
+      com.dvb.service.permission.WRITE_CONFIG: prot=signature, INSTALLED
+      com.tosmart.glide.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      com.osd.permission.ACCESS_OSD_WAKEUP_ACTION
+      android.permission.READ_PHONE_STATE
+      android.permission.INTERNET
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.READ_LOGS
+      android.permission.READ_EXTERNAL_STORAGE
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.REQUEST_INSTALL_PACKAGES
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.INTERACT_ACROSS_USERS
+      com.android.providers.tv.permission.READ_EPG_DATA
+      com.android.providers.tv.permission.WRITE_EPG_DATA
+      com.android.providers.tv.permission.ACCESS_ALL_EPG_DATA
+      android.permission.SYSTEM_ALERT_WINDOW
+      android.permission.RECORD_AUDIO
+      android.permission.BLUETOOTH
+      android.permission.BLUETOOTH_ADMIN
+      android.permission.BROADCAST_STICKY
+      android.permission.CHANGE_WIFI_STATE
+      android.permission.KILL_BACKGROUND_PROCESSES
+      android.permission.PACKAGE_USAGE_STATS
+      android.permission.SET_TIME
+      android.permission.READ_DREAM_STATE
+      android.permission.CHANGE_NETWORK_STATE
+      android.permission.CHANGE_CONFIGURATION
+      android.permission.WRITE_SETTINGS
+      android.permission.GET_PACKAGE_SIZE
+      android.permission.CLEAR_APP_CACHE
+      android.permission.OVERRIDE_WIFI_CONFIG
+      android.permission.WRITE_MEDIA_STORAGE
+      android.permission.FORCE_STOP_PACKAGES
+      android.permission.DELETE_PACKAGES
+      android.permission.ACCESS_COARSE_LOCATION
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+      android.permission.INSTALL_PACKAGES
+      android.permission.REORDER_TASKS
+      permission.REQUEST_INSTALL_PACKAGES
+      permission.REQUEST_DELETE_PACKAGES
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.REQUEST_DELETE_PACKAGES
+      android.permission.GET_TASKS
+      android.permission.READ_CONTACTS
+      android.permission.CAMERA
+      android.permission.ACCESS_FINE_LOCATION
+      android.permission.BLUETOOTH_CONNECT
+      android.permission.LOCAL_MAC_ADDRESS
+      com.google.android.gms.permission.AD_ID
+      android.permission.ACCESS_ADSERVICES_ATTRIBUTION
+      android.permission.ACCESS_ADSERVICES_AD_ID
+      android.permission.AD_SERVICES_CONFIG
+      android.permission.FOREGROUND_SERVICE
+      com.tosmart.glide.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      android.permission.ACCESS_CACHE_FILESYSTEM: granted=true
+      android.permission.BIND_INCALL_SERVICE: granted=true
+      android.permission.WRITE_SETTINGS: granted=true
+      android.permission.CONTROL_KEYGUARD: granted=true
+      android.permission.CONFIGURE_WIFI_DISPLAY: granted=true
+      android.permission.CONFIGURE_DISPLAY_COLOR_MODE: granted=true
+      android.permission.ACCESS_WIMAX_STATE: granted=true
+      android.permission.RECOVERY: granted=true
+      android.permission.USE_CREDENTIALS: granted=true
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.ACCESS_CHECKIN_PROPERTIES: granted=true
+      android.permission.MODIFY_AUDIO_ROUTING: granted=true
+      android.permission.INSTALL_LOCATION_PROVIDER: granted=true
+      android.permission.USE_RESERVED_DISK: granted=true
+      android.permission.MANAGE_ACCOUNTS: granted=true
+      android.permission.SYSTEM_ALERT_WINDOW: granted=true
+      android.permission.BROADCAST_PHONE_ACCOUNT_REGISTRATION: granted=true
+      android.permission.CLEAR_APP_USER_DATA: granted=true
+      android.permission.BROADCAST_CALLLOG_INFO: granted=true
+      android.permission.INSTALL_PACKAGES: granted=true
+      android.permission.CHANGE_COMPONENT_ENABLED_STATE: granted=true
+      android.permission.NFC: granted=true
+      android.permission.NETWORK_SETTINGS: granted=true
+      android.permission.CALL_PRIVILEGED: granted=true
+      android.permission.CHANGE_NETWORK_STATE: granted=true
+      android.permission.MASTER_CLEAR: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.WRITE_SYNC_SETTINGS: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.google.android.googleapps.permission.GOOGLE_AUTH: granted=true
+      android.permission.PEERS_MAC_ADDRESS: granted=true
+      android.permission.DEVICE_POWER: granted=true
+      android.permission.SET_TIME_ZONE: granted=true
+      android.permission.READ_PRINT_SERVICES: granted=true
+      android.permission.MANAGE_PROFILE_AND_DEVICE_OWNERS: granted=true
+      com.android.providers.tv.permission.READ_EPG_DATA: granted=true
+      android.permission.READ_PROFILE: granted=true
+      android.permission.BLUETOOTH: granted=true
+      com.google.android.assistant.WRITE_HOTWORD_STATE: granted=true
+      android.permission.WRITE_MEDIA_STORAGE: granted=true
+      android.permission.WRITE_BLOCKED_NUMBERS: granted=true
+      android.permission.GET_TASKS: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.REORDER_TASKS: granted=true
+      android.permission.BLUETOOTH_ADMIN: granted=true
+      android.permission.CONTROL_VPN: granted=true
+      android.permission.MANAGE_FINGERPRINT: granted=true
+      android.permission.BIND_CONNECTION_SERVICE: granted=true
+      com.android.providers.tv.permission.WRITE_EPG_DATA: granted=true
+      android.permission.ACCESS_INSTANT_APPS: granted=true
+      android.permission.GET_PACKAGE_SIZE: granted=true
+      android.permission.MANAGE_USB: granted=true
+      android.permission.INTERACT_ACROSS_USERS_FULL: granted=true
+      android.permission.STOP_APP_SWITCHES: granted=true
+      android.permission.BATTERY_STATS: granted=true
+      android.permission.PACKAGE_USAGE_STATS: granted=true
+      android.permission.MOUNT_UNMOUNT_FILESYSTEMS: granted=true
+      android.permission.GET_ACCOUNTS_PRIVILEGED: granted=true
+      android.permission.TETHER_PRIVILEGED: granted=true
+      android.permission.WRITE_SECURE_SETTINGS: granted=true
+      android.permission.MOVE_PACKAGE: granted=true
+      android.permission.READ_BLOCKED_NUMBERS: granted=true
+      android.permission.READ_SEARCH_INDEXABLES: granted=true
+      android.permission.READ_PRIVILEGED_PHONE_STATE: granted=true
+      android.permission.TRIGGER_TIME_ZONE_RULES_CHECK: granted=true
+      android.permission.ACCESS_DOWNLOAD_MANAGER: granted=true
+      android.permission.BROADCAST_STICKY: granted=true
+      android.permission.BLUETOOTH_PRIVILEGED: granted=true
+      android.permission.HARDWARE_TEST: granted=true
+      android.permission.SUBSTITUTE_NOTIFICATION_APP_NAME: granted=true
+      android.intent.category.MASTER_CLEAR.permission.C2D_MESSAGE: granted=true
+      android.permission.BIND_JOB_SERVICE: granted=true
+      android.permission.CONFIRM_FULL_BACKUP: granted=true
+      android.permission.SET_TIME: granted=true
+      android.permission.WRITE_APN_SETTINGS: granted=true
+      android.permission.CHANGE_WIFI_STATE: granted=true
+      com.android.providers.tv.permission.ACCESS_ALL_EPG_DATA: granted=true
+      android.permission.MANAGE_USERS: granted=true
+      android.permission.SET_PREFERRED_APPLICATIONS: granted=true
+      android.permission.DELETE_CACHE_FILES: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.DISABLE_KEYGUARD: granted=true
+      android.permission.BACKUP: granted=true
+      android.permission.CHANGE_CONFIGURATION: granted=true
+      android.permission.USER_ACTIVITY: granted=true
+      android.permission.LOCAL_MAC_ADDRESS: granted=true
+      android.permission.READ_LOGS: granted=true
+      android.permission.COPY_PROTECTED_DATA: granted=true
+      android.permission.INTERACT_ACROSS_USERS: granted=true
+      android.permission.SET_KEYBOARD_LAYOUT: granted=true
+      android.permission.READ_DREAM_STATE: granted=true
+      android.permission.MANAGE_APP_OPS_RESTRICTIONS: granted=true
+      android.permission.KILL_BACKGROUND_PROCESSES: granted=true
+      android.permission.MANAGE_USER_OEM_UNLOCK_STATE: granted=true
+      android.permission.USE_FINGERPRINT: granted=true
+      android.permission.REQUEST_NETWORK_SCORES: granted=true
+      android.permission.WRITE_USER_DICTIONARY: granted=true
+      android.permission.READ_SYNC_STATS: granted=true
+      android.permission.REBOOT: granted=true
+      android.permission.REQUEST_DELETE_PACKAGES: granted=true
+      android.permission.OEM_UNLOCK_STATE: granted=true
+      android.permission.MANAGE_DEVICE_ADMINS: granted=true
+      android.permission.CLEAR_APP_CACHE: granted=true
+      android.permission.CHANGE_APP_IDLE_STATE: granted=true
+      android.permission.BIND_SETTINGS_SUGGESTIONS_SERVICE: granted=true
+      android.permission.TEST_BLACKLISTED_PASSWORD: granted=true
+      android.permission.SET_POINTER_SPEED: granted=true
+      com.excellence.update.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      droidlogic.permission.SYSTEM_CONTROL: granted=true
+      android.permission.MANAGE_NOTIFICATIONS: granted=true
+      com.osd.permission.ACCESS_OSD_WAKEUP_ACTION: granted=true
+      com.google.android.assistant.READ_HOTWORD_STATE: granted=true
+      android.permission.SEND_SHOW_SUSPENDED_APP_DETAILS: granted=true
+      android.permission.CONNECTIVITY_INTERNAL: granted=true
+      android.permission.READ_SYNC_SETTINGS: granted=true
+      android.permission.OVERRIDE_WIFI_CONFIG: granted=true
+      android.permission.FORCE_STOP_PACKAGES: granted=true
+      android.permission.HIDE_NON_SYSTEM_OVERLAY_WINDOWS: granted=true
+      android.permission.ACCESS_NOTIFICATIONS: granted=true
+      android.permission.VIBRATE: granted=true
+      com.android.certinstaller.INSTALL_AS_USER: granted=true
+      android.permission.BIND_ACCESSIBILITY_SERVICE: granted=true
+      android.permission.HDMI_CEC: granted=true
+      com.tosmart.tv.tvsettings.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.READ_USER_DICTIONARY: granted=true
+      android.permission.MANAGE_SCOPED_ACCESS_DIRECTORY_PERMISSIONS: granted=true
+      com.tosmart.glide.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.MANAGE_APP_OPS_MODES: granted=true
+      android.permission.CHANGE_WIMAX_STATE: granted=true
+      android.permission.REQUEST_INSTALL_PACKAGES: granted=true
+      android.permission.MODIFY_PHONE_STATE: granted=true
+      android.permission.STATUS_BAR: granted=true
+      android.permission.DUMP: granted=true
+      android.permission.LOCATION_HARDWARE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+      android.permission.INJECT_EVENTS: granted=true
+      android.permission.BIND_NETWORK_RECOMMENDATION_SERVICE: granted=true
+      android.permission.DELETE_PACKAGES: granted=true
+    User 0: ceDataInode=-4292869926 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+
+Shared users:
+  SharedUser [android.uid.system] (f4e2372):
+    userId=1000
+    install permissions:
+      android.permission.ACCESS_CACHE_FILESYSTEM: granted=true
+      android.permission.BIND_INCALL_SERVICE: granted=true
+      android.permission.WRITE_SETTINGS: granted=true
+      android.permission.CONTROL_KEYGUARD: granted=true
+      android.permission.CONFIGURE_WIFI_DISPLAY: granted=true
+      android.permission.CONFIGURE_DISPLAY_COLOR_MODE: granted=true
+      android.permission.ACCESS_WIMAX_STATE: granted=true
+      android.permission.RECOVERY: granted=true
+      android.permission.USE_CREDENTIALS: granted=true
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.ACCESS_CHECKIN_PROPERTIES: granted=true
+      android.permission.MODIFY_AUDIO_ROUTING: granted=true
+      android.permission.INSTALL_LOCATION_PROVIDER: granted=true
+      android.permission.USE_RESERVED_DISK: granted=true
+      android.permission.MANAGE_ACCOUNTS: granted=true
+      android.permission.SYSTEM_ALERT_WINDOW: granted=true
+      android.permission.BROADCAST_PHONE_ACCOUNT_REGISTRATION: granted=true
+      android.permission.CLEAR_APP_USER_DATA: granted=true
+      android.permission.BROADCAST_CALLLOG_INFO: granted=true
+      android.permission.INSTALL_PACKAGES: granted=true
+      android.permission.CHANGE_COMPONENT_ENABLED_STATE: granted=true
+      android.permission.NFC: granted=true
+      android.permission.NETWORK_SETTINGS: granted=true
+      android.permission.CALL_PRIVILEGED: granted=true
+      android.permission.CHANGE_NETWORK_STATE: granted=true
+      android.permission.MASTER_CLEAR: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.WRITE_SYNC_SETTINGS: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.google.android.googleapps.permission.GOOGLE_AUTH: granted=true
+      android.permission.PEERS_MAC_ADDRESS: granted=true
+      android.permission.DEVICE_POWER: granted=true
+      android.permission.SET_TIME_ZONE: granted=true
+      android.permission.READ_PRINT_SERVICES: granted=true
+      android.permission.MANAGE_PROFILE_AND_DEVICE_OWNERS: granted=true
+      com.android.providers.tv.permission.READ_EPG_DATA: granted=true
+      android.permission.READ_PROFILE: granted=true
+      android.permission.BLUETOOTH: granted=true
+      com.google.android.assistant.WRITE_HOTWORD_STATE: granted=true
+      android.permission.WRITE_MEDIA_STORAGE: granted=true
+      android.permission.WRITE_BLOCKED_NUMBERS: granted=true
+      android.permission.GET_TASKS: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.REORDER_TASKS: granted=true
+      android.permission.BLUETOOTH_ADMIN: granted=true
+      android.permission.CONTROL_VPN: granted=true
+      android.permission.MANAGE_FINGERPRINT: granted=true
+      android.permission.BIND_CONNECTION_SERVICE: granted=true
+      com.android.providers.tv.permission.WRITE_EPG_DATA: granted=true
+      android.permission.ACCESS_INSTANT_APPS: granted=true
+      android.permission.GET_PACKAGE_SIZE: granted=true
+      android.permission.MANAGE_USB: granted=true
+      android.permission.INTERACT_ACROSS_USERS_FULL: granted=true
+      android.permission.STOP_APP_SWITCHES: granted=true
+      android.permission.BATTERY_STATS: granted=true
+      android.permission.PACKAGE_USAGE_STATS: granted=true
+      android.permission.MOUNT_UNMOUNT_FILESYSTEMS: granted=true
+      android.permission.GET_ACCOUNTS_PRIVILEGED: granted=true
+      android.permission.TETHER_PRIVILEGED: granted=true
+      android.permission.WRITE_SECURE_SETTINGS: granted=true
+      android.permission.MOVE_PACKAGE: granted=true
+      android.permission.READ_BLOCKED_NUMBERS: granted=true
+      android.permission.READ_SEARCH_INDEXABLES: granted=true
+      android.permission.READ_PRIVILEGED_PHONE_STATE: granted=true
+      android.permission.TRIGGER_TIME_ZONE_RULES_CHECK: granted=true
+      android.permission.ACCESS_DOWNLOAD_MANAGER: granted=true
+      android.permission.BROADCAST_STICKY: granted=true
+      android.permission.BLUETOOTH_PRIVILEGED: granted=true
+      android.permission.HARDWARE_TEST: granted=true
+      android.permission.SUBSTITUTE_NOTIFICATION_APP_NAME: granted=true
+      android.intent.category.MASTER_CLEAR.permission.C2D_MESSAGE: granted=true
+      android.permission.BIND_JOB_SERVICE: granted=true
+      android.permission.CONFIRM_FULL_BACKUP: granted=true
+      android.permission.SET_TIME: granted=true
+      android.permission.WRITE_APN_SETTINGS: granted=true
+      android.permission.CHANGE_WIFI_STATE: granted=true
+      com.android.providers.tv.permission.ACCESS_ALL_EPG_DATA: granted=true
+      android.permission.MANAGE_USERS: granted=true
+      android.permission.SET_PREFERRED_APPLICATIONS: granted=true
+      android.permission.DELETE_CACHE_FILES: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.DISABLE_KEYGUARD: granted=true
+      android.permission.BACKUP: granted=true
+      android.permission.CHANGE_CONFIGURATION: granted=true
+      android.permission.USER_ACTIVITY: granted=true
+      android.permission.LOCAL_MAC_ADDRESS: granted=true
+      android.permission.READ_LOGS: granted=true
+      android.permission.COPY_PROTECTED_DATA: granted=true
+      android.permission.INTERACT_ACROSS_USERS: granted=true
+      android.permission.SET_KEYBOARD_LAYOUT: granted=true
+      android.permission.READ_DREAM_STATE: granted=true
+      android.permission.MANAGE_APP_OPS_RESTRICTIONS: granted=true
+      android.permission.KILL_BACKGROUND_PROCESSES: granted=true
+      android.permission.MANAGE_USER_OEM_UNLOCK_STATE: granted=true
+      android.permission.USE_FINGERPRINT: granted=true
+      android.permission.REQUEST_NETWORK_SCORES: granted=true
+      android.permission.WRITE_USER_DICTIONARY: granted=true
+      android.permission.READ_SYNC_STATS: granted=true
+      android.permission.REBOOT: granted=true
+      android.permission.REQUEST_DELETE_PACKAGES: granted=true
+      android.permission.OEM_UNLOCK_STATE: granted=true
+      android.permission.MANAGE_DEVICE_ADMINS: granted=true
+      android.permission.CLEAR_APP_CACHE: granted=true
+      android.permission.CHANGE_APP_IDLE_STATE: granted=true
+      android.permission.BIND_SETTINGS_SUGGESTIONS_SERVICE: granted=true
+      android.permission.TEST_BLACKLISTED_PASSWORD: granted=true
+      android.permission.SET_POINTER_SPEED: granted=true
+      com.excellence.update.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      droidlogic.permission.SYSTEM_CONTROL: granted=true
+      android.permission.MANAGE_NOTIFICATIONS: granted=true
+      com.osd.permission.ACCESS_OSD_WAKEUP_ACTION: granted=true
+      com.google.android.assistant.READ_HOTWORD_STATE: granted=true
+      android.permission.SEND_SHOW_SUSPENDED_APP_DETAILS: granted=true
+      android.permission.CONNECTIVITY_INTERNAL: granted=true
+      android.permission.READ_SYNC_SETTINGS: granted=true
+      android.permission.OVERRIDE_WIFI_CONFIG: granted=true
+      android.permission.FORCE_STOP_PACKAGES: granted=true
+      android.permission.HIDE_NON_SYSTEM_OVERLAY_WINDOWS: granted=true
+      android.permission.ACCESS_NOTIFICATIONS: granted=true
+      android.permission.VIBRATE: granted=true
+      com.android.certinstaller.INSTALL_AS_USER: granted=true
+      android.permission.BIND_ACCESSIBILITY_SERVICE: granted=true
+      android.permission.HDMI_CEC: granted=true
+      com.tosmart.tv.tvsettings.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.READ_USER_DICTIONARY: granted=true
+      android.permission.MANAGE_SCOPED_ACCESS_DIRECTORY_PERMISSIONS: granted=true
+      com.tosmart.glide.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.MANAGE_APP_OPS_MODES: granted=true
+      android.permission.CHANGE_WIMAX_STATE: granted=true
+      android.permission.REQUEST_INSTALL_PACKAGES: granted=true
+      android.permission.MODIFY_PHONE_STATE: granted=true
+      android.permission.STATUS_BAR: granted=true
+      android.permission.DUMP: granted=true
+      android.permission.LOCATION_HARDWARE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+      android.permission.INJECT_EVENTS: granted=true
+      android.permission.BIND_NETWORK_RECOMMENDATION_SERVICE: granted=true
+      android.permission.DELETE_PACKAGES: granted=true
+    User 0: 
+      gids=[2001, 1065, 3002, 1023, 3003, 3001, 1007]
+      runtime permissions:
+        android.permission.READ_CALL_LOG: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.READ_EXTERNAL_STORAGE: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.READ_PHONE_STATE: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.CALL_PHONE: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.WRITE_CONTACTS: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.CAMERA: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.WRITE_CALL_LOG: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.GET_ACCOUNTS: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.WRITE_EXTERNAL_STORAGE: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.RECORD_AUDIO: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+        android.permission.READ_CONTACTS: granted=true, flags=[ SYSTEM_FIXED GRANTED_BY_DEFAULT ]
+
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  [com.tosmart.glide]
+    path: /product/app/glide/glide.apk
+      arm: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [com.tosmart.glide]
+     glide.apk - 11254

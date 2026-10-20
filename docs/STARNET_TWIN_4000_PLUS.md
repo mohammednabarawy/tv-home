@@ -1,5 +1,7 @@
 # StarNet Twin 4000 Plus — experimental tv-home port
 
+**Version 3.1 update:** See [the current Arabic edition guide](PREMIUM_ARABIC.md). The app now registers as an optional HOME launcher, provides a launcher chooser from Settings, and supports HD photo screensavers. Default selection remains under the owner's control. The no-HOME test-build descriptions below document earlier versions.
+
 This branch adapts [tv-home](https://github.com/mihirgupta0900/tv-home) for the StarNet Twin 4000 Plus hybrid satellite/Android receiver. It is an **experimental test app**, not a replacement firmware. Upstream remains credited under MIT.
 
 ## Changes

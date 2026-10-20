@@ -1,0 +1,39 @@
+{
+  "callingUid": 10057,
+  "callingPackage": "com.mihir.tvhome",
+  "timestamp": 1729431778137,
+  "entries": [
+    {
+      "uri": "content://android.media.tv/preview_program",
+      "authority": "android.media.tv",
+      "status": "SUCCESS_EMPTY",
+      "rowCount": 0,
+      "columns": [],
+      "errorDetails": null
+    },
+    {
+      "uri": "content://android.media.tv/watch_next_program",
+      "authority": "android.media.tv",
+      "status": "SUCCESS_EMPTY",
+      "rowCount": 0,
+      "columns": [],
+      "errorDetails": null
+    },
+    {
+      "uri": "content://android.media.tv/channel",
+      "authority": "android.media.tv",
+      "status": "SUCCESS_EMPTY",
+      "rowCount": 0,
+      "columns": [],
+      "errorDetails": null
+    },
+    {
+      "uri": "content://android.media.tv/program",
+      "authority": "android.media.tv",
+      "status": "SUCCESS_EMPTY",
+      "rowCount": 0,
+      "columns": [],
+      "errorDetails": null
+    }
+  ]
+}
