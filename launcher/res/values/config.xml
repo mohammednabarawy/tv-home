@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- StarNet defaults. Discover the real satellite app before modifying live_tv_package. -->
+<!-- StarNet 4000 Twin Plus, Android 9. Confirmed against owner's ADB report.
+     The DVB activity belongs to the Glide package, not a separate launcher app.
+     No packages are disabled, removed, hidden or modified. -->
 <resources>
+    <!-- Dedicated DVB tile is inserted automatically before these favorites. -->
     <string-array name="dock_apps">
-        <item>com.google.android.youtube.tv</item>
-        <item>com.google.android.youtube</item>
-        <item>com.netflix.ninja</item>
+        <item>com.logicyel.novastb</item>
+        <item>com.datesplus.iptv</item>
+        <item>com.marvelactivecode.marvel</item>
+        <item>io.gh.reisxd.tizentube.fortaleza</item>
         <item>org.xbmc.kodi</item>
-        <item>com.amazon.amazonvideo.livingroom</item>
+        <item>com.stremio.one</item>
     </string-array>
     <string-array name="hidden_apps" />
-    <string name="live_tv_package" translatable="false"></string>
+
+    <!-- Exact Glide activity alias observed through ADB; do not substitute Glide Home. -->
+    <string name="satellite_tv_package" translatable="false">com.tosmart.glide</string>
+    <string name="satellite_tv_activity" translatable="false">com.tosmart.glide.DvbAlias</string>
     <string name="input_picker_package" translatable="false"></string>
+
     <integer name="columns">5</integer>
 </resources>

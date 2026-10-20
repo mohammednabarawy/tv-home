@@ -65,3 +65,39 @@ User-provided About and Launcher Settings screenshots confirm:
 - **Never install the StarNet firmware just to make this launcher work**. Updating the receiver's firmware, reset, or loss of channel settings is unnecessary for an experimental cosmetic app.
 
 Public references: https://ameersat.com/vb/showthread.php?t=29169 and https://iksgo.com/models/2651-starnet-4000-twin-plus .
+
+## Physical receiver test / StarNet integration (2026-10-20)
+
+The owner tested the first APK over authorized Wi-Fi ADB. Verified facts:
+
+| Field | Observed value |
+| --- | --- |
+| Device | AmlogicS905X3, winsat platform |
+| Android | 9 (API 28) |
+| Android build ID | `eng.freesa.20260915` |
+| Default Glide HOME | `com.tosmart.glide/.init.InitActivity` |
+| Glide live DVB shortcut | `com.tosmart.glide/.DvbAlias` (opens `.home.HomeActivity`) |
+
+The earlier test APK launched and displayed apps with functional D-pad, and the hardware HOME button returned to Glide. The test screenshot exposed a layout issue: only two favorites (YouTube, Kodi) expanded to oversized cards. This revision populates the dock using installed StarNet app IDs and reserves at least 5 dock slots if fewer apps are found. It also inserts a dedicated Live Satellite TV card backed by the observed Glide DVB alias, and integrates the same action into Inputs.
+
+### Favorites from receiver's ADB app inventory
+
+- Live Satellite TV: `com.tosmart.glide/.DvbAlias` (distinct from default Glide HOME)
+- Nova STB: `com.logicyel.novastb`
+- Dates+: `com.datesplus.iptv`
+- Marvel Active: `com.marvelactivecode.marvel`
+- SmartTube: `io.gh.reisxd.tizentube.fortaleza`
+- Kodi: `org.xbmc.kodi`
+- Stremio: `com.stremio.one`
+
+Other installed programs remain available in All Apps including Jellyfin (`org.jellyfin.androidtv`), Netflix (`com.netflix.mediaclient`), file manager (`com.tosmart.filemanagerpro`), and app store (`com.excellence.appstore`). This is a launcher front-end change, not a change to applications, TV services or firmware.
+
+### Next device tests
+
+1. Upgrade the test APK using `adb install -r`, then launch it via `adb shell am start -n com.mihir.tvhome/.MainActivity`.
+2. Verify that the first Live Satellite TV tile reaches live channels (and not merely Glide Home). Test channel switching, EPG and Return/Exit.
+3. Open Nova, Dates+, Marvel, SmartTube, Kodi and Stremio. Verify arrow/OK key behavior and how Back returns.
+4. Verify Original Home and physical HOME still return to Glide, and all proprietary menus remain usable.
+5. If the DVB tile does not appear, report the package manager output for `adb shell dumpsys package com.tosmart.glide` with private identifiers redacted. A firmware variant may hide the alias from package manager.
+
+Do not change default HOME or disable stock packages during these tests. Build success is not proof of DVB launch success, which requires a receiver test.

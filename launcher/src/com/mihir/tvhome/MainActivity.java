@@ -64,12 +64,13 @@ public class MainActivity extends Activity {
     // Dock, hidden apps, Live TV and grid width come from res/values/config.xml.
     private String[] dockApps;
     private final Set<String> hidden = new HashSet<>();
-    private String liveTvPkg, inputPickerPkg;
+    private String satelliteTvPkg, satelliteTvActivity, inputPickerPkg;
     private int cols;
 
     static final class App {
         String pkg, label, category;
         ComponentName component;
+        boolean isSatellite;
         Drawable art;
         boolean isBanner;
         int color;
@@ -116,7 +117,8 @@ public class MainActivity extends Activity {
         dockApps = getResources().getStringArray(R.array.dock_apps);
         hidden.addAll(Arrays.asList(getResources().getStringArray(R.array.hidden_apps)));
         hidden.add(getPackageName());
-        liveTvPkg = getString(R.string.live_tv_package);
+        satelliteTvPkg = getString(R.string.satellite_tv_package);
+        satelliteTvActivity = getString(R.string.satellite_tv_activity);
         inputPickerPkg = getString(R.string.input_picker_package);
         cols = getResources().getInteger(R.integer.columns);
         getWindow().getDecorView().setSystemUiVisibility(
@@ -364,23 +366,27 @@ public class MainActivity extends Activity {
         for (String category : new String[]{Intent.CATEGORY_LEANBACK_LAUNCHER, Intent.CATEGORY_LAUNCHER}) {
             Intent q = new Intent(Intent.ACTION_MAIN).addCategory(category);
             for (ResolveInfo ri : pm.queryIntentActivities(q, 0)) {
-            ActivityInfo ai = ri.activityInfo;
-            if (hidden.contains(ai.packageName) || byPkg.containsKey(ai.packageName)) continue;
-            App a = new App();
-            a.pkg = ai.packageName;
-            a.category = category;
-            a.label = String.valueOf(ri.loadLabel(pm));
-            a.component = new ComponentName(ai.packageName, ai.name);
-            Drawable banner = ai.loadBanner(pm);
-            if (banner == null) banner = ai.applicationInfo.loadBanner(pm);
-            a.isBanner = banner != null;
-            a.art = banner != null ? banner : ri.loadIcon(pm);
-            a.color = sampleColor(a.pkg, a.art);
-            byPkg.put(a.pkg, a);
+                ActivityInfo ai = ri.activityInfo;
+                if (hidden.contains(ai.packageName) || byPkg.containsKey(ai.packageName)) continue;
+                App a = new App();
+                a.pkg = ai.packageName;
+                a.category = category;
+                a.label = String.valueOf(ri.loadLabel(pm));
+                a.component = new ComponentName(ai.packageName, ai.name);
+                Drawable banner = ai.loadBanner(pm);
+                if (banner == null) banner = ai.applicationInfo.loadBanner(pm);
+                a.isBanner = banner != null;
+                a.art = banner != null ? banner : ri.loadIcon(pm);
+                a.color = sampleColor(a.pkg, a.art);
+                byPkg.put(a.pkg, a);
             }
         }
 
         List<App> dock = new ArrayList<>();
+        // Satellite playback is an exported Glide activity-alias, not a separate Android app.
+        // Keep Glide itself in the regular app list as an additional safe escape hatch.
+        App satellite = buildSatelliteEntry(pm);
+        if (satellite != null) dock.add(satellite);
         for (String p : dockApps) if (byPkg.containsKey(p)) dock.add(byPkg.remove(p));
         List<App> rest = new ArrayList<>(byPkg.values());
         Collections.sort(rest, (x, y) -> x.label.compareToIgnoreCase(y.label));
@@ -401,6 +407,11 @@ public class MainActivity extends Activity {
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0, -2, 1f);
             p.setMargins(i == 0 ? 0 : dp(10), 0, i == dock.size() - 1 ? 0 : dp(10), 0);
             dockRow.addView(tile, p);
+        }
+        // If the firmware exposes only a couple of favorites, do not stretch them
+        // to half-screen giant cards: reserve at least five equal-width slots.
+        for (int i = dock.size(); i < 5; i++) {
+            dockRow.addView(new View(this), new LinearLayout.LayoutParams(0, dp(1), 1f));
         }
 
         LinearLayout row = null;
@@ -429,6 +440,44 @@ public class MainActivity extends Activity {
         View last = lastFocusedId == View.NO_ID ? null : findViewById(lastFocusedId);
         if (last != null) last.requestFocus();
         else if (!dockCards.isEmpty()) dockCards.get(0).requestFocus();
+    }
+
+    /** A StarNet satellite entry using the owner's observed Glide DVB activity alias. */
+    private App buildSatelliteEntry(PackageManager pm) {
+        if (satelliteTvPkg.isEmpty() || satelliteTvActivity.isEmpty()) return null;
+        ComponentName component = new ComponentName(satelliteTvPkg, satelliteTvActivity);
+        try {
+            ActivityInfo ai = pm.getActivityInfo(component, 0);
+            if (!ai.enabled || !ai.applicationInfo.enabled) return null;
+            App app = new App();
+            app.pkg = satelliteTvPkg;
+            app.label = "Live Satellite TV";
+            app.category = Intent.CATEGORY_LAUNCHER;
+            app.component = component;
+            app.isSatellite = true;
+            Drawable banner = ai.loadBanner(pm);
+            if (banner == null) banner = ai.applicationInfo.loadBanner(pm);
+            app.isBanner = banner != null;
+            app.art = banner != null ? banner : ai.loadIcon(pm);
+            if (app.art == null) app.art = getDrawable(R.drawable.ic_home);
+            app.color = sampleColor("starnet-satellite", app.art);
+            return app;
+        } catch (PackageManager.NameNotFoundException e) {
+            return null; // Different Glide firmware: never guess another activity.
+        }
+    }
+
+    /** Open the real DVB alias, then use stock Glide as a recovery fallback. */
+    private void openSatelliteTv() {
+        Intent satellite = new Intent(Intent.ACTION_MAIN)
+                .addCategory(Intent.CATEGORY_LAUNCHER)
+                .setComponent(new ComponentName(satelliteTvPkg, satelliteTvActivity))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        if (!launch(satellite)) {
+            android.widget.Toast.makeText(this, "Satellite shortcut unavailable; opening Glide",
+                    android.widget.Toast.LENGTH_LONG).show();
+            openOriginalHome();
+        }
     }
 
     /** A 16:9 card with the app's banner; the name shows under it while focused. */
@@ -484,10 +533,16 @@ public class MainActivity extends Activity {
         label.setAlpha(0f);
         if (!inDock) box.addView(label, llp(-1, -2, 0, dp(10), 0, 0));
 
-        card.setOnClickListener(v -> launch(new Intent(Intent.ACTION_MAIN)
-                .addCategory(app.category)
-                .setComponent(app.component)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)));
+        card.setOnClickListener(v -> {
+            if (app.isSatellite) {
+                openSatelliteTv();
+            } else {
+                launch(new Intent(Intent.ACTION_MAIN)
+                        .addCategory(app.category)
+                        .setComponent(app.component)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED));
+            }
+        });
         card.setOnFocusChangeListener((v, has) -> {
             float s = has ? (inDock ? 1.12f : 1.1f) : 1f;
             v.animate().scaleX(s).scaleY(s).translationZ(has ? dp(14) : 0)
@@ -587,7 +642,8 @@ public class MainActivity extends Activity {
                 if (!launch(i)) openPackage(inputPickerPkg);
             }));
         }
-        if (isInstalled(liveTvPkg)) rows.add(inputRow("Live TV", () -> openPackage(liveTvPkg)));
+        if (buildSatelliteEntry(getPackageManager()) != null)
+            rows.add(inputRow("Live Satellite TV", this::openSatelliteTv));
         if (inputs.isEmpty() && isInstalled(inputPickerPkg)) rows.add(inputRow("All sources…", () -> openPackage(inputPickerPkg)));
 
         if (rows.isEmpty()) rows.add(inputRow("Settings", () -> launch(new Intent(Settings.ACTION_SETTINGS))));
