@@ -1,0 +1,168 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        69be2f0 com.esaba.downloader/.MainActivity filter a803026
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+        69be2f0 com.esaba.downloader/.MainActivity filter aa44467
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      android.intent.action.BATTERY_OKAY:
+        524f069 com.esaba.downloader/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy filter 2edef7c
+          Action: "android.intent.action.BATTERY_OKAY"
+          Action: "android.intent.action.BATTERY_LOW"
+      android.intent.action.ACTION_POWER_DISCONNECTED:
+        c308aee com.esaba.downloader/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy filter 7c9f66f
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          Action: "android.intent.action.ACTION_POWER_DISCONNECTED"
+      android.intent.action.DEVICE_STORAGE_LOW:
+        d13db8f com.esaba.downloader/androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy filter 42ef005
+          Action: "android.intent.action.DEVICE_STORAGE_LOW"
+          Action: "android.intent.action.DEVICE_STORAGE_OK"
+      android.net.conn.CONNECTIVITY_CHANGE:
+        df43e1c com.esaba.downloader/androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy filter dfbe85a
+          Action: "android.net.conn.CONNECTIVITY_CHANGE"
+      android.intent.action.DEVICE_STORAGE_OK:
+        d13db8f com.esaba.downloader/androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy filter 42ef005
+          Action: "android.intent.action.DEVICE_STORAGE_LOW"
+          Action: "android.intent.action.DEVICE_STORAGE_OK"
+      com.amazon.inapp.purchasing.NOTIFY:
+        1932a25 com.esaba.downloader/com.amazon.device.iap.ResponseReceiver filter c94c54e
+          Action: "com.amazon.inapp.purchasing.NOTIFY"
+      android.intent.action.BATTERY_LOW:
+        524f069 com.esaba.downloader/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy filter 2edef7c
+          Action: "android.intent.action.BATTERY_OKAY"
+          Action: "android.intent.action.BATTERY_LOW"
+      android.intent.action.TIMEZONE_CHANGED:
+        1e67fa com.esaba.downloader/androidx.work.impl.background.systemalarm.RescheduleReceiver filter 4a98a8b
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.TIME_SET:
+        1e67fa com.esaba.downloader/androidx.work.impl.background.systemalarm.RescheduleReceiver filter 4a98a8b
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.BOOT_COMPLETED:
+        1e67fa com.esaba.downloader/androidx.work.impl.background.systemalarm.RescheduleReceiver filter 4a98a8b
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.ACTION_POWER_CONNECTED:
+        c308aee com.esaba.downloader/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy filter 7c9f66f
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          Action: "android.intent.action.ACTION_POWER_DISCONNECTED"
+      androidx.work.diagnostics.REQUEST_DIAGNOSTICS:
+        5fca1ab com.esaba.downloader/androidx.work.impl.diagnostics.DiagnosticsReceiver filter cb38781
+          Action: "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+      androidx.work.impl.background.systemalarm.UpdateProxies:
+        b152008 com.esaba.downloader/androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver filter 6e88768
+          Action: "androidx.work.impl.background.systemalarm.UpdateProxies"
+
+Permissions:
+  Permission [com.esaba.downloader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (5f143a1):
+    sourcePackage=com.esaba.downloader
+    uid=10050 gids=null type=0 prot=signature
+    perm=Permission{9db09c6 com.esaba.downloader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{461ad87 com.esaba.downloader/10050}
+
+Registered ContentProviders:
+  com.esaba.downloader/androidx.startup.InitializationProvider:
+    Provider{4852965 com.esaba.downloader/androidx.startup.InitializationProvider}
+  com.esaba.downloader/com.google.android.gms.ads.MobileAdsInitProvider:
+    Provider{865cc9b com.esaba.downloader/com.google.android.gms.ads.MobileAdsInitProvider}
+  com.esaba.downloader/androidx.core.content.FileProvider:
+    Provider{2918838 com.esaba.downloader/androidx.core.content.FileProvider}
+
+ContentProvider Authorities:
+  [com.esaba.downloader.mobileadsinitprovider]:
+    Provider{865cc9b com.esaba.downloader/com.google.android.gms.ads.MobileAdsInitProvider}
+      applicationInfo=ApplicationInfo{52f03e3 com.esaba.downloader}
+  [com.esaba.downloader]:
+    Provider{2918838 com.esaba.downloader/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{52f03e3 com.esaba.downloader}
+  [com.esaba.downloader.androidx-startup]:
+    Provider{4852965 com.esaba.downloader/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{52f03e3 com.esaba.downloader}
+
+Key Set Manager:
+  [com.esaba.downloader]
+      Signing KeySets: 19
+
+Packages:
+  Package [com.esaba.downloader] (461ad87):
+    userId=10050
+    pkg=Package{de034b4 com.esaba.downloader}
+    codePath=/data/app/com.esaba.downloader-UNJzFX78lb1gvO6wttXArQ==
+    resourcePath=/data/app/com.esaba.downloader-UNJzFX78lb1gvO6wttXArQ==
+    legacyNativeLibraryDir=/data/app/com.esaba.downloader-UNJzFX78lb1gvO6wttXArQ==/lib
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    versionCode=52 minSdk=19 targetSdk=33
+    versionName=1.4.5-ForGoogleAndroidTV
+    splits=[base]
+    apkSigningVersion=3
+    applicationInfo=ApplicationInfo{52f03e3 com.esaba.downloader}
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/com.esaba.downloader
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-09-04 01:05:39
+    firstInstallTime=2026-09-04 01:05:45
+    lastUpdateTime=2026-09-04 01:05:45
+    installerPackageName=com.excellence.appstore
+    signatures=PackageSignatures{fbd78dd version:3, signatures:[1a8da0c4], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    declared permissions:
+      com.esaba.downloader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.READ_EXTERNAL_STORAGE
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      com.android.vending.BILLING
+      android.permission.REQUEST_INSTALL_PACKAGES
+      com.google.android.gms.permission.AD_ID
+      android.permission.WAKE_LOCK
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.FOREGROUND_SERVICE
+      com.esaba.downloader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.INTERNET: granted=true
+      com.android.vending.BILLING: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      com.esaba.downloader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=-4292738519 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+        android.permission.READ_EXTERNAL_STORAGE: granted=true
+        android.permission.WRITE_EXTERNAL_STORAGE: granted=true
+      enabledComponents:
+        androidx.work.impl.background.systemjob.SystemJobService
+
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  [com.esaba.downloader]
+    path: /data/app/com.esaba.downloader-UNJzFX78lb1gvO6wttXArQ==/base.apk
+      arm: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [com.esaba.downloader]
+     base.apk - 1728

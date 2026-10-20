@@ -5,6 +5,10 @@ tools/.tv_host
 launcher/debug.keystore
 backup/
 shots/
+starnet-diagnostics-*/
+tools/*prompt*.txt
+tools/get_prompt.py
+/*.png
 
 # Build output
 launcher/build/

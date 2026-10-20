@@ -1,0 +1,368 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.search:
+        2e0051f com.datesplus.iptv/com.intelligent.tv.start.StartActivity filter 839c39b
+          Action: "android.intent.action.MAIN"
+          Action: "android.intent.action.search"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.MAIN:
+        2e0051f com.datesplus.iptv/com.intelligent.tv.start.StartActivity filter 839c39b
+          Action: "android.intent.action.MAIN"
+          Action: "android.intent.action.search"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+          Category: "android.intent.category.DEFAULT"
+      aim_to_record:
+        febd06c com.datesplus.iptv/com.intelligent.tv.liveplayback.LiveStreamActivity filter f13b338
+          Action: "aim_to_record"
+          Category: "android.intent.category.DEFAULT"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      android.intent.action.BATTERY_OKAY:
+        70d635 com.datesplus.iptv/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy filter ee830dd
+          Action: "android.intent.action.BATTERY_OKAY"
+          Action: "android.intent.action.BATTERY_LOW"
+      android.intent.action.ACTION_POWER_DISCONNECTED:
+        34d8aca com.datesplus.iptv/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy filter 8a2ccb4
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          Action: "android.intent.action.ACTION_POWER_DISCONNECTED"
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        a89d43b com.datesplus.iptv/androidx.profileinstaller.ProfileInstallReceiver filter d659e95
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      android.intent.action.DEVICE_STORAGE_LOW:
+        bfb8758 com.datesplus.iptv/androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy filter fae5452
+          Action: "android.intent.action.DEVICE_STORAGE_LOW"
+          Action: "android.intent.action.DEVICE_STORAGE_OK"
+      android.net.conn.CONNECTIVITY_CHANGE:
+        365a0b1 com.datesplus.iptv/androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy filter 4571323
+          Action: "android.net.conn.CONNECTIVITY_CHANGE"
+      android.intent.action.DEVICE_STORAGE_OK:
+        bfb8758 com.datesplus.iptv/androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy filter fae5452
+          Action: "android.intent.action.DEVICE_STORAGE_LOW"
+          Action: "android.intent.action.DEVICE_STORAGE_OK"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        a89d43b com.datesplus.iptv/androidx.profileinstaller.ProfileInstallReceiver filter f7dbe7f
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      android.intent.action.BATTERY_LOW:
+        70d635 com.datesplus.iptv/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy filter ee830dd
+          Action: "android.intent.action.BATTERY_OKAY"
+          Action: "android.intent.action.BATTERY_LOW"
+      android.intent.action.TIMEZONE_CHANGED:
+        3218996 com.datesplus.iptv/androidx.work.impl.background.systemalarm.RescheduleReceiver filter fa0020
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.TIME_SET:
+        3218996 com.datesplus.iptv/androidx.work.impl.background.systemalarm.RescheduleReceiver filter fa0020
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      androidx.profileinstaller.action.SKIP_FILE:
+        a89d43b com.datesplus.iptv/androidx.profileinstaller.ProfileInstallReceiver filter dcefe4c
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        a89d43b com.datesplus.iptv/androidx.profileinstaller.ProfileInstallReceiver filter 6d41baa
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.BOOT_COMPLETED:
+        d377917 com.datesplus.iptv/com.intelligent.tv.broadcast.BootBroadcastReceiver filter cafa587
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Category: "android.intent.category.HOME"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+        3218996 com.datesplus.iptv/androidx.work.impl.background.systemalarm.RescheduleReceiver filter fa0020
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.ACTION_POWER_CONNECTED:
+        34d8aca com.datesplus.iptv/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy filter 8a2ccb4
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          Action: "android.intent.action.ACTION_POWER_DISCONNECTED"
+      androidx.work.diagnostics.REQUEST_DIAGNOSTICS:
+        64dc104 com.datesplus.iptv/androidx.work.impl.diagnostics.DiagnosticsReceiver filter 2b9639e
+          Action: "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+      androidx.work.impl.background.systemalarm.UpdateProxies:
+        d0296ed com.datesplus.iptv/androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver filter f3bfdd9
+          Action: "androidx.work.impl.background.systemalarm.UpdateProxies"
+
+Service Resolver Table:
+  Non-Data Actions:
+      com.intelligent.brand:
+        c64a922 com.datesplus.iptv/com.intelligent.cms.service.UserLoginService filter 40bbffa
+          Action: "com.intelligent.login.start"
+          Action: "com.intelligent.relogin"
+          Action: "com.intelligent.index"
+          Action: "com.intelligent.brand"
+      com.intelligent.index:
+        c64a922 com.datesplus.iptv/com.intelligent.cms.service.UserLoginService filter 40bbffa
+          Action: "com.intelligent.login.start"
+          Action: "com.intelligent.relogin"
+          Action: "com.intelligent.index"
+          Action: "com.intelligent.brand"
+      com.intelligent.observe.net.change:
+        4b08fb3 com.datesplus.iptv/com.intelligent.cms.service.ObserveNetWorkChangeService filter 1607ba1
+          Action: "com.intelligent.observe.net.change"
+      com.intelligent.market.action.DOWNLOAD:
+        267e970 com.datesplus.iptv/com.intelligent.appmarketcore.download.DownloadService filter 65bd61c
+          Action: "com.intelligent.market.action.DOWNLOAD"
+      com.intelligent.market.action.UPGRADE:
+        bfeb4e9 com.datesplus.iptv/com.intelligent.appmarketcore.UpgradeService filter 5fee225
+          Action: "com.intelligent.market.action.UPGRADE"
+      com.intelligent.refresh.epg:
+        bc8356e com.datesplus.iptv/com.intelligent.tv.service.RefreshEpgService filter e7ad38f
+          Action: "com.intelligent.refresh.epg"
+      com.intelligent.program.specified:
+        59a740f com.datesplus.iptv/com.intelligent.cms.service.LoadChannelService filter e5e3808
+          Action: "com.intelligent.program.specified"
+      com.intelligent.program.loading:
+        59a740f com.datesplus.iptv/com.intelligent.cms.service.LoadChannelService filter 2db19ab
+          Action: "com.intelligent.program.loading"
+      com.intelligent.program.notify:
+        4ba2c9c com.datesplus.iptv/com.intelligent.cms.service.TimerNotifyService filter b45e1c6
+          Action: "com.intelligent.program.notify"
+      com.intelligent.relogin:
+        c64a922 com.datesplus.iptv/com.intelligent.cms.service.UserLoginService filter 40bbffa
+          Action: "com.intelligent.login.start"
+          Action: "com.intelligent.relogin"
+          Action: "com.intelligent.index"
+          Action: "com.intelligent.brand"
+      com.intelligent.login.start:
+        c64a922 com.datesplus.iptv/com.intelligent.cms.service.UserLoginService filter 40bbffa
+          Action: "com.intelligent.login.start"
+          Action: "com.intelligent.relogin"
+          Action: "com.intelligent.index"
+          Action: "com.intelligent.brand"
+
+Permissions:
+  Permission [com.datesplus.iptv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (984b6a5):
+    sourcePackage=com.datesplus.iptv
+    uid=10036 gids=null type=0 prot=signature
+    perm=Permission{5c63a7a com.datesplus.iptv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{f94422b com.datesplus.iptv/10036}
+
+Registered ContentProviders:
+  com.datesplus.iptv/com.excellence.basetoolslibrary.assist.Provider:
+    Provider{de08a6e com.datesplus.iptv/com.excellence.basetoolslibrary.assist.Provider}
+  com.datesplus.iptv/com.intelligent.cms.provide.OpenProvider:
+    Provider{85dd07e com.datesplus.iptv/com.intelligent.cms.provide.OpenProvider}
+  com.datesplus.iptv/androidx.startup.InitializationProvider:
+    Provider{35cb463 com.datesplus.iptv/androidx.startup.InitializationProvider}
+  com.datesplus.iptv/com.SecShell.SecShell.CP:
+    Provider{e1b9ff9 com.datesplus.iptv/com.SecShell.SecShell.CP}
+  com.datesplus.iptv/com.intelligent.appmarketcore.ContextProvider:
+    Provider{48efc23 com.datesplus.iptv/com.intelligent.appmarketcore.ContextProvider}
+  com.datesplus.iptv/me.jessyan.autosize.InitProvider:
+    Provider{e5d209e com.datesplus.iptv/me.jessyan.autosize.InitProvider}
+  com.datesplus.iptv/com.google.android.gms.ads.MobileAdsInitProvider:
+    Provider{43a577c com.datesplus.iptv/com.google.android.gms.ads.MobileAdsInitProvider}
+  com.datesplus.iptv/androidx.core.content.FileProvider:
+    Provider{4936f68 com.datesplus.iptv/androidx.core.content.FileProvider}
+
+ContentProvider Authorities:
+  [com.datesplus.iptv.mobileadsinitprovider]:
+    Provider{43a577c com.datesplus.iptv/com.google.android.gms.ads.MobileAdsInitProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.datesplus.iptv.FileProvider]:
+    Provider{4936f68 com.datesplus.iptv/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.datesplus.iptv.CP]:
+    Provider{e1b9ff9 com.datesplus.iptv/com.SecShell.SecShell.CP}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.datesplus.iptv.provider]:
+    Provider{de08a6e com.datesplus.iptv/com.excellence.basetoolslibrary.assist.Provider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.datesplus.iptv.contextProvider]:
+    Provider{48efc23 com.datesplus.iptv/com.intelligent.appmarketcore.ContextProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.datesplus.iptv.androidx-startup]:
+    Provider{35cb463 com.datesplus.iptv/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.datesplus.iptv.autosize-init-provider]:
+    Provider{e5d209e com.datesplus.iptv/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.datesplus.ott.provider]:
+    Provider{85dd07e com.datesplus.iptv/com.intelligent.cms.provide.OpenProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+
+Key Set Manager:
+  [com.datesplus.iptv]
+      Signing KeySets: 12
+
+Packages:
+  Package [com.datesplus.iptv] (f94422b):
+    userId=10036
+    pkg=Package{68b7688 com.datesplus.iptv}
+    codePath=/data/app/com.datesplus.iptv-qDNyfNIKODayubzZGf5_2w==
+    resourcePath=/data/app/com.datesplus.iptv-qDNyfNIKODayubzZGf5_2w==
+    legacyNativeLibraryDir=/data/app/com.datesplus.iptv-qDNyfNIKODayubzZGf5_2w==/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=34 minSdk=21 targetSdk=28
+    versionName=1.0.34_07092026_dates
+    splits=[base]
+    apkSigningVersion=1
+    applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA UPDATED_SYSTEM_APP ALLOW_BACKUP LARGE_HEAP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/com.datesplus.iptv
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      androidx.window.extensions
+      androidx.window.sidecar
+    timeStamp=2026-07-13 22:37:47
+    firstInstallTime=2008-12-31 19:00:00
+    lastUpdateTime=2026-07-13 22:38:07
+    installerPackageName=com.excellence.appstore
+    signatures=PackageSignatures{caf1821 version:1, signatures:[4e1d9395], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA UPDATED_SYSTEM_APP ALLOW_BACKUP LARGE_HEAP ]
+    declared permissions:
+      com.datesplus.iptv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.READ_EXTERNAL_STORAGE
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.CHANGE_WIFI_STATE
+      android.permission.CHANGE_WIFI_MULTICAST_STATE
+      android.permission.SYSTEM_ALERT_WINDOW
+      android.permission.CHANGE_NETWORK_STATE
+      android.permission.INTERNET
+      android.permission.READ_PHONE_STATE
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.WAKE_LOCK
+      android.permission.REQUEST_INSTALL_PACKAGES
+      android.permission.FOREGROUND_SERVICE
+      android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.INSTALL_PACKAGES
+      android.permission.REQUEST_DELETE_PACKAGES
+      android.permission.GET_TASKS
+      com.google.android.gms.permission.AD_ID
+      android.permission.ACCESS_ADSERVICES_ATTRIBUTION
+      android.permission.ACCESS_ADSERVICES_AD_ID
+      android.permission.AD_SERVICES_CONFIG
+      android.permission.CAMERA
+      android.permission.ACCESS_FINE_LOCATION
+      android.permission.LOCAL_MAC_ADDRESS
+      com.datesplus.iptv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      com.datesplus.iptv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.SYSTEM_ALERT_WINDOW: granted=true
+      android.permission.CHANGE_NETWORK_STATE: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.CHANGE_WIFI_MULTICAST_STATE: granted=true
+      android.permission.GET_TASKS: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.CHANGE_WIFI_STATE: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.REQUEST_DELETE_PACKAGES: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=-4292869817 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+        android.permission.READ_EXTERNAL_STORAGE: granted=true
+        android.permission.WRITE_EXTERNAL_STORAGE: granted=true
+      enabledComponents:
+        androidx.work.impl.background.systemjob.SystemJobService
+
+Hidden system packages:
+  Package [com.datesplus.iptv] (a6d8446):
+    userId=10036
+    pkg=Package{312d607 com.datesplus.iptv}
+    codePath=/system/app/Dates
+    resourcePath=/system/app/Dates
+    legacyNativeLibraryDir=/system/app/Dates/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=34 minSdk=21 targetSdk=28
+    versionName=1.0.34_09012026_dates
+    splits=[base]
+    apkSigningVersion=0
+    applicationInfo=ApplicationInfo{ca57334 com.datesplus.iptv}
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP LARGE_HEAP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/com.datesplus.iptv
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      androidx.window.extensions
+      androidx.window.sidecar
+    timeStamp=2008-12-31 19:00:00
+    firstInstallTime=2008-12-31 19:00:00
+    lastUpdateTime=2008-12-31 19:00:00
+    signatures=PackageSignatures{9c4155d version:0, signatures:[], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP LARGE_HEAP ]
+    declared permissions:
+      com.datesplus.iptv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature
+    requested permissions:
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.READ_EXTERNAL_STORAGE
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.CHANGE_WIFI_STATE
+      android.permission.CHANGE_WIFI_MULTICAST_STATE
+      android.permission.SYSTEM_ALERT_WINDOW
+      android.permission.CHANGE_NETWORK_STATE
+      android.permission.INTERNET
+      android.permission.READ_PHONE_STATE
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.WAKE_LOCK
+      android.permission.REQUEST_INSTALL_PACKAGES
+      android.permission.FOREGROUND_SERVICE
+      android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.INSTALL_PACKAGES
+      android.permission.REQUEST_DELETE_PACKAGES
+      android.permission.GET_TASKS
+      android.permission.ACCESS_FINE_LOCATION
+      android.permission.BLUETOOTH
+      android.permission.BLUETOOTH_CONNECT
+      android.permission.LOCAL_MAC_ADDRESS
+      com.google.android.gms.permission.AD_ID
+      android.permission.ACCESS_ADSERVICES_ATTRIBUTION
+      android.permission.ACCESS_ADSERVICES_AD_ID
+      android.permission.AD_SERVICES_CONFIG
+      android.permission.CAMERA
+      com.datesplus.iptv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      com.datesplus.iptv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.SYSTEM_ALERT_WINDOW: granted=true
+      android.permission.CHANGE_NETWORK_STATE: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.CHANGE_WIFI_MULTICAST_STATE: granted=true
+      android.permission.GET_TASKS: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.CHANGE_WIFI_STATE: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.REQUEST_DELETE_PACKAGES: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=0 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  [com.datesplus.iptv]
+    path: /data/app/com.datesplus.iptv-qDNyfNIKODayubzZGf5_2w==/base.apk
+      arm: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [com.datesplus.iptv]
+     base.apk - 171
+     Dates.apk - 13972
