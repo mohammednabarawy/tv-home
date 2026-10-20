@@ -37,3 +37,9 @@ This revision:
 - Removes the distracting floating app-icon preview on the landscape, without removing the hero's Live TV action.
 
 Expected checks on the physical receiver: all top tabs and clock visible, main photograph restricted to upper stage, favorites on a clean navy surface, no overlap when Apps is selected, and OK/Back/D-pad still work. CI compilation is not a substitute for a screenshot test.
+
+## Rendering containment fix from StarNet screenshots (2026-10-20)
+
+The latest receiver screenshots show the top navigation and hero image rendering correctly, but a narrow strip of photographic imagery still appears between Favorites and Streaming & Media. When scrolling, some hero copy remains visible beneath the toolbar. This corresponds to disabled clipping (`setClipChildren(false)`) in both the ScrollView's content group and the photographic hero, transparent channel groups, and a partially transparent toolbar.
+
+This revision enables clipping on the content layout, hero wrapper, and hero image panel; gives channel container and each row an opaque dark-navy background; and makes the fixed toolbar surface fully opaque. Satellite DVB and stock Glide remain untouched. Test visual clipping, D-pad focus scale at row edges, and scrolling before merge.

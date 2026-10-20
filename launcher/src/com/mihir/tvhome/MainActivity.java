@@ -226,14 +226,16 @@ public class MainActivity extends Activity {
 
         content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);
-        content.setClipChildren(false);
-        content.setClipToPadding(false);
+        // Clip overflowing hero/media children to their allocated bounds on StarNet's renderer.
+        content.setClipChildren(true);
+        content.setClipToPadding(true);
         content.setBackgroundColor(0xFF081321);
         scroll.addView(content, new FrameLayout.LayoutParams(-1, -2));
 
         hero = new FrameLayout(this);
-        hero.setClipChildren(false);
-        hero.setClipToPadding(false);
+        // Keep the photograph confined to the hero; child draw overflow causes wallpaper bands.
+        hero.setClipChildren(true);
+        hero.setClipToPadding(true);
         int screenH = getResources().getDisplayMetrics().heightPixels;
         homeHeroHeight = Math.max(dp(315), Math.round(screenH * 0.49f));
         content.addView(hero, new LinearLayout.LayoutParams(-1, homeHeroHeight));
@@ -270,6 +272,7 @@ public class MainActivity extends Activity {
         channelContainer.setClipChildren(false);
         channelContainer.setClipToPadding(false);
         channelContainer.setPadding(dp(48), dp(4), dp(48), dp(30));
+        channelContainer.setBackgroundColor(0xFF081321);
         content.addView(channelContainer, new LinearLayout.LayoutParams(-1, -2));
 
         appsLabel = text(22, "sans-serif-medium", 0xFFE5E9F5);
@@ -287,8 +290,8 @@ public class MainActivity extends Activity {
 
         // Stable toolbar on top of every section. Never scrolls behind artwork.
         View toolbarScrim = new View(this);
-        toolbarScrim.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{0xFC07111E, 0xF407111E, 0xD907111E}));
+        // Opaque fixed toolbar: scrolling hero text must never ghost through its surface.
+        toolbarScrim.setBackgroundColor(0xFF07111E);
         root.addView(toolbarScrim, lp(-1, dp(75), Gravity.TOP, 0, 0, 0, 0));
 
         View header = buildHeader();
@@ -438,7 +441,8 @@ public class MainActivity extends Activity {
     private View buildHeroCard() {
         FrameLayout panel = new FrameLayout(this);
         panel.setBackgroundColor(0xFF091421);
-        panel.setClipChildren(false);
+        panel.setClipChildren(true);
+        panel.setClipToPadding(true);
 
         heroArtwork = new ImageView(this);
         heroArtwork.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -787,6 +791,7 @@ public class MainActivity extends Activity {
         section.setOrientation(LinearLayout.VERTICAL);
         section.setClipChildren(false);
         section.setClipToPadding(false);
+        section.setBackgroundColor(0xFF081321);
         TextView label = text(14, "sans-serif-medium", 0xFFE8E8F5);
         label.setText(heading);
         section.addView(label, llp(-1, -2, 0, dp(4), 0, dp(9)));
