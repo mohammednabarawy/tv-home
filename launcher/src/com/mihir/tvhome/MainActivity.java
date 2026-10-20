@@ -301,18 +301,34 @@ public class MainActivity extends Activity {
         LinearLayout right = new LinearLayout(this);
         right.setGravity(Gravity.CENTER_VERTICAL);
         right.setClipChildren(false);
+        // Open the still-installed StarNet/Glide HOME without changing the default launcher.
+        // The port itself deliberately does not register as an Android HOME application.
+        TextView originalHome = pill("Original Home", "⌂");
+        originalHome.setOnClickListener(v -> openOriginalHome());
         TextView inputs = pill("Inputs", "⇥");
         inputs.setOnClickListener(v -> showInputs(v));
         wifiPill = pill("Wi-Fi", "◉");
         wifiPill.setOnClickListener(v -> launch(new Intent(Settings.ACTION_WIFI_SETTINGS)));
         TextView settings = pill("Settings", "⚙");
         settings.setOnClickListener(v -> launch(new Intent(Settings.ACTION_SETTINGS)));
-        for (TextView p : new TextView[]{inputs, wifiPill, settings}) {
+        for (TextView p : new TextView[]{inputs, originalHome, wifiPill, settings}) {
             right.addView(p, llp(-2, dp(30), dp(10), 0, 0, 0));
             pills.add(p);
         }
         header.addView(right, new FrameLayout.LayoutParams(-2, -2, Gravity.END | Gravity.TOP));
         return header;
+    }
+
+    /** Return to the stock StarNet HOME. This never disables packages or changes the HOME setting. */
+    private void openOriginalHome() {
+        Intent home = new Intent(Intent.ACTION_MAIN)
+                .addCategory(Intent.CATEGORY_HOME)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        if (!launch(home)) {
+            android.widget.Toast.makeText(this,
+                    "Original Home is unavailable. Press the remote HOME key.",
+                    android.widget.Toast.LENGTH_LONG).show();
+        }
     }
 
     private TextView pill(String label, String glyph) {
