@@ -395,6 +395,7 @@ public class MainActivity extends Activity {
         if (appsLabel != null) appsLabel.setVisibility(catalogMode ? View.VISIBLE : View.GONE);
         if (grid != null) grid.setVisibility(catalogMode ? View.VISIBLE : View.GONE);
         if (scroll != null) scroll.scrollTo(0, 0);
+        wireFocus();
         if (catalogMode) {
             if (!gridCards.isEmpty()) gridCards.get(0).requestFocus();
         } else if (!dockCards.isEmpty()) {
@@ -696,12 +697,16 @@ public class MainActivity extends Activity {
             p.setMargins(dp(10), 0, i == cols - 1 ? 0 : dp(10), 0);
             row.addView(new View(this), p);
         }
-        buildChannelRows(allAppsForChannels, satellite);
+        Set<String> visibleFavorites = new HashSet<>();
+        for (App featured : dock) {
+            if (featured.pkg != null && !featured.isPlus) visibleFavorites.add(featured.pkg);
+        }
+        buildChannelRows(allAppsForChannels, satellite, visibleFavorites);
         showAppCatalogVisibilityOnly();
         wireFocus();
 
         if (!dock.isEmpty()) {
-            title.setText("FAVORITES  •  " + dock.get(0).label.toUpperCase(Locale.ENGLISH));
+            title.setText("FAVORITE APPS");
             setGlow(dock.get(0).color);
             updateHero(dock.get(0), false);
         }
@@ -714,28 +719,63 @@ public class MainActivity extends Activity {
      * Offline-first channels: each item is an installed app or the observed DVB activity.
      * Deliberately never invents shows, movie posters, recommendations, or watch progress.
      */
-    private void buildChannelRows(Map<String, App> apps, App satellite) {
+    /**
+     * Only show installed apps not already pinned to Favorites.
+     * The Home screen never repeats the same app in several rows.
+     */
+    private void buildChannelRows(Map<String, App> apps, App satellite, Set<String> favorites) {
         channelRows.clear();
+        browseAppsButton = null;
         channelContainer.removeAllViews();
-        addChannelRow("LIVE TV & IPTV", new String[]{
+
+        addChannelRow("MORE LIVE TV & IPTV", new String[]{
                 "com.logicyel.novastb", "com.datesplus.iptv",
-                "com.marvelactivecode.marvel", "com.excellence.appstore"
-        }, apps, satellite, true);
+                "com.marvelactivecode.marvel"
+        }, apps, favorites);
         addChannelRow("STREAMING & MEDIA", new String[]{
                 "io.gh.reisxd.tizentube.fortaleza", "com.google.android.youtube.tv",
                 "com.google.android.youtube", "org.xbmc.kodi",
                 "com.stremio.one", "org.jellyfin.androidtv", "com.netflix.mediaclient"
-        }, apps, satellite, false);
+        }, apps, favorites);
+        addChannelRow("TOOLS & UTILITIES", new String[]{
+                "com.tosmart.filemanagerpro", "com.excellence.appstore",
+                "com.android.vending", "com.android.chrome",
+                "com.tosmart.glide"
+        }, apps, favorites);
+
+        TextView browse = text(13, "sans-serif-medium", 0xFFBBDFFF);
+        browse.setText("Browse all installed apps   →");
+        browse.setPadding(dp(16), dp(11), dp(16), dp(11));
+        browse.setFocusable(true);
+        browse.setClickable(true);
+        browse.setId(View.generateViewId());
+        browse.setGravity(Gravity.CENTER);
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(0x262A4260);
+        bg.setCornerRadius(dp(22));
+        browse.setBackground(bg);
+        browse.setOnClickListener(v -> showAppCatalog(true));
+        browse.setOnFocusChangeListener((v, focused) -> {
+            bg.setColor(focused ? 0xFF375B86 : 0x262A4260);
+            if (focused) {
+                lastFocusedId = v.getId();
+                int y = channelContainer.getTop() + v.getTop() - dp(150);
+                scroll.smoothScrollTo(0, Math.max(0, y));
+            }
+        });
+        browseAppsButton = browse;
+        channelContainer.addView(browse, llp(-2, -2, 0, dp(2), 0, dp(14)));
     }
 
     private void addChannelRow(String heading, String[] packages,
-                               Map<String, App> apps, App satellite, boolean includeSatellite) {
+                               Map<String, App> apps, Set<String> favorites) {
         List<App> visibleApps = new ArrayList<>();
-        if (includeSatellite && satellite != null) visibleApps.add(satellite);
         Set<String> seen = new HashSet<>();
         for (String pkg : packages) {
-            App a = apps.get(pkg);
-            if (a != null && seen.add(a.pkg)) visibleApps.add(a);
+            App app = apps.get(pkg);
+            if (app != null && !favorites.contains(app.pkg) && seen.add(app.pkg)) {
+                visibleApps.add(app);
+            }
         }
         if (visibleApps.isEmpty()) return;
 
@@ -743,13 +783,11 @@ public class MainActivity extends Activity {
         section.setOrientation(LinearLayout.VERTICAL);
         section.setClipChildren(false);
         section.setClipToPadding(false);
-        TextView titleView = text(15, "sans-serif-medium", 0xFFE8E8F5);
-        titleView.setText(heading);
-        titleView.setShadowLayer(dp(5), 0, dp(2), 0xAA000000);
-        section.addView(titleView, llp(-1, -2, 0, dp(8), 0, dp(10)));
+        TextView label = text(14, "sans-serif-medium", 0xFFE8E8F5);
+        label.setText(heading);
+        section.addView(label, llp(-1, -2, 0, dp(4), 0, dp(9)));
 
         HorizontalScrollView horizontal = new HorizontalScrollView(this);
-        horizontal.setFillViewport(false);
         horizontal.setHorizontalScrollBarEnabled(false);
         horizontal.setOverScrollMode(View.OVER_SCROLL_NEVER);
         horizontal.setClipChildren(false);
@@ -758,66 +796,61 @@ public class MainActivity extends Activity {
         strip.setOrientation(LinearLayout.HORIZONTAL);
         strip.setGravity(Gravity.CENTER_VERTICAL);
         strip.setClipChildren(false);
-        strip.setClipToPadding(false);
         horizontal.addView(strip, new HorizontalScrollView.LayoutParams(-2, -2));
 
         List<View> focusRow = new ArrayList<>();
         for (App app : visibleApps) {
             View card = channelTile(app, horizontal, section);
-            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(dp(165), dp(132));
-            cp.setMargins(dp(5), dp(6), dp(12), dp(6));
+            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(dp(156), dp(115));
+            cp.setMargins(dp(4), dp(4), dp(12), dp(6));
             strip.addView(card, cp);
             focusRow.add(card);
         }
         section.addView(horizontal, new LinearLayout.LayoutParams(-1, -2));
-        channelContainer.addView(section, llp(-1, -2, 0, 0, 0, dp(17)));
+        channelContainer.addView(section, llp(-1, -2, 0, 0, 0, dp(16)));
         channelRows.add(focusRow);
     }
 
-    /** Fixed-size focusable app card with predictable remote navigation. */
     private View channelTile(App app, HorizontalScrollView horizontal, View section) {
-        LinearLayout outer = new LinearLayout(this);
-        outer.setOrientation(LinearLayout.VERTICAL);
-        outer.setGravity(Gravity.CENTER_HORIZONTAL);
-        outer.setFocusable(true);
-        outer.setClickable(true);
-        outer.setId(View.generateViewId());
-        outer.setPadding(dp(3), dp(3), dp(3), dp(3));
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setGravity(Gravity.CENTER_HORIZONTAL);
+        card.setFocusable(true);
+        card.setClickable(true);
+        card.setId(View.generateViewId());
+        card.setPadding(dp(2), dp(2), dp(2), dp(2));
         GradientDrawable bg = new GradientDrawable();
-        bg.setCornerRadius(dp(12));
-        bg.setColor(0x660D162C);
-        bg.setStroke(dp(2), 0x36FFFFFF);
-        outer.setBackground(bg);
+        bg.setColor(0x9910192B);
+        bg.setCornerRadius(dp(11));
+        bg.setStroke(dp(1), 0x23FFFFFF);
+        card.setBackground(bg);
 
-        FrameLayout picture = new FrameLayout(this);
-        picture.setBackgroundColor(0xB3182035);
-        ImageView icon = new ImageView(this);
-        icon.setImageDrawable(app.art);
-        icon.setScaleType(app.isBanner ? ImageView.ScaleType.CENTER_CROP : ImageView.ScaleType.FIT_CENTER);
-        icon.setPadding(app.isBanner ? 0 : dp(14), app.isBanner ? 0 : dp(12),
-                app.isBanner ? 0 : dp(14), app.isBanner ? 0 : dp(12));
-        picture.addView(icon, new FrameLayout.LayoutParams(-1, -1));
-        outer.addView(picture, new LinearLayout.LayoutParams(-1, dp(92)));
-        TextView label = text(11, "sans-serif-medium", Color.WHITE);
-        label.setText(app.label);
-        label.setMaxLines(1);
-        label.setEllipsize(android.text.TextUtils.TruncateAt.END);
-        label.setGravity(Gravity.CENTER);
-        outer.addView(label, new LinearLayout.LayoutParams(-1, dp(29)));
+        ImageView image = new ImageView(this);
+        image.setImageDrawable(app.art);
+        image.setScaleType(app.isBanner ? ImageView.ScaleType.CENTER_CROP : ImageView.ScaleType.FIT_CENTER);
+        image.setPadding(app.isBanner ? 0 : dp(13), app.isBanner ? 0 : dp(10),
+                app.isBanner ? 0 : dp(13), app.isBanner ? 0 : dp(10));
+        card.addView(image, new LinearLayout.LayoutParams(-1, dp(84)));
+        TextView name = text(11, "sans-serif-medium", Color.WHITE);
+        name.setText(app.label);
+        name.setSingleLine(true);
+        name.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        name.setGravity(Gravity.CENTER);
+        card.addView(name, new LinearLayout.LayoutParams(-1, dp(27)));
 
-        outer.setOnClickListener(v -> launchApp(app));
-        outer.setOnFocusChangeListener((v, focused) -> {
-            bg.setStroke(dp(2), focused ? 0xFFFFFFFF : 0x36FFFFFF);
-            bg.setColor(focused ? 0xBF294164 : 0x660D162C);
-            v.animate().scaleX(focused ? 1.04f : 1f).scaleY(focused ? 1.04f : 1f)
-                    .setDuration(150).start();
-            if (!focused) return;
-            lastFocusedId = v.getId();
-            horizontal.smoothScrollTo(Math.max(0, v.getLeft() - dp(45)), 0);
-            int y = channelContainer.getTop() + section.getTop() - dp(95);
-            scroll.smoothScrollTo(0, Math.max(0, y));
+        card.setOnClickListener(v -> launchApp(app));
+        card.setOnFocusChangeListener((v, focused) -> {
+            bg.setStroke(dp(focused ? 2 : 1), focused ? 0xFFFFFFFF : 0x23FFFFFF);
+            v.animate().scaleX(focused ? 1.045f : 1f).scaleY(focused ? 1.045f : 1f)
+                    .setDuration(155).start();
+            if (focused) {
+                lastFocusedId = v.getId();
+                horizontal.smoothScrollTo(Math.max(0, v.getLeft() - dp(44)), 0);
+                int y = channelContainer.getTop() + section.getTop() - dp(155);
+                scroll.smoothScrollTo(0, Math.max(0, y));
+            }
         });
-        return outer;
+        return card;
     }
 
     /** Keep view visibility in sync after apps are rescanned. */
@@ -1210,7 +1243,7 @@ public class MainActivity extends Activity {
             if (!has) return;
             lastFocusedId = v.getId();
             if (inDock) {
-                title.setText("FAVORITES  •  " + (app.label != null ? app.label.toUpperCase(Locale.ENGLISH) : ""));
+                title.setText("FAVORITE APPS");
                 title.animate().alpha(1f).setDuration(200).start();
                 updateHero(app, true);
                 if (heroActionBtn != null) heroActionBtn.setNextFocusDownId(v.getId());
@@ -1234,17 +1267,16 @@ public class MainActivity extends Activity {
         int heroBtnId = heroActionBtn != null ? heroActionBtn.getId() : View.NO_ID;
         int topId = !pills.isEmpty() ? pills.get(0).getId() : View.NO_ID;
         int firstChannelId = channelRows.isEmpty() ? View.NO_ID : channelRows.get(0).get(0).getId();
+        int browseId = browseAppsButton != null ? browseAppsButton.getId() : View.NO_ID;
         int lastChannelRow = channelRows.size() - 1;
-
         for (int i = 0; i < pills.size(); i++) {
             View p = pills.get(i);
             p.setNextFocusLeftId(i == 0 ? p.getId() : pills.get(i - 1).getId());
             p.setNextFocusRightId(i == pills.size() - 1 ? p.getId() : pills.get(i + 1).getId());
             p.setNextFocusUpId(p.getId());
-            p.setNextFocusDownId(heroBtnId != View.NO_ID ? heroBtnId :
-                    d > 0 ? dockCards.get(0).getId() : p.getId());
+            p.setNextFocusDownId(catalogMode && g > 0 ? gridCards.get(0).getId() :
+                    heroBtnId != View.NO_ID ? heroBtnId : p.getId());
         }
-
         if (heroActionBtn != null) {
             heroActionBtn.setNextFocusUpId(topId != View.NO_ID ? topId : heroBtnId);
             heroActionBtn.setNextFocusDownId(d > 0 ? dockCards.get(0).getId() :
@@ -1252,7 +1284,6 @@ public class MainActivity extends Activity {
             heroActionBtn.setNextFocusLeftId(heroBtnId);
             heroActionBtn.setNextFocusRightId(heroBtnId);
         }
-
         for (int i = 0; i < d; i++) {
             View c = dockCards.get(i);
             c.setNextFocusUpId(heroBtnId != View.NO_ID ? heroBtnId : topId);
@@ -1260,29 +1291,39 @@ public class MainActivity extends Activity {
             c.setNextFocusRightId(i == d - 1 ? c.getId() : dockCards.get(i + 1).getId());
             c.setNextFocusDownId(firstChannelId != View.NO_ID ?
                     channelRows.get(0).get(Math.min(i, channelRows.get(0).size() - 1)).getId() :
-                    g > 0 ? gridCards.get(Math.min(i, g - 1)).getId() : c.getId());
+                    browseId != View.NO_ID ? browseId : c.getId());
         }
         for (int row = 0; row < channelRows.size(); row++) {
             List<View> current = channelRows.get(row);
             List<View> above = row == 0 ? dockCards : channelRows.get(row - 1);
-            List<View> below = row == lastChannelRow ? gridCards : channelRows.get(row + 1);
+            List<View> below = row == lastChannelRow ?
+                    (browseAppsButton == null ? Collections.<View>emptyList() :
+                            Collections.singletonList(browseAppsButton)) : channelRows.get(row + 1);
             for (int i = 0; i < current.size(); i++) {
                 View c = current.get(i);
                 c.setNextFocusLeftId(i == 0 ? c.getId() : current.get(i - 1).getId());
                 c.setNextFocusRightId(i == current.size() - 1 ? c.getId() : current.get(i + 1).getId());
-                c.setNextFocusUpId(above.isEmpty() ? heroBtnId : above.get(Math.min(i, above.size() - 1)).getId());
-                c.setNextFocusDownId(below.isEmpty() ? c.getId() : below.get(Math.min(i, below.size() - 1)).getId());
+                c.setNextFocusUpId(above.isEmpty() ? heroBtnId :
+                        above.get(Math.min(i, above.size() - 1)).getId());
+                c.setNextFocusDownId(below.isEmpty() ? c.getId() :
+                        below.get(Math.min(i, below.size() - 1)).getId());
             }
+        }
+        if (browseAppsButton != null) {
+            browseAppsButton.setNextFocusUpId(lastChannelRow >= 0 ?
+                    channelRows.get(lastChannelRow).get(0).getId() :
+                    d > 0 ? dockCards.get(0).getId() : topId);
+            browseAppsButton.setNextFocusDownId(browseId);
+            browseAppsButton.setNextFocusLeftId(browseId);
+            browseAppsButton.setNextFocusRightId(browseId);
         }
 
         int lastRow = (g - 1) / cols;
-        List<View> beforeGrid = lastChannelRow >= 0 ? channelRows.get(lastChannelRow) : dockCards;
         for (int j = 0; j < g; j++) {
             View c = gridCards.get(j);
             int r = j / cols, col = j % cols;
-            int topTarget = beforeGrid.isEmpty() ? heroBtnId :
-                    beforeGrid.get(Math.min(col, beforeGrid.size() - 1)).getId();
-            c.setNextFocusUpId(r == 0 ? topTarget : gridCards.get(j - cols).getId());
+            c.setNextFocusUpId(r == 0 ? (topId != View.NO_ID ? topId : c.getId()) :
+                    gridCards.get(j - cols).getId());
             c.setNextFocusDownId(j + cols < g ? gridCards.get(j + cols).getId() :
                     r < lastRow ? gridCards.get(g - 1).getId() : c.getId());
             c.setNextFocusLeftId(col == 0 ? c.getId() : gridCards.get(j - 1).getId());
@@ -1290,17 +1331,12 @@ public class MainActivity extends Activity {
         }
     }
 
+    /** Catalog scroll independent of Home hero dimensions. */
     private void scrollToRow(View tileBox) {
         View row = (View) tileBox.getParent();
-        int y = grid.getTop() + row.getTop();
-        int screenH = getResources().getDisplayMetrics().heightPixels;
-        // First grid row: slide the dock band up to the top edge; later rows centre on screen.
-        View band = (View) dockRow.getParent();
-        int target = grid.indexOfChild(row) == 0
-                ? hero.getTop() + band.getTop() + dockRow.getTop() - dp(22)
-                : y - (int) (screenH * 0.42f);
+        int y = grid.getTop() + row.getTop() - dp(125);
         int max = Math.max(0, content.getHeight() - scroll.getHeight());
-        scroll.smoothScrollTo(0, Math.max(0, Math.min(target, max)));
+        scroll.smoothScrollTo(0, Math.max(0, Math.min(y, max)));
     }
 
     // ---------------------------------------------------------------- inputs
