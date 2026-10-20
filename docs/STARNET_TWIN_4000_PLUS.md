@@ -94,10 +94,24 @@ Other installed programs remain available in All Apps including Jellyfin (`org.j
 
 ### Next device tests
 
-1. Upgrade the test APK using `adb install -r`, then launch it via `adb shell am start -n com.mihir.tvhome/.MainActivity`.
+1. Download the test APK from the successful GitHub Actions workflow, extract the artifact ZIP, then run `adb install -r tvhome-starnet-android9.apk` and `adb shell am start -n com.mihir.tvhome/.MainActivity`.
 2. Verify that the first Live Satellite TV tile reaches live channels (and not merely Glide Home). Test channel switching, EPG and Return/Exit.
 3. Open Nova, Dates+, Marvel, SmartTube, Kodi and Stremio. Verify arrow/OK key behavior and how Back returns.
 4. Verify Original Home and physical HOME still return to Glide, and all proprietary menus remain usable.
 5. If the DVB tile does not appear, report the package manager output for `adb shell dumpsys package com.tosmart.glide` with private identifiers redacted. A firmware variant may hide the alias from package manager.
 
 Do not change default HOME or disable stock packages during these tests. Build success is not proof of DVB launch success, which requires a receiver test.
+
+### Signing caveat for GitHub-built test APKs
+
+Each GitHub Actions run generates a fresh debug keystore. If a prior GitHub-built tv-home test APK is installed, an in-place `adb install -r` may fail with `INSTALL_FAILED_UPDATE_INCOMPATIBLE` because the signing certificates differ. This is an expected Android security check, not a firmware problem.
+
+To replace the **test launcher only** (its own preferences will be reset), run:
+
+```bash
+adb uninstall com.mihir.tvhome
+adb install -r tvhome-starnet-android9.apk
+adb shell am start -n com.mihir.tvhome/.MainActivity
+```
+
+**Do not uninstall `com.tosmart.glide` or any vendor applications.** A future production release should use a persistent private signing key stored securely in CI secrets, never committed to the repository.

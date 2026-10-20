@@ -39,7 +39,15 @@ echo "Built $B/tvhome-starnet-android9.apk"
 if [[ "$MODE" == "--install" ]]; then
   command -v adb >/dev/null || { echo "ADB not found" >&2; exit 1; }
   adb devices
-  adb install -r "$B/tvhome-starnet-android9.apk"
+  if ! adb install -r "$B/tvhome-starnet-android9.apk"; then
+    echo "Install failed. If Android reported INSTALL_FAILED_UPDATE_INCOMPATIBLE," >&2
+    echo "this GitHub test APK was signed with a different temporary test key." >&2
+    echo "Remove ONLY the older tv-home test app, then install this APK:" >&2
+    echo "  adb uninstall com.mihir.tvhome" >&2
+    echo "  adb install -r $B/tvhome-starnet-android9.apk" >&2
+    echo "Never uninstall com.tosmart.glide or any StarNet/system application." >&2
+    exit 1
+  fi
   adb shell am start -n com.mihir.tvhome/.MainActivity
   echo "Test app launched. Stock home and satellite services unchanged."
 fi
