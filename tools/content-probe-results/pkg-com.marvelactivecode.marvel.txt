@@ -1,0 +1,409 @@
+Activity Resolver Table:
+  Full MIME Types:
+      application/x-mpegURL:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      application/vnd.apple.mpegurl:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      application/dash+xml:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      video/*:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Base MIME Types:
+      application:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Wild MIME Types:
+      video:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Schemes:
+      http:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      rtmp:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      rtsp:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      https:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 101b406
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+
+  MIME Typed Actions:
+      android.intent.action.VIEW:
+        29d7e09 com.marvelactivecode.marvel/.MainActivity filter 537aac7
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "rtmp"
+          Scheme: "rtsp"
+          Type: "video"
+          Type: "application/vnd.apple.mpegurl"
+          Type: "application/x-mpegURL"
+          Type: "application/dash+xml"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      android.intent.action.BATTERY_OKAY:
+        d6b980e com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy filter 8804073
+          Action: "android.intent.action.BATTERY_OKAY"
+          Action: "android.intent.action.BATTERY_LOW"
+      android.intent.action.ACTION_POWER_DISCONNECTED:
+        7f8322f com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy filter f55a4e2
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          Action: "android.intent.action.ACTION_POWER_DISCONNECTED"
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        351e03c com.marvelactivecode.marvel/androidx.profileinstaller.ProfileInstallReceiver filter ef2b048
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      android.intent.action.DEVICE_STORAGE_LOW:
+        696f1c5 com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy filter e30ab30
+          Action: "android.intent.action.DEVICE_STORAGE_LOW"
+          Action: "android.intent.action.DEVICE_STORAGE_OK"
+      android.net.conn.CONNECTIVITY_CHANGE:
+        f4d271a com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy filter 601b3a9
+          Action: "android.net.conn.CONNECTIVITY_CHANGE"
+      android.intent.action.DEVICE_STORAGE_OK:
+        696f1c5 com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy filter e30ab30
+          Action: "android.intent.action.DEVICE_STORAGE_LOW"
+          Action: "android.intent.action.DEVICE_STORAGE_OK"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        351e03c com.marvelactivecode.marvel/androidx.profileinstaller.ProfileInstallReceiver filter 6e2ee3a
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      com.google.android.c2dm.intent.RECEIVE:
+        ddfc24b com.marvelactivecode.marvel/io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver filter aef29ad
+          Action: "com.google.android.c2dm.intent.RECEIVE"
+        67ac428 com.marvelactivecode.marvel/com.google.firebase.iid.FirebaseInstanceIdReceiver filter 898e165
+          Action: "com.google.android.c2dm.intent.RECEIVE"
+      android.intent.action.BATTERY_LOW:
+        d6b980e com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy filter 8804073
+          Action: "android.intent.action.BATTERY_OKAY"
+          Action: "android.intent.action.BATTERY_LOW"
+      android.intent.action.TIMEZONE_CHANGED:
+        8f9e541 com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.RescheduleReceiver filter 12d2d2e
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.TIME_SET:
+        8f9e541 com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.RescheduleReceiver filter 12d2d2e
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      androidx.profileinstaller.action.SKIP_FILE:
+        351e03c com.marvelactivecode.marvel/androidx.profileinstaller.ProfileInstallReceiver filter e114aeb
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        351e03c com.marvelactivecode.marvel/androidx.profileinstaller.ProfileInstallReceiver filter ebb2ee1
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.BOOT_COMPLETED:
+        8f9e541 com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.RescheduleReceiver filter 12d2d2e
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.ACTION_POWER_CONNECTED:
+        7f8322f com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy filter f55a4e2
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          Action: "android.intent.action.ACTION_POWER_DISCONNECTED"
+      androidx.work.diagnostics.REQUEST_DIAGNOSTICS:
+        7869ae6 com.marvelactivecode.marvel/androidx.work.impl.diagnostics.DiagnosticsReceiver filter fad4a5c
+          Action: "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+      androidx.work.impl.background.systemalarm.UpdateProxies:
+        b663827 com.marvelactivecode.marvel/androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver filter 39470cf
+          Action: "androidx.work.impl.background.systemalarm.UpdateProxies"
+
+Service Resolver Table:
+  Non-Data Actions:
+      com.google.firebase.MESSAGING_EVENT:
+        4cbfad4 com.marvelactivecode.marvel/io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingService filter 5299dd7
+          Action: "com.google.firebase.MESSAGING_EVENT"
+        53e947d com.marvelactivecode.marvel/com.google.firebase.messaging.FirebaseMessagingService filter c19e6c4
+          Action: "com.google.firebase.MESSAGING_EVENT"
+          mPriority=-500, mOrder=0, mHasPartialTypes=false
+
+Permissions:
+  Permission [com.marvelactivecode.marvel.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (2917f72):
+    sourcePackage=com.marvelactivecode.marvel
+    uid=10047 gids=null type=0 prot=signature
+    perm=Permission{f42fc3 com.marvelactivecode.marvel.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{257f040 com.marvelactivecode.marvel/10047}
+
+Registered ContentProviders:
+  com.marvelactivecode.marvel/com.google.firebase.provider.FirebaseInitProvider:
+    Provider{91e1b2a com.marvelactivecode.marvel/com.google.firebase.provider.FirebaseInitProvider}
+  com.marvelactivecode.marvel/androidx.startup.InitializationProvider:
+    Provider{b30c873 com.marvelactivecode.marvel/androidx.startup.InitializationProvider}
+  com.marvelactivecode.marvel/com.crazecoder.openfile.FileProvider:
+    Provider{34f8aaf com.marvelactivecode.marvel/com.crazecoder.openfile.FileProvider}
+  com.marvelactivecode.marvel/io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider:
+    Provider{36af954 com.marvelactivecode.marvel/io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider}
+  com.marvelactivecode.marvel/androidx.core.content.FileProvider:
+    Provider{da9834c com.marvelactivecode.marvel/androidx.core.content.FileProvider}
+
+ContentProvider Authorities:
+  [com.marvelactivecode.marvel.firebaseinitprovider]:
+    Provider{91e1b2a com.marvelactivecode.marvel/com.google.firebase.provider.FirebaseInitProvider}
+      applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+  [com.marvelactivecode.marvel.fileProvider.com.crazecoder.openfile]:
+    Provider{34f8aaf com.marvelactivecode.marvel/com.crazecoder.openfile.FileProvider}
+      applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+  [com.marvelactivecode.marvel.provider]:
+    Provider{da9834c com.marvelactivecode.marvel/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+  [com.marvelactivecode.marvel.flutterfirebasemessaginginitprovider]:
+    Provider{36af954 com.marvelactivecode.marvel/io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider}
+      applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+  [com.marvelactivecode.marvel.androidx-startup]:
+    Provider{b30c873 com.marvelactivecode.marvel/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+
+Key Set Manager:
+  [com.marvelactivecode.marvel]
+      Signing KeySets: 16
+
+Packages:
+  Package [com.marvelactivecode.marvel] (257f040):
+    userId=10047
+    pkg=Package{c24fb79 com.marvelactivecode.marvel}
+    codePath=/data/app/com.marvelactivecode.marvel-_ff1ihNLEMIGeAcHWJkWzA==
+    resourcePath=/data/app/com.marvelactivecode.marvel-_ff1ihNLEMIGeAcHWJkWzA==
+    legacyNativeLibraryDir=/data/app/com.marvelactivecode.marvel-_ff1ihNLEMIGeAcHWJkWzA==/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=1 minSdk=21 targetSdk=34
+    versionName=10.0.0
+    splits=[base]
+    apkSigningVersion=2
+    applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP LARGE_HEAP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION HAS_DOMAIN_URLS PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/com.marvelactivecode.marvel
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      androidx.window.extensions
+      androidx.window.sidecar
+      android.ext.adservices
+    timeStamp=2026-07-13 18:34:17
+    firstInstallTime=2026-07-13 18:34:21
+    lastUpdateTime=2026-07-13 18:34:21
+    installerPackageName=com.excellence.appstore
+    signatures=PackageSignatures{8f420be version:2, signatures:[f9c7361c], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP LARGE_HEAP ]
+    declared permissions:
+      com.marvelactivecode.marvel.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.CHANGE_WIFI_STATE
+      android.permission.CHANGE_NETWORK_STATE
+      android.permission.FOREGROUND_SERVICE
+      android.permission.WAKE_LOCK
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.POST_NOTIFICATIONS
+      android.permission.READ_MEDIA_VIDEO
+      android.permission.READ_MEDIA_IMAGES
+      android.permission.READ_MEDIA_AUDIO
+      android.permission.READ_EXTERNAL_STORAGE
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.REQUEST_INSTALL_PACKAGES
+      android.permission.QUERY_ALL_PACKAGES
+      android.permission.VIBRATE
+      android.permission.RECEIVE_BOOT_COMPLETED
+      com.google.android.c2dm.permission.RECEIVE
+      com.google.android.gms.permission.AD_ID
+      android.permission.ACCESS_ADSERVICES_ATTRIBUTION
+      android.permission.ACCESS_ADSERVICES_AD_ID
+      com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+      com.marvelactivecode.marvel.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE: granted=true
+      com.google.android.c2dm.permission.RECEIVE: granted=true
+      android.permission.CHANGE_NETWORK_STATE: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.CHANGE_WIFI_STATE: granted=true
+      com.marvelactivecode.marvel.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.VIBRATE: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=-4292738759 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+      enabledComponents:
+        androidx.work.impl.background.systemjob.SystemJobService
+
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  [com.marvelactivecode.marvel]
+    path: /data/app/com.marvelactivecode.marvel-_ff1ihNLEMIGeAcHWJkWzA==/base.apk
+      arm: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [com.marvelactivecode.marvel]
+     base.apk - 17110

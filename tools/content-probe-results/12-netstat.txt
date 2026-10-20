@@ -1,0 +1,12 @@
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program Name
+tcp        0      0 0.0.0.0:12999           0.0.0.0:*               LISTEN      -
+tcp        0      0 0.0.0.0:36825           0.0.0.0:*               LISTEN      -
+tcp        0      0 192.168.8.210:45856     35.214.232.179:20010    ESTABLISHED -
+tcp        0      1 192.168.8.210:51158     34.90.62.204:7547       SYN_SENT    -
+tcp6       0      0 :::20000                :::*                    LISTEN      -
+tcp6       0      0 :::5555                 :::*                    LISTEN      -
+tcp6     130      0 2a02:cb80:4077:44:39036 2001:4860:4841:400::443 CLOSE_WAIT  -
+tcp6       0      0 ::ffff:192.168.8.:44854 ::ffff:34.49.25.28:443  ESTABLISHED -
+tcp6       0      0 ::ffff:192.168.8.2:5555 ::ffff:192.168.8.:52886 ESTABLISHED -
+tcp6       0      0 2a02:cb80:4077:44:50498 2a00:1450:400c:c02:5228 ESTABLISHED -

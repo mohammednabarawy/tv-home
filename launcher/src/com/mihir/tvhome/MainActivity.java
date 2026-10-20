@@ -47,6 +47,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mihir.tvhome.content.ContentManager;
+import com.mihir.tvhome.model.MediaItem;
+import com.mihir.tvhome.model.MediaShelf;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,14 +76,14 @@ public class MainActivity extends Activity {
     private String satelliteTvPkg, satelliteTvActivity, inputPickerPkg;
     private int cols;
 
-    static final class App {
-        String pkg, label, category;
-        ComponentName component;
-        boolean isSatellite;
-        boolean isPlus;
-        Drawable art;
-        boolean isBanner;
-        int color;
+    public static final class App {
+        public String pkg, label, category;
+        public ComponentName component;
+        public boolean isSatellite;
+        public boolean isPlus;
+        public Drawable art;
+        public boolean isBanner;
+        public int color;
     }
 
     private final Map<String, Integer> colorCache = new HashMap<>();
@@ -110,11 +114,21 @@ public class MainActivity extends Activity {
     private int packageSeq;
     private PopupWindow inputsPopup;
 
+    public static final int VIEW_HOME = 0;
+    public static final int VIEW_DISCOVER = 1;
+    public static final int VIEW_APPS = 2;
+    private int currentViewMode = VIEW_HOME;
+
     private View heroCard;
     private TextView heroBadge, heroTitle, heroSubtitle, heroActionBtn, heroFrameTag;
     private ImageView heroPreviewImage, heroArtwork;
     private View showcaseView, favoritesView, browseAppsButton, headerView;
-    private TextView homeNavTab, appsNavTab;
+    private TextView homeNavTab, liveNavTab, discoverNavTab, appsNavTab, glideNavTab, inputsNavTab;
+    private LinearLayout discoverContainer;
+    private final List<List<View>> discoverRows = new ArrayList<>();
+    private Bitmap currentWallpaperBitmap;
+    private Bitmap satBackdropBitmap;
+    private boolean isShowingSatBackdrop = false;
     private boolean catalogMode = false;
     private int homeHeroHeight;
     private FrameLayout heroPreviewBox;
@@ -143,6 +157,7 @@ public class MainActivity extends Activity {
                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         setContentView(buildUi());
+        loadSatBackdropAsync();
         buildApps();
 
         IntentFilter pf = new IntentFilter();
@@ -191,15 +206,18 @@ public class MainActivity extends Activity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        // Home pressed while already home: jump back to the first dock app.
+        // Home pressed while already home: jump back to Home view and first dock app.
         if (inputsPopup != null) inputsPopup.dismiss();
-        showAppCatalog(false);
+        setViewMode(VIEW_HOME);
     }
 
     @Override
     public void onBackPressed() {
-        if (catalogMode) {
-            showAppCatalog(false);
+        if (currentViewMode != VIEW_HOME) {
+            setViewMode(VIEW_HOME);
+            handler.post(() -> {
+                if (!dockCards.isEmpty()) dockCards.get(0).requestFocus();
+            });
         } else if (scroll.getScrollY() > 0 && !dockCards.isEmpty()) {
             dockCards.get(0).requestFocus();
         }
@@ -276,6 +294,15 @@ public class MainActivity extends Activity {
         channelContainer.setBackgroundColor(0xFF081321);
         content.addView(channelContainer, new LinearLayout.LayoutParams(-1, -2));
 
+        discoverContainer = new LinearLayout(this);
+        discoverContainer.setOrientation(LinearLayout.VERTICAL);
+        discoverContainer.setClipChildren(false);
+        discoverContainer.setClipToPadding(false);
+        discoverContainer.setPadding(dp(48), dp(4), dp(48), dp(30));
+        discoverContainer.setBackgroundColor(0xFF081321);
+        content.addView(discoverContainer, new LinearLayout.LayoutParams(-1, -2));
+        discoverContainer.setVisibility(View.GONE);
+
         appsLabel = text(22, "sans-serif-medium", 0xFFE5E9F5);
         appsLabel.setText("All Apps");
         appsLabel.setPadding(0, dp(15), 0, dp(5));
@@ -302,7 +329,7 @@ public class MainActivity extends Activity {
         return root;
     }
 
-    /** Clean top navigation inspired by Android TV, no permanent pill outlines. */
+    /** Clean top navigation inspired by Google TV / Android TV, with active underline tabs. */
     private View buildHeader() {
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.HORIZONTAL);
@@ -312,25 +339,29 @@ public class MainActivity extends Activity {
         LinearLayout tabs = new LinearLayout(this);
         tabs.setGravity(Gravity.CENTER_VERTICAL);
         tabs.setClipChildren(false);
-        TextView homeTab = navTab("Home");
-        homeNavTab = homeTab;
-        homeTab.setOnClickListener(v -> showAppCatalog(false));
+
+        homeNavTab = navTab("Home");
+        homeNavTab.setOnClickListener(v -> setViewMode(VIEW_HOME));
         // Press and hold OK on Home to change the landscape using bundled local photos.
-        homeTab.setOnLongClickListener(v -> {
+        homeNavTab.setOnLongClickListener(v -> {
             nextWallpaper();
             Toast.makeText(this, "Wallpaper changed", Toast.LENGTH_SHORT).show();
             return true;
         });
-        TextView liveTab = navTab("Live TV");
-        liveTab.setOnClickListener(v -> openSatelliteTv());
-        TextView appsTab = navTab("Apps");
-        appsNavTab = appsTab;
-        appsTab.setOnClickListener(v -> showAppCatalog(true));
-        TextView glideTab = navTab("Original Glide");
-        glideTab.setOnClickListener(v -> openOriginalHome());
-        TextView inputTab = navTab("Inputs");
-        inputTab.setOnClickListener(v -> showInputs(v));
-        for (TextView tab : new TextView[]{homeTab, liveTab, appsTab, glideTab, inputTab}) {
+
+        liveNavTab = navTab("Live TV");
+        liveNavTab.setOnClickListener(v -> openSatelliteTv());
+
+        discoverNavTab = navTab("Discover");
+        discoverNavTab.setOnClickListener(v -> setViewMode(VIEW_DISCOVER));
+
+        appsNavTab = navTab("Apps");
+        appsNavTab.setOnClickListener(v -> setViewMode(VIEW_APPS));
+
+        glideNavTab = navTab("Original Glide");
+        glideNavTab.setOnClickListener(v -> openOriginalHome());
+
+        for (TextView tab : new TextView[]{homeNavTab, liveNavTab, discoverNavTab, appsNavTab, glideNavTab}) {
             tabs.addView(tab, llp(-2, dp(37), 0, 0, dp(18), 0));
             pills.add(tab);
         }
@@ -338,9 +369,15 @@ public class MainActivity extends Activity {
 
         LinearLayout status = new LinearLayout(this);
         status.setGravity(Gravity.CENTER_VERTICAL);
+
+        inputsNavTab = navTab("Inputs");
+        inputsNavTab.setOnClickListener(this::showInputs);
+        status.addView(inputsNavTab, llp(-2, dp(37), 0, 0, dp(8), 0));
+        pills.add(inputsNavTab);
+
         wifiPill = navTab("Wi-Fi");
         wifiPill.setOnClickListener(v -> launch(new Intent(Settings.ACTION_WIFI_SETTINGS)));
-        status.addView(wifiPill);
+        status.addView(wifiPill, llp(-2, dp(37), 0, 0, dp(8), 0));
         pills.add(wifiPill);
 
         LinearLayout clockStack = new LinearLayout(this);
@@ -357,18 +394,21 @@ public class MainActivity extends Activity {
         clockStack.addView(timeLine);
         clockStack.addView(date);
         status.addView(clockStack, llp(-2, -2, dp(12), 0, dp(8), 0));
+
         TextView settingsTab = navTab("⚙");
         settingsTab.setOnClickListener(v -> launch(new Intent(Settings.ACTION_SETTINGS)));
         status.addView(settingsTab);
         pills.add(settingsTab);
+
         header.addView(status);
         updateNavSelection();
         return header;
     }
 
     private void updateNavSelection() {
-        updateNavTab(homeNavTab, !catalogMode);
-        updateNavTab(appsNavTab, catalogMode);
+        updateNavTab(homeNavTab, currentViewMode == VIEW_HOME);
+        updateNavTab(discoverNavTab, currentViewMode == VIEW_DISCOVER);
+        updateNavTab(appsNavTab, currentViewMode == VIEW_APPS);
     }
 
     private void updateNavTab(TextView tab, boolean active) {
@@ -391,10 +431,29 @@ public class MainActivity extends Activity {
         tab.setFocusable(true);
         tab.setClickable(true);
         tab.setBackground(new GradientDrawable());
+        tab.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                    v.performClick();
+                    return true;
+                }
+            }
+            return false;
+        });
         tab.setOnFocusChangeListener((v, hasFocus) -> {
             tab.setScaleX(hasFocus ? 1.06f : 1f);
             tab.setScaleY(hasFocus ? 1.06f : 1f);
-            if (tab == homeNavTab || tab == appsNavTab) {
+            if (hasFocus) {
+                lastFocusedId = v.getId();
+                if (tab == homeNavTab && currentViewMode != VIEW_HOME) {
+                    setViewMode(VIEW_HOME);
+                } else if (tab == discoverNavTab && currentViewMode != VIEW_DISCOVER) {
+                    setViewMode(VIEW_DISCOVER);
+                } else if (tab == appsNavTab && currentViewMode != VIEW_APPS) {
+                    setViewMode(VIEW_APPS);
+                }
+            }
+            if (tab == homeNavTab || tab == discoverNavTab || tab == appsNavTab) {
                 updateNavSelection();
             } else {
                 tab.setTextColor(hasFocus ? Color.WHITE : 0xC8FFFFFF);
@@ -403,34 +462,92 @@ public class MainActivity extends Activity {
                         (flags | android.graphics.Paint.UNDERLINE_TEXT_FLAG) :
                         (flags & ~android.graphics.Paint.UNDERLINE_TEXT_FLAG));
             }
-            if (hasFocus) lastFocusedId = v.getId();
         });
         return tab;
     }
 
-    /** Switch between elegant home and dedicated complete app catalog. */
-    private void showAppCatalog(boolean showCatalog) {
-        catalogMode = showCatalog;
+    /** Switch between Home, Discover, and All Apps views. */
+    private void setViewMode(int mode) {
+        currentViewMode = mode;
+        catalogMode = (mode == VIEW_APPS);
         updateNavSelection();
+
         if (hero != null) {
             ViewGroup.LayoutParams params = hero.getLayoutParams();
-            params.height = catalogMode ? dp(82) : homeHeroHeight;
+            params.height = (mode == VIEW_APPS) ? dp(82) : homeHeroHeight;
             hero.setLayoutParams(params);
         }
-        if (showcaseView != null) showcaseView.setVisibility(catalogMode ? View.GONE : View.VISIBLE);
-        if (favoritesView != null) favoritesView.setVisibility(catalogMode ? View.GONE : View.VISIBLE);
-        if (channelContainer != null) channelContainer.setVisibility(catalogMode ? View.GONE : View.VISIBLE);
-        if (appsLabel != null) appsLabel.setVisibility(catalogMode ? View.VISIBLE : View.GONE);
-        if (grid != null) grid.setVisibility(catalogMode ? View.VISIBLE : View.GONE);
+
+        if (showcaseView != null) showcaseView.setVisibility(mode == VIEW_APPS ? View.GONE : View.VISIBLE);
+        if (favoritesView != null) favoritesView.setVisibility(mode == VIEW_HOME ? View.VISIBLE : View.GONE);
+        if (channelContainer != null) channelContainer.setVisibility(mode == VIEW_HOME ? View.VISIBLE : View.GONE);
+        if (discoverContainer != null) discoverContainer.setVisibility(mode == VIEW_DISCOVER ? View.VISIBLE : View.GONE);
+        if (appsLabel != null) appsLabel.setVisibility(mode == VIEW_APPS ? View.VISIBLE : View.GONE);
+        if (grid != null) grid.setVisibility(mode == VIEW_APPS ? View.VISIBLE : View.GONE);
+
         if (scroll != null) scroll.scrollTo(0, 0);
-        wireFocus();
-        if (catalogMode) {
-            if (!gridCards.isEmpty()) gridCards.get(0).requestFocus();
-        } else if (!dockCards.isEmpty()) {
-            dockCards.get(0).requestFocus();
-        } else if (heroActionBtn != null) {
-            heroActionBtn.requestFocus();
+
+        if (mode == VIEW_DISCOVER) {
+            setupDiscoverHero();
+        } else if (mode == VIEW_HOME) {
+            if (!dockCards.isEmpty()) {
+                App first = (App) dockCards.get(0).getTag();
+                if (first != null) updateHero(first, false);
+            }
         }
+
+        wireFocus();
+
+        View focused = getCurrentFocus();
+        boolean inHeader = false;
+        if (focused != null) {
+            for (View p : pills) {
+                if (focused == p) { inHeader = true; break; }
+            }
+        }
+
+        if (!inHeader) {
+            final int targetMode = mode;
+            handler.post(() -> {
+                if (targetMode == VIEW_APPS) {
+                    if (!gridCards.isEmpty()) gridCards.get(0).requestFocus();
+                } else if (targetMode == VIEW_DISCOVER) {
+                    if (!discoverRows.isEmpty() && !discoverRows.get(0).isEmpty()) {
+                        discoverRows.get(0).get(0).requestFocus();
+                    } else if (heroActionBtn != null) {
+                        heroActionBtn.requestFocus();
+                    }
+                } else {
+                    if (!dockCards.isEmpty()) {
+                        dockCards.get(0).requestFocus();
+                    } else if (heroActionBtn != null) {
+                        heroActionBtn.requestFocus();
+                    }
+                }
+            });
+        }
+    }
+
+    private void setupDiscoverHero() {
+        if (heroBadge == null) return;
+        heroBadge.setText("✦ SUBSCRIPTION & ENTERTAINMENT HUB");
+        heroTitle.setText("Discover Your Services");
+        heroSubtitle.setText("Explore installed IPTV, live broadcast, cinema, and media streaming applications on your StarNet receiver.");
+        heroActionBtn.setText("▶  Explore Categories");
+        heroActionBtn.setOnClickListener(v -> {
+            if (!discoverRows.isEmpty() && !discoverRows.get(0).isEmpty()) {
+                discoverRows.get(0).get(0).requestFocus();
+            }
+        });
+        if (currentWallpaperBitmap != null && heroArtwork != null) {
+            heroArtwork.setImageBitmap(currentWallpaperBitmap);
+            isShowingSatBackdrop = false;
+        }
+    }
+
+    /** Compatibility helper for previous catalog switches. */
+    private void showAppCatalog(boolean showCatalog) {
+        setViewMode(showCatalog ? VIEW_APPS : VIEW_HOME);
     }
 
     /** Keep an explicit entry point for the complete set of applications. */
@@ -532,6 +649,15 @@ public class MainActivity extends Activity {
         cta.setCornerRadius(dp(22));
         heroActionBtn.setBackground(cta);
         heroActionBtn.setOnClickListener(v -> launchApp(currentHeroApp));
+        heroActionBtn.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                    v.performClick();
+                    return true;
+                }
+            }
+            return false;
+        });
         heroActionBtn.setOnFocusChangeListener((v, focused) -> {
             cta.setColor(focused ? 0xFFFFFFFF : 0xE7F5F8FA);
             v.animate().scaleX(focused ? 1.06f : 1f).scaleY(focused ? 1.06f : 1f)
@@ -575,8 +701,40 @@ public class MainActivity extends Activity {
         heroTitle.setText(app.label == null ? "" : app.label);
         heroSubtitle.setText(getAppSubtitle(app));
         heroActionBtn.setText(getAppActionText(app));
+        heroActionBtn.setOnClickListener(v -> launchApp(currentHeroApp));
         heroPreviewImage.setImageDrawable(app.art);
         heroFrameTag.setText(getAppFrameTag(app));
+
+        if (app.isSatellite && satBackdropBitmap != null && heroArtwork != null) {
+            heroArtwork.setImageBitmap(satBackdropBitmap);
+            isShowingSatBackdrop = true;
+        } else if (isShowingSatBackdrop && currentWallpaperBitmap != null && heroArtwork != null) {
+            heroArtwork.setImageBitmap(currentWallpaperBitmap);
+            isShowingSatBackdrop = false;
+        }
+    }
+
+    private void updateHeroForMediaItem(MediaItem item) {
+        if (item == null || heroCard == null) return;
+        currentHeroApp = null;
+        String badge = item.getSourceAppName() != null && !item.getSourceAppName().isEmpty()
+                ? item.getSourceAppName().toUpperCase(Locale.getDefault()) : "SERVICE";
+        heroBadge.setText("● " + badge);
+        heroTitle.setText(item.getTitle() != null ? item.getTitle() : "");
+        heroSubtitle.setText(item.getSynopsis() != null && !item.getSynopsis().isEmpty()
+                ? item.getSynopsis() : item.getSubtitle());
+        heroActionBtn.setText(MediaItem.TYPE_LIVE_TV.equals(item.getType()) ? "▶  Watch Live TV" : "▶  Open App");
+        heroActionBtn.setOnClickListener(v -> {
+            if (item.getLaunchIntent() != null) launch(item.getLaunchIntent());
+        });
+
+        if ("sat_backdrop.jpg".equals(item.getBackdropAssetPath()) && satBackdropBitmap != null && heroArtwork != null) {
+            heroArtwork.setImageBitmap(satBackdropBitmap);
+            isShowingSatBackdrop = true;
+        } else if (isShowingSatBackdrop && currentWallpaperBitmap != null && heroArtwork != null) {
+            heroArtwork.setImageBitmap(currentWallpaperBitmap);
+            isShowingSatBackdrop = false;
+        }
     }
 
     private String getAppBadge(App app) {
@@ -737,6 +895,7 @@ public class MainActivity extends Activity {
             if (featured.pkg != null && !featured.isPlus) visibleFavorites.add(featured.pkg);
         }
         buildChannelRows(allAppsForChannels, satellite, visibleFavorites);
+        buildDiscoverRows(satellite, allAppsForChannels);
         showAppCatalogVisibilityOnly();
         wireFocus();
 
@@ -895,11 +1054,132 @@ public class MainActivity extends Activity {
         return card;
     }
 
+    private void buildDiscoverRows(App satellite, Map<String, App> allApps) {
+        discoverRows.clear();
+        discoverContainer.removeAllViews();
+
+        List<MediaShelf> shelves = ContentManager.buildDiscoverShelves(this, satellite, allApps);
+        for (MediaShelf shelf : shelves) {
+            LinearLayout section = new LinearLayout(this);
+            section.setOrientation(LinearLayout.VERTICAL);
+            section.setClipChildren(false);
+            section.setClipToPadding(false);
+            section.setBackgroundColor(0xFF081321);
+
+            TextView label = text(14, "sans-serif-medium", 0xFFE8E8F5);
+            label.setText(shelf.getTitle());
+            section.addView(label, llp(-1, -2, 0, dp(4), 0, dp(2)));
+
+            if (shelf.getSubtitle() != null && !shelf.getSubtitle().isEmpty()) {
+                TextView sub = text(11, "sans-serif", 0x8CBADBEA);
+                sub.setText(shelf.getSubtitle());
+                section.addView(sub, llp(-1, -2, 0, 0, 0, dp(9)));
+            }
+
+            HorizontalScrollView horizontal = new HorizontalScrollView(this);
+            horizontal.setHorizontalScrollBarEnabled(false);
+            horizontal.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            horizontal.setClipChildren(false);
+            horizontal.setClipToPadding(false);
+
+            LinearLayout strip = new LinearLayout(this);
+            strip.setOrientation(LinearLayout.HORIZONTAL);
+            strip.setGravity(Gravity.CENTER_VERTICAL);
+            strip.setClipChildren(false);
+            horizontal.addView(strip, new HorizontalScrollView.LayoutParams(-2, -2));
+
+            List<View> focusRow = new ArrayList<>();
+            for (MediaItem item : shelf.getItems()) {
+                View card = discoverTile(item, horizontal, section);
+                LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(dp(168), dp(125));
+                cp.setMargins(dp(4), dp(4), dp(12), dp(6));
+                strip.addView(card, cp);
+                focusRow.add(card);
+            }
+
+            section.addView(horizontal, new LinearLayout.LayoutParams(-1, -2));
+            discoverContainer.addView(section, llp(-1, -2, 0, 0, 0, dp(18)));
+            discoverRows.add(focusRow);
+        }
+    }
+
+    private View discoverTile(MediaItem item, HorizontalScrollView horizontal, View section) {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setGravity(Gravity.CENTER_HORIZONTAL);
+        card.setFocusable(true);
+        card.setClickable(true);
+        card.setId(View.generateViewId());
+        card.setPadding(dp(2), dp(2), dp(2), dp(2));
+        card.setTag(item);
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(0x9910192B);
+        bg.setCornerRadius(dp(12));
+        bg.setStroke(dp(1), 0x28FFFFFF);
+        card.setBackground(bg);
+
+        ImageView image = new ImageView(this);
+        if (item.getIconDrawable() != null) {
+            image.setImageDrawable(item.getIconDrawable());
+        } else if (item.getIconResId() != 0) {
+            image.setImageResource(item.getIconResId());
+        }
+        image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        image.setPadding(dp(12), dp(10), dp(12), dp(8));
+        card.addView(image, new LinearLayout.LayoutParams(-1, dp(76)));
+
+        TextView name = text(12, "sans-serif-medium", Color.WHITE);
+        name.setText(item.getTitle());
+        name.setSingleLine(true);
+        name.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        name.setGravity(Gravity.CENTER);
+        card.addView(name, new LinearLayout.LayoutParams(-1, dp(22)));
+
+        TextView sub = text(10, "sans-serif", 0xB38EB8DF);
+        sub.setText(item.getSubtitle());
+        sub.setSingleLine(true);
+        sub.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        sub.setGravity(Gravity.CENTER);
+        card.addView(sub, new LinearLayout.LayoutParams(-1, dp(18)));
+
+        card.setOnClickListener(v -> {
+            if (item.getLaunchIntent() != null) launch(item.getLaunchIntent());
+        });
+        card.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                    if (item.getLaunchIntent() != null) launch(item.getLaunchIntent());
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        card.setOnFocusChangeListener((v, focused) -> {
+            bg.setStroke(dp(focused ? 2 : 1), focused ? 0xFFFFFFFF : 0x28FFFFFF);
+            bg.setColor(focused ? 0xDD162A48 : 0x9910192B);
+            v.animate().scaleX(focused ? 1.05f : 1f).scaleY(focused ? 1.05f : 1f)
+                    .setDuration(155).start();
+            if (focused) {
+                lastFocusedId = v.getId();
+                horizontal.smoothScrollTo(Math.max(0, v.getLeft() - dp(44)), 0);
+                int y = discoverContainer.getTop() + section.getTop() - dp(155);
+                scroll.smoothScrollTo(0, Math.max(0, y));
+                updateHeroForMediaItem(item);
+                if (heroActionBtn != null) heroActionBtn.setNextFocusDownId(v.getId());
+            }
+        });
+        return card;
+    }
+
     /** Keep view visibility in sync after apps are rescanned. */
     private void showAppCatalogVisibilityOnly() {
-        if (channelContainer != null) channelContainer.setVisibility(catalogMode ? View.GONE : View.VISIBLE);
-        if (grid != null) grid.setVisibility(catalogMode ? View.VISIBLE : View.GONE);
-        if (appsLabel != null) appsLabel.setVisibility(catalogMode ? View.VISIBLE : View.GONE);
+        if (favoritesView != null) favoritesView.setVisibility(currentViewMode == VIEW_HOME ? View.VISIBLE : View.GONE);
+        if (channelContainer != null) channelContainer.setVisibility(currentViewMode == VIEW_HOME ? View.VISIBLE : View.GONE);
+        if (discoverContainer != null) discoverContainer.setVisibility(currentViewMode == VIEW_DISCOVER ? View.VISIBLE : View.GONE);
+        if (grid != null) grid.setVisibility(currentViewMode == VIEW_APPS ? View.VISIBLE : View.GONE);
+        if (appsLabel != null) appsLabel.setVisibility(currentViewMode == VIEW_APPS ? View.VISIBLE : View.GONE);
     }
 
     /** A StarNet satellite entry using the owner's observed Glide DVB activity alias. */
@@ -1299,14 +1579,20 @@ public class MainActivity extends Activity {
                 showRemoveDialog(app);
                 return true;
             });
-            card.setOnKeyListener((v, keyCode, event) -> {
-                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
+        }
+        card.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                    launchApp(app);
+                    return true;
+                }
+                if (keyCode == KeyEvent.KEYCODE_MENU && inDock && !app.isSatellite && !app.isPlus) {
                     showRemoveDialog(app);
                     return true;
                 }
-                return false;
-            });
-        }
+            }
+            return false;
+        });
         card.setOnFocusChangeListener((v, has) -> {
             float s = has ? (inDock ? 1.12f : 1.1f) : 1f;
             v.animate().scaleX(s).scaleY(s).translationZ(has ? dp(14) : 0)
@@ -1342,65 +1628,106 @@ public class MainActivity extends Activity {
         int firstChannelId = channelRows.isEmpty() ? View.NO_ID : channelRows.get(0).get(0).getId();
         int browseId = browseAppsButton != null ? browseAppsButton.getId() : View.NO_ID;
         int lastChannelRow = channelRows.size() - 1;
+
+        // Pills (Top Header Tabs)
         for (int i = 0; i < pills.size(); i++) {
             View p = pills.get(i);
             p.setNextFocusLeftId(i == 0 ? p.getId() : pills.get(i - 1).getId());
             p.setNextFocusRightId(i == pills.size() - 1 ? p.getId() : pills.get(i + 1).getId());
             p.setNextFocusUpId(p.getId());
-            p.setNextFocusDownId(catalogMode && g > 0 ? gridCards.get(0).getId() :
-                    heroBtnId != View.NO_ID ? heroBtnId : p.getId());
-        }
-        if (heroActionBtn != null) {
-            heroActionBtn.setNextFocusUpId(topId != View.NO_ID ? topId : heroBtnId);
-            heroActionBtn.setNextFocusDownId(d > 0 ? dockCards.get(0).getId() :
-                    firstChannelId != View.NO_ID ? firstChannelId : heroBtnId);
-            heroActionBtn.setNextFocusLeftId(heroBtnId);
-            heroActionBtn.setNextFocusRightId(heroBtnId);
-        }
-        for (int i = 0; i < d; i++) {
-            View c = dockCards.get(i);
-            c.setNextFocusUpId(heroBtnId != View.NO_ID ? heroBtnId : topId);
-            c.setNextFocusLeftId(i == 0 ? c.getId() : dockCards.get(i - 1).getId());
-            c.setNextFocusRightId(i == d - 1 ? c.getId() : dockCards.get(i + 1).getId());
-            c.setNextFocusDownId(firstChannelId != View.NO_ID ?
-                    channelRows.get(0).get(Math.min(i, channelRows.get(0).size() - 1)).getId() :
-                    browseId != View.NO_ID ? browseId : c.getId());
-        }
-        for (int row = 0; row < channelRows.size(); row++) {
-            List<View> current = channelRows.get(row);
-            List<View> above = row == 0 ? dockCards : channelRows.get(row - 1);
-            List<View> below = row == lastChannelRow ?
-                    (browseAppsButton == null ? Collections.<View>emptyList() :
-                            Collections.singletonList(browseAppsButton)) : channelRows.get(row + 1);
-            for (int i = 0; i < current.size(); i++) {
-                View c = current.get(i);
-                c.setNextFocusLeftId(i == 0 ? c.getId() : current.get(i - 1).getId());
-                c.setNextFocusRightId(i == current.size() - 1 ? c.getId() : current.get(i + 1).getId());
-                c.setNextFocusUpId(above.isEmpty() ? heroBtnId :
-                        above.get(Math.min(i, above.size() - 1)).getId());
-                c.setNextFocusDownId(below.isEmpty() ? c.getId() :
-                        below.get(Math.min(i, below.size() - 1)).getId());
+            if (currentViewMode == VIEW_APPS && g > 0) {
+                p.setNextFocusDownId(gridCards.get(0).getId());
+            } else if (currentViewMode == VIEW_DISCOVER) {
+                if (heroBtnId != View.NO_ID) {
+                    p.setNextFocusDownId(heroBtnId);
+                } else if (!discoverRows.isEmpty() && !discoverRows.get(0).isEmpty()) {
+                    p.setNextFocusDownId(discoverRows.get(0).get(0).getId());
+                } else {
+                    p.setNextFocusDownId(p.getId());
+                }
+            } else {
+                p.setNextFocusDownId(heroBtnId != View.NO_ID ? heroBtnId :
+                        d > 0 ? dockCards.get(0).getId() : p.getId());
             }
         }
-        if (browseAppsButton != null) {
-            browseAppsButton.setNextFocusUpId(lastChannelRow >= 0 ?
-                    channelRows.get(lastChannelRow).get(0).getId() :
-                    d > 0 ? dockCards.get(0).getId() : topId);
-            browseAppsButton.setNextFocusDownId(browseId);
-            browseAppsButton.setNextFocusLeftId(browseId);
-            browseAppsButton.setNextFocusRightId(browseId);
+
+        // Hero Action Button
+        if (heroActionBtn != null) {
+            heroActionBtn.setNextFocusUpId(topId != View.NO_ID ? topId : heroBtnId);
+            heroActionBtn.setNextFocusLeftId(heroBtnId);
+            heroActionBtn.setNextFocusRightId(heroBtnId);
+            if (currentViewMode == VIEW_DISCOVER) {
+                int firstDiscoverId = (!discoverRows.isEmpty() && !discoverRows.get(0).isEmpty())
+                        ? discoverRows.get(0).get(0).getId() : heroBtnId;
+                heroActionBtn.setNextFocusDownId(firstDiscoverId);
+            } else {
+                heroActionBtn.setNextFocusDownId(d > 0 ? dockCards.get(0).getId() :
+                        firstChannelId != View.NO_ID ? firstChannelId : heroBtnId);
+            }
         }
 
-        int lastRow = (g - 1) / cols;
-        for (int j = 0; j < g; j++) {
-            View c = gridCards.get(j);
-            int r = j / cols, col = j % cols;
-            c.setNextFocusUpId(r == 0 ? (topId != View.NO_ID ? topId : c.getId()) :
-                    gridCards.get(j - cols).getId());
-            c.setNextFocusDownId(j + cols < g ? gridCards.get(j + cols).getId() :
-                    r < lastRow ? gridCards.get(g - 1).getId() : c.getId());
-            c.setNextFocusLeftId(col == 0 ? c.getId() : gridCards.get(j - 1).getId());
-            c.setNextFocusRightId(col == cols - 1 || j == g - 1 ? c.getId() : gridCards.get(j + 1).getId());
+        if (currentViewMode == VIEW_HOME) {
+            for (int i = 0; i < d; i++) {
+                View c = dockCards.get(i);
+                c.setNextFocusUpId(heroBtnId != View.NO_ID ? heroBtnId : topId);
+                c.setNextFocusLeftId(i == 0 ? c.getId() : dockCards.get(i - 1).getId());
+                c.setNextFocusRightId(i == d - 1 ? c.getId() : dockCards.get(i + 1).getId());
+                c.setNextFocusDownId(firstChannelId != View.NO_ID ?
+                        channelRows.get(0).get(Math.min(i, channelRows.get(0).size() - 1)).getId() :
+                        browseId != View.NO_ID ? browseId : c.getId());
+            }
+            for (int row = 0; row < channelRows.size(); row++) {
+                List<View> current = channelRows.get(row);
+                List<View> above = row == 0 ? dockCards : channelRows.get(row - 1);
+                List<View> below = row == lastChannelRow ?
+                        (browseAppsButton == null ? Collections.<View>emptyList() :
+                                Collections.singletonList(browseAppsButton)) : channelRows.get(row + 1);
+                for (int i = 0; i < current.size(); i++) {
+                    View c = current.get(i);
+                    c.setNextFocusLeftId(i == 0 ? c.getId() : current.get(i - 1).getId());
+                    c.setNextFocusRightId(i == current.size() - 1 ? c.getId() : current.get(i + 1).getId());
+                    c.setNextFocusUpId(above.isEmpty() ? heroBtnId :
+                            above.get(Math.min(i, above.size() - 1)).getId());
+                    c.setNextFocusDownId(below.isEmpty() ? c.getId() :
+                            below.get(Math.min(i, below.size() - 1)).getId());
+                }
+            }
+            if (browseAppsButton != null) {
+                browseAppsButton.setNextFocusUpId(lastChannelRow >= 0 ?
+                        channelRows.get(lastChannelRow).get(0).getId() :
+                        d > 0 ? dockCards.get(0).getId() : topId);
+                browseAppsButton.setNextFocusDownId(browseId);
+                browseAppsButton.setNextFocusLeftId(browseId);
+                browseAppsButton.setNextFocusRightId(browseId);
+            }
+        } else if (currentViewMode == VIEW_DISCOVER) {
+            int lastDiscoverRow = discoverRows.size() - 1;
+            for (int row = 0; row < discoverRows.size(); row++) {
+                List<View> current = discoverRows.get(row);
+                List<View> above = row == 0 ? Collections.<View>emptyList() : discoverRows.get(row - 1);
+                List<View> below = row == lastDiscoverRow ? Collections.<View>emptyList() : discoverRows.get(row + 1);
+                for (int i = 0; i < current.size(); i++) {
+                    View c = current.get(i);
+                    c.setNextFocusLeftId(i == 0 ? c.getId() : current.get(i - 1).getId());
+                    c.setNextFocusRightId(i == current.size() - 1 ? c.getId() : current.get(i + 1).getId());
+                    c.setNextFocusUpId(above.isEmpty() ? (heroBtnId != View.NO_ID ? heroBtnId : topId) :
+                            above.get(Math.min(i, above.size() - 1)).getId());
+                    c.setNextFocusDownId(below.isEmpty() ? c.getId() :
+                            below.get(Math.min(i, below.size() - 1)).getId());
+                }
+            }
+        } else if (currentViewMode == VIEW_APPS) {
+            int lastRow = (g - 1) / cols;
+            for (int j = 0; j < g; j++) {
+                View c = gridCards.get(j);
+                int r = j / cols, col = j % cols;
+                c.setNextFocusUpId(r == 0 ? (topId != View.NO_ID ? topId : c.getId()) :
+                        gridCards.get(j - cols).getId());
+                c.setNextFocusDownId(j + cols < g ? gridCards.get(j + cols).getId() :
+                        r < lastRow ? gridCards.get(g - 1).getId() : c.getId());
+                c.setNextFocusLeftId(col == 0 ? c.getId() : gridCards.get(j - 1).getId());
+                c.setNextFocusRightId(col == cols - 1 || j == g - 1 ? c.getId() : gridCards.get(j + 1).getId());
+            }
         }
     }
 
@@ -1573,11 +1900,24 @@ public class MainActivity extends Activity {
     /** Update only the hero photograph; the Apps and shelves always keep an opaque background. */
     private void showWallpaper(Bitmap bm) {
         if (bm == null || isDestroyed() || heroArtwork == null) return;
-        heroArtwork.animate().cancel();
-        heroArtwork.setImageBitmap(bm);
-        heroArtwork.setAlpha(0.65f);
-        heroArtwork.animate().alpha(1f).setDuration(firstWallpaper ? 400 : 900).start();
+        currentWallpaperBitmap = bm;
+        if (!isShowingSatBackdrop) {
+            heroArtwork.animate().cancel();
+            heroArtwork.setImageBitmap(bm);
+            heroArtwork.setAlpha(0.65f);
+            heroArtwork.animate().alpha(1f).setDuration(firstWallpaper ? 400 : 900).start();
+        }
         firstWallpaper = false;
+    }
+
+    private void loadSatBackdropAsync() {
+        new Thread(() -> {
+            try (java.io.InputStream in = getAssets().open("sat_backdrop.jpg")) {
+                BitmapFactory.Options o = new BitmapFactory.Options();
+                o.inPreferredConfig = Bitmap.Config.RGB_565;
+                satBackdropBitmap = BitmapFactory.decodeStream(in, null, o);
+            } catch (Exception ignored) {}
+        }).start();
     }
 
     private boolean firstWallpaper = true;
