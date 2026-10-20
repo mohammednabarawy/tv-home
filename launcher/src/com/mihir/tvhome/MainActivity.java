@@ -3,11 +3,13 @@ package com.mihir.tvhome;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -40,7 +42,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -306,6 +310,8 @@ public class MainActivity extends Activity {
         right.setClipChildren(false);
         // Open the still-installed StarNet/Glide HOME without changing the default launcher.
         // The port itself deliberately does not register as an Android HOME application.
+        TextView allApps = pill("All Apps", "▦");
+        allApps.setOnClickListener(v -> scrollToAllApps());
         TextView originalHome = pill("Original Home", "⌂");
         originalHome.setOnClickListener(v -> openOriginalHome());
         TextView inputs = pill("Inputs", "⇥");
@@ -314,12 +320,18 @@ public class MainActivity extends Activity {
         wifiPill.setOnClickListener(v -> launch(new Intent(Settings.ACTION_WIFI_SETTINGS)));
         TextView settings = pill("Settings", "⚙");
         settings.setOnClickListener(v -> launch(new Intent(Settings.ACTION_SETTINGS)));
-        for (TextView p : new TextView[]{inputs, originalHome, wifiPill, settings}) {
+        for (TextView p : new TextView[]{allApps, inputs, originalHome, wifiPill, settings}) {
             right.addView(p, llp(-2, dp(30), dp(10), 0, 0, 0));
             pills.add(p);
         }
         header.addView(right, new FrameLayout.LayoutParams(-2, -2, Gravity.END | Gravity.TOP));
         return header;
+    }
+
+    /** Smoothly scroll down to the full applications grid and focus first item. */
+    private void scrollToAllApps() {
+        scroll.smoothScrollTo(0, hero.getHeight());
+        if (!gridCards.isEmpty()) gridCards.get(0).requestFocus();
     }
 
     /** Return to the stock StarNet HOME. This never disables packages or changes the HOME setting. */
@@ -388,8 +400,9 @@ public class MainActivity extends Activity {
         // Keep Glide itself in the regular app list as an additional safe escape hatch.
         App satellite = buildSatelliteEntry(pm);
         if (satellite != null) dock.add(satellite);
+        List<String> currentDock = getDockList();
         boolean youtubeAdded = false;
-        for (String p : dockApps) {
+        for (String p : currentDock) {
             if (p.equals("com.google.android.youtube.tv") || p.equals("io.gh.reisxd.tizentube.fortaleza")) {
                 if (youtubeAdded) continue;
                 if (byPkg.containsKey(p)) {
@@ -485,16 +498,267 @@ public class MainActivity extends Activity {
         }
     }
 
-    /** An 'All Apps' shortcut placed at the end of the dock with a '+' icon. */
+    private static final String PREF_NAME = "starnet_dock_prefs";
+    private static final String KEY_DOCK = "dock_packages";
+
+    private List<String> getDockList() {
+        SharedPreferences sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        String saved = sp.getString(KEY_DOCK, null);
+        if (saved != null) {
+            List<String> list = new ArrayList<>();
+            for (String s : saved.split(",")) {
+                String trimmed = s.trim();
+                if (!trimmed.isEmpty()) list.add(trimmed);
+            }
+            return list;
+        }
+        List<String> def = new ArrayList<>();
+        Collections.addAll(def, getResources().getStringArray(R.array.dock_apps));
+        return def;
+    }
+
+    private void saveDockList(List<String> list) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            if (i > 0) sb.append(",");
+            sb.append(list.get(i));
+        }
+        getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+                .edit()
+                .putString(KEY_DOCK, sb.toString())
+                .apply();
+    }
+
+    private void addAppToDock(String pkg) {
+        List<String> list = getDockList();
+        if (!list.contains(pkg)) {
+            list.add(pkg);
+            saveDockList(list);
+            buildApps();
+        }
+    }
+
+    private void removeAppFromDock(String pkg) {
+        List<String> list = getDockList();
+        if (list.remove(pkg)) {
+            saveDockList(list);
+            buildApps();
+        }
+    }
+
+    /** An 'Add to Dock' shortcut placed at the end of the dock with a '+' icon. */
     private App buildPlusEntry() {
         App app = new App();
         app.pkg = "com.mihir.tvhome.plus";
-        app.label = "+";
+        app.label = "Add to Dock";
         app.isPlus = true;
         app.color = 0xFF3A3A3C;
         app.art = getDrawable(R.drawable.ic_plus);
         app.isBanner = false;
         return app;
+    }
+
+    private void showAppPicker() {
+        PackageManager pm = getPackageManager();
+        Map<String, App> allAvailable = new HashMap<>();
+        List<String> currentDock = getDockList();
+        for (String category : new String[]{Intent.CATEGORY_LEANBACK_LAUNCHER, Intent.CATEGORY_LAUNCHER}) {
+            Intent q = new Intent(Intent.ACTION_MAIN).addCategory(category);
+            for (ResolveInfo ri : pm.queryIntentActivities(q, 0)) {
+                ActivityInfo ai = ri.activityInfo;
+                if (hidden.contains(ai.packageName) || allAvailable.containsKey(ai.packageName)) continue;
+                if (currentDock.contains(ai.packageName)) continue;
+                if (ai.packageName.equals(satelliteTvPkg)) continue;
+                if (ai.packageName.equals(getPackageName())) continue;
+
+                App a = new App();
+                a.pkg = ai.packageName;
+                a.category = category;
+                a.label = String.valueOf(ri.loadLabel(pm));
+                a.component = new ComponentName(ai.packageName, ai.name);
+                Drawable banner = ai.loadBanner(pm);
+                if (banner == null) banner = ai.applicationInfo.loadBanner(pm);
+                a.isBanner = banner != null;
+                a.art = banner != null ? banner : ri.loadIcon(pm);
+                a.color = sampleColor(a.pkg, a.art);
+                allAvailable.put(a.pkg, a);
+            }
+        }
+
+        List<App> candidates = new ArrayList<>(allAvailable.values());
+        Collections.sort(candidates, (x, y) -> x.label.compareToIgnoreCase(y.label));
+
+        if (candidates.isEmpty()) {
+            Toast.makeText(this, "All available apps are already in the dock", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        FrameLayout overlay = new FrameLayout(this);
+        overlay.setBackgroundColor(0xD9000000);
+
+        LinearLayout container = new LinearLayout(this);
+        container.setOrientation(LinearLayout.VERTICAL);
+        container.setPadding(dp(36), dp(28), dp(36), dp(28));
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(0xF0202024);
+        bg.setCornerRadius(dp(20));
+        bg.setStroke(dp(1), 0x33FFFFFF);
+        container.setBackground(bg);
+
+        TextView header = text(22, "sans-serif-medium", Color.WHITE);
+        header.setText("Add App to Dock");
+        container.addView(header);
+
+        TextView sub = text(12, "sans-serif", 0x99FFFFFF);
+        sub.setText("Select an app to pin to your home screen dock");
+        container.addView(sub, llp(-2, -2, 0, dp(4), 0, dp(18)));
+
+        ScrollView scroller = new ScrollView(this);
+        scroller.setVerticalScrollBarEnabled(false);
+        scroller.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+        LinearLayout list = new LinearLayout(this);
+        list.setOrientation(LinearLayout.VERTICAL);
+        list.setClipChildren(false);
+
+        List<View> itemViews = new ArrayList<>();
+        for (int i = 0; i < candidates.size(); i++) {
+            App app = candidates.get(i);
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            row.setPadding(dp(16), dp(10), dp(16), dp(10));
+            row.setFocusable(true);
+            row.setClickable(true);
+            row.setId(View.generateViewId());
+
+            GradientDrawable rowBg = new GradientDrawable();
+            rowBg.setColor(0x1AFFFFFF);
+            rowBg.setCornerRadius(dp(12));
+            row.setBackground(rowBg);
+
+            ImageView icon = new ImageView(this);
+            icon.setImageDrawable(app.art);
+            icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            row.addView(icon, new LinearLayout.LayoutParams(dp(36), dp(36)));
+
+            TextView label = text(15, "sans-serif", 0xE6FFFFFF);
+            label.setText(app.label);
+            label.setSingleLine(true);
+            row.addView(label, llp(-1, -2, dp(18), 0, 0, 0));
+
+            row.setOnFocusChangeListener((v, hasFocus) -> {
+                rowBg.setColor(hasFocus ? 0xFFFFFFFF : 0x1AFFFFFF);
+                label.setTextColor(hasFocus ? 0xFF111111 : 0xE6FFFFFF);
+                v.animate().scaleX(hasFocus ? 1.03f : 1f).scaleY(hasFocus ? 1.03f : 1f).setDuration(160).start();
+            });
+
+            row.setOnClickListener(v -> {
+                dialog.dismiss();
+                addAppToDock(app.pkg);
+                Toast.makeText(MainActivity.this, "Added " + app.label + " to Dock", Toast.LENGTH_SHORT).show();
+            });
+
+            list.addView(row, llp(-1, -2, 0, dp(4), 0, dp(4)));
+            itemViews.add(row);
+        }
+
+        for (int i = 0; i < itemViews.size(); i++) {
+            View v = itemViews.get(i);
+            v.setNextFocusUpId(i > 0 ? itemViews.get(i - 1).getId() : v.getId());
+            v.setNextFocusDownId(i < itemViews.size() - 1 ? itemViews.get(i + 1).getId() : v.getId());
+            v.setNextFocusLeftId(v.getId());
+            v.setNextFocusRightId(v.getId());
+        }
+
+        scroller.addView(list, new FrameLayout.LayoutParams(-1, -2));
+        container.addView(scroller, new LinearLayout.LayoutParams(-1, dp(340)));
+
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(dp(540), -2, Gravity.CENTER);
+        overlay.addView(container, lp);
+
+        dialog.setContentView(overlay);
+        dialog.show();
+
+        if (!itemViews.isEmpty()) {
+            itemViews.get(0).requestFocus();
+        }
+    }
+
+    private void showRemoveDialog(App app) {
+        Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        FrameLayout overlay = new FrameLayout(this);
+        overlay.setBackgroundColor(0xB3000000);
+
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+        box.setPadding(dp(32), dp(24), dp(32), dp(24));
+        GradientDrawable bg = new GradientDrawable();
+        bg.setColor(0xF0202024);
+        bg.setCornerRadius(dp(18));
+        bg.setStroke(dp(1), 0x33FFFFFF);
+        box.setBackground(bg);
+
+        TextView t = text(20, "sans-serif-medium", Color.WHITE);
+        t.setText("Remove from Dock?");
+        box.addView(t);
+
+        TextView sub = text(13, "sans-serif", 0x99FFFFFF);
+        sub.setText("'" + app.label + "' will remain available in All Apps.");
+        box.addView(sub, llp(-2, -2, 0, dp(6), 0, dp(22)));
+
+        LinearLayout btnRow = new LinearLayout(this);
+        btnRow.setOrientation(LinearLayout.HORIZONTAL);
+        btnRow.setGravity(Gravity.END);
+
+        TextView cancelBtn = text(13, "sans-serif-medium", 0xCCFFFFFF);
+        cancelBtn.setText("Cancel");
+        cancelBtn.setPadding(dp(20), dp(10), dp(20), dp(10));
+        cancelBtn.setFocusable(true);
+        cancelBtn.setClickable(true);
+        cancelBtn.setId(View.generateViewId());
+        GradientDrawable cancelBg = new GradientDrawable();
+        cancelBg.setColor(0x26FFFFFF);
+        cancelBg.setCornerRadius(dp(10));
+        cancelBtn.setBackground(cancelBg);
+        cancelBtn.setOnFocusChangeListener((v, hasFocus) -> {
+            cancelBg.setColor(hasFocus ? 0xFFFFFFFF : 0x26FFFFFF);
+            cancelBtn.setTextColor(hasFocus ? 0xFF111111 : 0xCCFFFFFF);
+        });
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        TextView removeBtn = text(13, "sans-serif-medium", Color.WHITE);
+        removeBtn.setText("Remove");
+        removeBtn.setPadding(dp(20), dp(10), dp(20), dp(10));
+        removeBtn.setFocusable(true);
+        removeBtn.setClickable(true);
+        removeBtn.setId(View.generateViewId());
+        GradientDrawable remBg = new GradientDrawable();
+        remBg.setColor(0xFFD32F2F);
+        remBg.setCornerRadius(dp(10));
+        removeBtn.setBackground(remBg);
+        removeBtn.setOnFocusChangeListener((v, hasFocus) -> {
+            remBg.setColor(hasFocus ? 0xFFFF5252 : 0xFFD32F2F);
+            removeBtn.animate().scaleX(hasFocus ? 1.05f : 1f).scaleY(hasFocus ? 1.05f : 1f).setDuration(150).start();
+        });
+        removeBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            removeAppFromDock(app.pkg);
+            Toast.makeText(MainActivity.this, "Removed from Dock", Toast.LENGTH_SHORT).show();
+        });
+
+        cancelBtn.setNextFocusRightId(removeBtn.getId());
+        removeBtn.setNextFocusLeftId(cancelBtn.getId());
+
+        btnRow.addView(cancelBtn, llp(-2, -2, 0, 0, dp(12), 0));
+        btnRow.addView(removeBtn, llp(-2, -2, 0, 0, 0, 0));
+        box.addView(btnRow, llp(-1, -2, 0, dp(10), 0, 0));
+
+        overlay.addView(box, new FrameLayout.LayoutParams(dp(440), -2, Gravity.CENTER));
+        dialog.setContentView(overlay);
+        dialog.show();
+        cancelBtn.requestFocus();
     }
 
     /** Open the real DVB alias, then use stock Glide as a recovery fallback. */
@@ -567,8 +831,7 @@ public class MainActivity extends Activity {
             if (app.isSatellite) {
                 openSatelliteTv();
             } else if (app.isPlus) {
-                scroll.smoothScrollTo(0, hero.getHeight());
-                if (!gridCards.isEmpty()) gridCards.get(0).requestFocus();
+                showAppPicker();
             } else {
                 launch(new Intent(Intent.ACTION_MAIN)
                         .addCategory(app.category)
@@ -576,6 +839,19 @@ public class MainActivity extends Activity {
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED));
             }
         });
+        if (inDock && !app.isSatellite && !app.isPlus) {
+            card.setOnLongClickListener(v -> {
+                showRemoveDialog(app);
+                return true;
+            });
+            card.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
+                    showRemoveDialog(app);
+                    return true;
+                }
+                return false;
+            });
+        }
         card.setOnFocusChangeListener((v, has) -> {
             float s = has ? (inDock ? 1.12f : 1.1f) : 1f;
             v.animate().scaleX(s).scaleY(s).translationZ(has ? dp(14) : 0)
@@ -586,7 +862,7 @@ public class MainActivity extends Activity {
             if (!has) return;
             lastFocusedId = v.getId();
             if (inDock) {
-                title.setText(app.isPlus ? "All Apps" : app.label);
+                title.setText(app.label);
                 title.animate().alpha(1f).setDuration(200).start();
                 animateGlow(app.color);
                 fadeGlow(1f);
