@@ -208,38 +208,15 @@ public class MainActivity extends Activity {
 
     private View buildUi() {
         FrameLayout root = new FrameLayout(this);
-        root.setBackgroundColor(Color.BLACK);
-
-        // Wallpaper: two stacked layers so a new photo can crossfade in over the old one.
-        wallBack = wallpaperLayer();
-        wallFront = wallpaperLayer();
-        // Compile-time drawable fallback: visible even if OEM AssetManager fails to list JPEG assets.
-        wallBack.setImageResource(R.drawable.cinematic_hero);
-        root.addView(wallBack, new FrameLayout.LayoutParams(-1, -1));
-        root.addView(wallFront, new FrameLayout.LayoutParams(-1, -1));
-        // Scrim: darker at the top (clock, pills) and bottom (dock) so text stays readable.
-        View scrim = new View(this);
-        scrim.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{0x56000000, 0x14000000, 0x33000516, 0xD9000714, 0xF9000714}));
-        root.addView(scrim, new FrameLayout.LayoutParams(-1, -1));
-        gridShade = new View(this);
-        gridShade.setBackgroundColor(0xB3000000);
-        gridShade.setAlpha(0f);
-        root.addView(gridShade, new FrameLayout.LayoutParams(-1, -1));
+        // Single opaque app background. Only the top hero contains a photograph.
+        root.setBackgroundColor(0xFF081321);
         try {
             String[] found = getAssets().list("wallpapers");
             wallpapers = found == null ? new String[0] : found;
         } catch (java.io.IOException e) {
             wallpapers = new String[0];
-            android.util.Log.w("StarNetHome", "Wallpaper assets unavailable; using built-in drawable", e);
+            android.util.Log.w("StarNetHome", "Wallpaper assets unavailable; keeping packaged photo", e);
         }
-        if (wallpapers.length == 0) {
-            android.util.Log.w("StarNetHome", "No wallpaper assets; compile-time hero fallback remains visible");
-        }
-
-        glow = new View(this);
-        root.addView(glow, new FrameLayout.LayoutParams(-1, -1));
-        setGlow(glowColor);
 
         scroll = new HomeScrollView(this);
         scroll.setVerticalScrollBarEnabled(false);
@@ -251,52 +228,48 @@ public class MainActivity extends Activity {
         content.setOrientation(LinearLayout.VERTICAL);
         content.setClipChildren(false);
         content.setClipToPadding(false);
+        content.setBackgroundColor(0xFF081321);
         scroll.addView(content, new FrameLayout.LayoutParams(-1, -2));
 
-        // Shorter cinematic stage: the first horizontal channel is visible without a full-page scroll.
         hero = new FrameLayout(this);
         hero.setClipChildren(false);
+        hero.setClipToPadding(false);
         int screenH = getResources().getDisplayMetrics().heightPixels;
-        homeHeroHeight = Math.max(dp(385), Math.round(screenH * 0.68f));
+        homeHeroHeight = Math.max(dp(315), Math.round(screenH * 0.49f));
         content.addView(hero, new LinearLayout.LayoutParams(-1, homeHeroHeight));
 
-        hero.addView(buildHeader(), lp(-1, -2, Gravity.TOP, dp(48), dp(36), dp(48), 0));
-
-        // Full-bleed photographic artwork (not a bordered promotional placeholder).
+        // Full-bleed photo fills the upper stage. It no longer overlays the app shelves.
         showcaseView = buildHeroCard();
-        hero.addView(showcaseView, lp(-1, -1, Gravity.TOP, 0, dp(90), 0, dp(136)));
+        hero.addView(showcaseView, new FrameLayout.LayoutParams(-1, -1));
 
+        // Favorites are a separate dark section under the cinematic hero.
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.VERTICAL);
         bottom.setClipChildren(false);
         bottom.setClipToPadding(false);
+        bottom.setPadding(dp(48), dp(4), dp(48), dp(12));
+        bottom.setBackgroundColor(0xFF081321);
         favoritesView = bottom;
-        hero.addView(bottom, lp(-1, -2, Gravity.BOTTOM, dp(48), 0, dp(48), dp(15)));
+        content.addView(bottom, new LinearLayout.LayoutParams(-1, -2));
 
-        title = text(12, "sans-serif-medium", 0xD9FFFFFF);
-        title.setLetterSpacing(0.2f);
-        title.setShadowLayer(dp(10), 0, 0, 0x66000000);
-        title.setSingleLine(true);
-        bottom.addView(title, new LinearLayout.LayoutParams(-2, -2));
-        ((LinearLayout.LayoutParams) title.getLayoutParams()).setMargins(dp(8), 0, 0, dp(10));
+        title = text(13, "sans-serif-medium", 0xDBFFFFFF);
+        title.setLetterSpacing(0.08f);
+        title.setText("FAVORITE APPS");
+        bottom.addView(title, llp(-1, -2, dp(4), 0, 0, dp(9)));
 
         dockRow = new LinearLayout(this);
         dockRow.setOrientation(LinearLayout.HORIZONTAL);
         dockRow.setGravity(Gravity.CENTER);
         dockRow.setClipChildren(false);
         dockRow.setClipToPadding(false);
-        dockRow.setPadding(dp(2), dp(5), dp(2), dp(5));
-        GradientDrawable band = new GradientDrawable();
-        band.setCornerRadius(dp(12));
-        band.setColor(0x10000000);
-        dockRow.setBackground(band);
+        dockRow.setPadding(dp(2), dp(4), dp(2), dp(5));
         bottom.addView(dockRow, new LinearLayout.LayoutParams(-1, -2));
 
         channelContainer = new LinearLayout(this);
         channelContainer.setOrientation(LinearLayout.VERTICAL);
         channelContainer.setClipChildren(false);
         channelContainer.setClipToPadding(false);
-        channelContainer.setPadding(dp(48), dp(3), dp(48), dp(30));
+        channelContainer.setPadding(dp(48), dp(4), dp(48), dp(30));
         content.addView(channelContainer, new LinearLayout.LayoutParams(-1, -2));
 
         appsLabel = text(22, "sans-serif-medium", 0xFFE5E9F5);
@@ -311,6 +284,16 @@ public class MainActivity extends Activity {
         grid.setClipToPadding(false);
         content.addView(grid, llp(-1, -2, dp(60), 0, dp(60), dp(100)));
         grid.setVisibility(View.GONE);
+
+        // Stable toolbar on top of every section. Never scrolls behind artwork.
+        View toolbarScrim = new View(this);
+        toolbarScrim.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[]{0xFC07111E, 0xF407111E, 0xD907111E}));
+        root.addView(toolbarScrim, lp(-1, dp(75), Gravity.TOP, 0, 0, 0, 0));
+
+        View header = buildHeader();
+        header.setElevation(dp(18));
+        root.addView(header, lp(-1, dp(62), Gravity.TOP, dp(48), dp(5), dp(48), 0));
         return root;
     }
 
@@ -395,7 +378,7 @@ public class MainActivity extends Activity {
         catalogMode = showCatalog;
         if (hero != null) {
             ViewGroup.LayoutParams params = hero.getLayoutParams();
-            params.height = catalogMode ? dp(100) : homeHeroHeight;
+            params.height = catalogMode ? dp(82) : homeHeroHeight;
             hero.setLayoutParams(params);
         }
         if (showcaseView != null) showcaseView.setVisibility(catalogMode ? View.GONE : View.VISIBLE);
@@ -481,7 +464,8 @@ public class MainActivity extends Activity {
         int copyWidth = Math.min(dp(530), Math.round(screenW * .55f));
         FrameLayout.LayoutParams copyLp = new FrameLayout.LayoutParams(
                 copyWidth, -1, Gravity.START | Gravity.CENTER_VERTICAL);
-        copyLp.setMargins(dp(56), 0, 0, 0);
+        // Avoid overlap with fixed toolbar and low-lying favorite cards.
+        copyLp.setMargins(dp(56), dp(75), 0, dp(22));
 
         heroBadge = text(12, "sans-serif-medium", 0xFF65CAFF);
         heroBadge.setLetterSpacing(0.1f);
@@ -540,6 +524,9 @@ public class MainActivity extends Activity {
         panel.addView(heroPreviewBox, lp(dp(78), dp(62), Gravity.BOTTOM | Gravity.RIGHT, 0, 0, dp(55), dp(30)));
         panel.addView(heroFrameTag, lp(dp(88), dp(20), Gravity.BOTTOM | Gravity.RIGHT, 0, 0, dp(50), dp(7)));
 
+        // The small app badge was visually distracting over landscape artwork.
+        heroPreviewBox.setVisibility(View.GONE);
+        heroFrameTag.setVisibility(View.GONE);
         heroCard = panel;
         return panel;
     }
@@ -718,7 +705,7 @@ public class MainActivity extends Activity {
 
         if (!dock.isEmpty()) {
             title.setText("FAVORITE APPS");
-            setGlow(dock.get(0).color);
+            // Focus updates the text, not a full-screen animated colour wash.
             updateHero(dock.get(0), false);
         }
         View last = lastFocusedId == View.NO_ID ? null : findViewById(lastFocusedId);
@@ -1264,11 +1251,10 @@ public class MainActivity extends Activity {
                 title.animate().alpha(1f).setDuration(200).start();
                 updateHero(app, true);
                 if (heroActionBtn != null) heroActionBtn.setNextFocusDownId(v.getId());
-                animateGlow(app.color);
-                fadeGlow(1f);
+                // Do not tint entire background when favorite changes.
                 scroll.smoothScrollTo(0, 0);
             } else {
-                fadeGlow(0.35f);
+                // Category focus keeps the dark content surface unchanged.
                 title.animate().alpha(0f).setDuration(200).start();
                 scrollToRow(box);
             }
@@ -1514,21 +1500,13 @@ public class MainActivity extends Activity {
         scheduleWallpaper(WALLPAPER_INTERVAL_MS);
     }
 
+    /** Update only the hero photograph; the Apps and shelves always keep an opaque background. */
     private void showWallpaper(Bitmap bm) {
-        if (bm == null || isDestroyed()) return;
-        // Swap roles: the old front becomes the back, the new photo fades in on top.
-        ImageView old = wallFront;
-        wallFront = wallBack;
-        wallBack = old;
-        ViewGroup root = (ViewGroup) wallFront.getParent();
-        root.removeView(wallFront);
-        root.addView(wallFront, 1, new FrameLayout.LayoutParams(-1, -1));
-        wallFront.setImageBitmap(bm);
-        if (heroArtwork != null) heroArtwork.setImageBitmap(bm);
-        wallFront.setAlpha(0f);
-        wallFront.animate().alpha(1f).setDuration(firstWallpaper ? 600 : 2000).withEndAction(() -> {
-            wallBack.setImageDrawable(null); // release the previous photo
-        }).start();
+        if (bm == null || isDestroyed() || heroArtwork == null) return;
+        heroArtwork.animate().cancel();
+        heroArtwork.setImageBitmap(bm);
+        heroArtwork.setAlpha(0.65f);
+        heroArtwork.animate().alpha(1f).setDuration(firstWallpaper ? 400 : 900).start();
         firstWallpaper = false;
     }
 

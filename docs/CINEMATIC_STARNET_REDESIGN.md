@@ -24,3 +24,16 @@ If an older CI-generated APK has a different signature, uninstall **only** `com.
 User's screenshot shows a solid dark hero despite a photographic resource being expected. The earlier implementation relied solely on `AssetManager.list("wallpapers")` and async bitmap loading; absence/decoding failures could leave the hero blank. This patch adds a **compile-time Android drawable** `res/drawable-nodpi/cinematic_hero.jpg` copied from the repo's existing locally bundled `assets/wallpapers/01.jpg`, rendered immediately on both home and hero, with optional slideshow updates only after successful decode. The CI job now verifies that this resource was actually packaged into the APK, not just compiled in Java. Also merges one-card rows into a shared More to Explore shelf.
 
 APK compilation and photo packaging checks are necessary but not equivalent to confirming display output. On-device screenshot, low-light image visibility, DPI cropping, and remote navigation are required prior to merge.
+
+## 2026-10-20: photographic build screenshot follow-up
+
+The corrected resource renders, but the captured screen shows the toolbar entirely missing, and the same mountain photograph extends through favorites and lower app rows. The root of the issue is architectural: the wallpaper layers were in the full-screen root and the nav was inside the scrolling hero (behind other frames on the StarNet build).
+
+This revision:
+- Moves navigation into a fixed **root-level elevated header** above the scrolling content, with a high-contrast top scrim.
+- Uses the photograph **only inside the cinematic hero**; favorites, channel rows and Apps catalog have a consistent opaque navy background.
+- Separates favorites from the hero into its own compact section.
+- Preserves the compiled drawable fallback, optional picture rotation, favorite actions, Glide recovery, and DVB alias.
+- Removes the distracting floating app-icon preview on the landscape, without removing the hero's Live TV action.
+
+Expected checks on the physical receiver: all top tabs and clock visible, main photograph restricted to upper stage, favorites on a clean navy surface, no overlap when Apps is selected, and OK/Back/D-pad still work. CI compilation is not a substitute for a screenshot test.
