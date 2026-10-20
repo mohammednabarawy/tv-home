@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.mihir.tvhome.MainActivity;
+import com.mihir.tvhome.R;
 import com.mihir.tvhome.model.MediaItem;
 import com.mihir.tvhome.model.MediaShelf;
 import com.mihir.tvhome.settings.LauncherSettings;
@@ -96,7 +97,7 @@ public class ContentManager {
                         items.add(new MediaItem.Builder("watch_next_" + items.size(), title)
                                 .type(MediaItem.TYPE_MOVIE)
                                 .sourcePackage(pkg)
-                                .sourceAppName(pkg != null ? pkg : "Media")
+                                .sourceAppName(pkg != null ? pkg : context.getString(R.string.media))
                                 .launchIntent(intent)
                                 .watchProgress(progress)
                                 .provenance(MediaItem.PROVENANCE_SYSTEM_TIF)
@@ -110,8 +111,8 @@ public class ContentManager {
         }
 
         if (items.isEmpty()) return null;
-        return new MediaShelf("continue_watching", "CONTINUE WATCHING",
-                "Resume your in-progress movies, series and videos", true, items);
+        return new MediaShelf("continue_watching", context.getString(R.string.continue_watching),
+                context.getString(R.string.continue_hint), true, items);
     }
 
     /**
@@ -134,12 +135,12 @@ public class ContentManager {
                     .setComponent(satelliteApp.component)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 
-            liveItems.add(new MediaItem.Builder("live_satellite", "Live Satellite TV")
+            liveItems.add(new MediaItem.Builder("live_satellite", context.getString(R.string.live_satellite))
                     .type(MediaItem.TYPE_LIVE_TV)
-                    .subtitle("StarNet DVB Hardware Tuner")
-                    .synopsis("Watch free-to-air and satellite channels with hardware signal decoding and EPG.")
+                    .subtitle(context.getString(R.string.tuner_short))
+                    .synopsis(context.getString(R.string.tuner_description))
                     .sourcePackage("com.tosmart.glide")
-                    .sourceAppName("StarNet Tuner")
+                    .sourceAppName(context.getString(R.string.tuner))
                     .launchIntent(satIntent)
                     .iconDrawable(satelliteApp.art)
                     .backdropAssetPath("sat_backdrop.jpg")
@@ -152,12 +153,12 @@ public class ContentManager {
             if (!LauncherSettings.isServiceEnabled(context, pkg)) continue;
             MainActivity.App app = installedApps.get(pkg);
             if (app != null && claimed.add(pkg)) {
-                liveItems.add(createAppMediaItem(app, "Live Channels & Broadcast Streams"));
+                liveItems.add(createAppMediaItem(context, app, context.getString(R.string.live_channels)));
             }
         }
 
         if (!liveItems.isEmpty()) {
-            shelves.add(new MediaShelf("shelf_live", "LIVE TV & BROADCAST",
+            shelves.add(new MediaShelf("shelf_live", context.getString(R.string.live_iptv),
                     "Satellite broadcast and installed IPTV portal services", false, liveItems));
         }
 
@@ -167,15 +168,15 @@ public class ContentManager {
             if (!LauncherSettings.isServiceEnabled(context, pkg)) continue;
             MainActivity.App app = installedApps.get(pkg);
             if (app != null && claimed.add(pkg)) {
-                String sub = "Movies, Series & On-Demand";
-                if (pkg.contains("marvel")) sub = "Marvel Active Cinema & VOD";
-                if (pkg.contains("netflix")) sub = "Subscription Movies & Originals";
-                if (pkg.contains("stremio")) sub = "Video Add-on Entertainment";
-                cinemaItems.add(createAppMediaItem(app, sub));
+                String sub = context.getString(R.string.movies_series);
+                if (pkg.contains("marvel")) sub = context.getString(R.string.marvel_cinema);
+                if (pkg.contains("netflix")) sub = context.getString(R.string.netflix_sub);
+                if (pkg.contains("stremio")) sub = context.getString(R.string.stremio_sub);
+                cinemaItems.add(createAppMediaItem(context, app, sub));
             }
         }
         if (!cinemaItems.isEmpty()) {
-            shelves.add(new MediaShelf("shelf_cinema", "CINEMA & VIDEO ON DEMAND",
+            shelves.add(new MediaShelf("shelf_cinema", context.getString(R.string.cinema_on_demand),
                     "Dedicated movie, series, and video-on-demand services", false, cinemaItems));
         }
 
@@ -204,16 +205,16 @@ public class ContentManager {
             if (!LauncherSettings.isServiceEnabled(context, pkg)) continue;
             MainActivity.App app = installedApps.get(pkg);
             if (app != null && claimed.add(pkg)) {
-                String sub = "Streaming Video & Channels";
-                if (pkg.contains("tizentube")) sub = "SmartTube 4K Player";
-                if (pkg.contains("youtube")) sub = "YouTube TV Client";
-                if (pkg.contains("kodi")) sub = "Home Theater & Local Media";
-                if (pkg.contains("jellyfin")) sub = "Personal Media Streaming";
-                streamItems.add(createAppMediaItem(app, sub));
+                String sub = context.getString(R.string.stream_video);
+                if (pkg.contains("tizentube")) sub = context.getString(R.string.smarttube_player);
+                if (pkg.contains("youtube")) sub = context.getString(R.string.youtube_client);
+                if (pkg.contains("kodi")) sub = context.getString(R.string.kodi_media);
+                if (pkg.contains("jellyfin")) sub = context.getString(R.string.jellyfin_media);
+                streamItems.add(createAppMediaItem(context, app, sub));
             }
         }
         if (!streamItems.isEmpty()) {
-            shelves.add(new MediaShelf("shelf_streaming", "STREAMING & HOME MEDIA",
+            shelves.add(new MediaShelf("shelf_streaming", context.getString(R.string.media_video),
                     "Online video platforms and media library centers", false, streamItems));
         }
 
@@ -223,23 +224,23 @@ public class ContentManager {
             if (!LauncherSettings.isServiceEnabled(context, pkg)) continue;
             MainActivity.App app = installedApps.get(pkg);
             if (app != null && claimed.add(pkg)) {
-                String sub = "Receiver Utility";
-                if (pkg.contains("mxtech")) sub = "Hardware-Accelerated Video Player";
-                if (pkg.contains("downloader")) sub = "Direct Web Download Manager";
-                if (pkg.contains("filemanagerpro")) sub = "Storage & USB File Manager";
-                if (pkg.contains("appstore")) sub = "Application Store";
-                toolItems.add(createAppMediaItem(app, sub));
+                String sub = context.getString(R.string.receiver_utility);
+                if (pkg.contains("mxtech")) sub = context.getString(R.string.mx_player);
+                if (pkg.contains("downloader")) sub = context.getString(R.string.download_manager);
+                if (pkg.contains("filemanagerpro")) sub = context.getString(R.string.file_manager);
+                if (pkg.contains("appstore")) sub = context.getString(R.string.app_store);
+                toolItems.add(createAppMediaItem(context, app, sub));
             }
         }
         if (!toolItems.isEmpty()) {
-            shelves.add(new MediaShelf("shelf_tools", "RECEIVER TOOLS & UTILITIES",
+            shelves.add(new MediaShelf("shelf_tools", context.getString(R.string.receiver_tools),
                     "File management, app store, and media playback tools", false, toolItems));
         }
 
         return shelves;
     }
 
-    private static MediaItem createAppMediaItem(MainActivity.App app, String subtitle) {
+    private static MediaItem createAppMediaItem(Context context, MainActivity.App app, String subtitle) {
         Intent launch = new Intent(Intent.ACTION_MAIN)
                 .addCategory(app.category != null ? app.category : Intent.CATEGORY_LAUNCHER)
                 .setComponent(app.component)
@@ -248,7 +249,7 @@ public class ContentManager {
         return new MediaItem.Builder("app_" + app.pkg, app.label != null ? app.label : app.pkg)
                 .type(MediaItem.TYPE_APP)
                 .subtitle(subtitle)
-                .synopsis("Launch " + app.label + " on your StarNet receiver.")
+                .synopsis(context.getString(R.string.launch_prefix) + app.label + context.getString(R.string.receiver_suffix))
                 .sourcePackage(app.pkg)
                 .sourceAppName(app.label)
                 .launchIntent(launch)
