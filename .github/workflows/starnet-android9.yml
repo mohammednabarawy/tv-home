@@ -28,6 +28,10 @@ jobs:
         run: sdkmanager --install 'platforms;android-34' 'build-tools;34.0.0'
       - name: Build APK (no receiver connection)
         run: bash launcher/build-and-install.sh --build
+      - name: Verify cinematic photo in APK
+        run: |
+          unzip -l launcher/build/tvhome-starnet-android9.apk | tee /tmp/starnet-apk-contents.txt
+          grep -q 'cinematic_hero' /tmp/starnet-apk-contents.txt
       - name: Check APK signature
         run: "$ANDROID_HOME/build-tools/34.0.0/apksigner verify launcher/build/tvhome-starnet-android9.apk"
       - name: Publish test APK

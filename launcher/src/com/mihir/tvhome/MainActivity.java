@@ -213,6 +213,8 @@ public class MainActivity extends Activity {
         // Wallpaper: two stacked layers so a new photo can crossfade in over the old one.
         wallBack = wallpaperLayer();
         wallFront = wallpaperLayer();
+        // Compile-time drawable fallback: visible even if OEM AssetManager fails to list JPEG assets.
+        wallBack.setImageResource(R.drawable.cinematic_hero);
         root.addView(wallBack, new FrameLayout.LayoutParams(-1, -1));
         root.addView(wallFront, new FrameLayout.LayoutParams(-1, -1));
         // Scrim: darker at the top (clock, pills) and bottom (dock) so text stays readable.
@@ -225,8 +227,15 @@ public class MainActivity extends Activity {
         gridShade.setAlpha(0f);
         root.addView(gridShade, new FrameLayout.LayoutParams(-1, -1));
         try {
-            wallpapers = getAssets().list("wallpapers");
-        } catch (java.io.IOException ignored) { }
+            String[] found = getAssets().list("wallpapers");
+            wallpapers = found == null ? new String[0] : found;
+        } catch (java.io.IOException e) {
+            wallpapers = new String[0];
+            android.util.Log.w("StarNetHome", "Wallpaper assets unavailable; using built-in drawable", e);
+        }
+        if (wallpapers.length == 0) {
+            android.util.Log.w("StarNetHome", "No wallpaper assets; compile-time hero fallback remains visible");
+        }
 
         glow = new View(this);
         root.addView(glow, new FrameLayout.LayoutParams(-1, -1));
@@ -450,6 +459,8 @@ public class MainActivity extends Activity {
 
         heroArtwork = new ImageView(this);
         heroArtwork.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        // Guaranteed packaged image (res/drawable-nodpi) fixes the solid-colour hero on StarNet.
+        heroArtwork.setImageResource(R.drawable.cinematic_hero);
         panel.addView(heroArtwork, new FrameLayout.LayoutParams(-1, -1));
 
         View vignette = new View(this);
@@ -723,25 +734,30 @@ public class MainActivity extends Activity {
      * Only show installed apps not already pinned to Favorites.
      * The Home screen never repeats the same app in several rows.
      */
+    /** Group unpinned apps without displaying a pointless one-card category row. */
     private void buildChannelRows(Map<String, App> apps, App satellite, Set<String> favorites) {
         channelRows.clear();
         browseAppsButton = null;
         channelContainer.removeAllViews();
-
-        addChannelRow("MORE LIVE TV & IPTV", new String[]{
-                "com.logicyel.novastb", "com.datesplus.iptv",
-                "com.marvelactivecode.marvel"
-        }, apps, favorites);
-        addChannelRow("STREAMING & MEDIA", new String[]{
+        Set<String> used = new HashSet<>();
+        List<App> live = categoryApps(new String[]{
+                "com.logicyel.novastb", "com.datesplus.iptv", "com.marvelactivecode.marvel"
+        }, apps, favorites, used);
+        List<App> streaming = categoryApps(new String[]{
                 "io.gh.reisxd.tizentube.fortaleza", "com.google.android.youtube.tv",
                 "com.google.android.youtube", "org.xbmc.kodi",
                 "com.stremio.one", "org.jellyfin.androidtv", "com.netflix.mediaclient"
-        }, apps, favorites);
-        addChannelRow("TOOLS & UTILITIES", new String[]{
+        }, apps, favorites, used);
+        List<App> extras = new ArrayList<>();
+        if (live.size() >= 2) addChannelRow("LIVE TV & IPTV", live);
+        else extras.addAll(live);
+        if (streaming.size() >= 2) addChannelRow("STREAMING & MEDIA", streaming);
+        else extras.addAll(streaming);
+        extras.addAll(categoryApps(new String[]{
                 "com.tosmart.filemanagerpro", "com.excellence.appstore",
-                "com.android.vending", "com.android.chrome",
-                "com.tosmart.glide"
-        }, apps, favorites);
+                "com.android.vending", "com.android.chrome"
+        }, apps, favorites, used));
+        if (extras.size() >= 2) addChannelRow("MORE TO EXPLORE", extras);
 
         TextView browse = text(13, "sans-serif-medium", 0xFFBBDFFF);
         browse.setText("Browse all installed apps   →");
@@ -767,16 +783,17 @@ public class MainActivity extends Activity {
         channelContainer.addView(browse, llp(-2, -2, 0, dp(2), 0, dp(14)));
     }
 
-    private void addChannelRow(String heading, String[] packages,
-                               Map<String, App> apps, Set<String> favorites) {
-        List<App> visibleApps = new ArrayList<>();
-        Set<String> seen = new HashSet<>();
+    private List<App> categoryApps(String[] packages, Map<String, App> apps,
+                                   Set<String> favorites, Set<String> claimed) {
+        List<App> found = new ArrayList<>();
         for (String pkg : packages) {
             App app = apps.get(pkg);
-            if (app != null && !favorites.contains(app.pkg) && seen.add(app.pkg)) {
-                visibleApps.add(app);
-            }
+            if (app != null && !favorites.contains(pkg) && claimed.add(pkg)) found.add(app);
         }
+        return found;
+    }
+
+    private void addChannelRow(String heading, List<App> visibleApps) {
         if (visibleApps.isEmpty()) return;
 
         LinearLayout section = new LinearLayout(this);
@@ -1478,7 +1495,7 @@ public class MainActivity extends Activity {
     /** Decode the next photo off the main thread, then crossfade it in over the current one. */
     private void nextWallpaper() {
         handler.removeCallbacks(rotateWallpaper);
-        if (wallpapers.length == 0) return;
+        if (wallpapers.length == 0) return; // Drawable fallback is already displayed.
         if (wallIndex < 0) wallIndex = getPreferences(MODE_PRIVATE).getInt("wallpaper", -1);
         wallIndex = (wallIndex + 1) % wallpapers.length;
         getPreferences(MODE_PRIVATE).edit().putInt("wallpaper", wallIndex).apply();

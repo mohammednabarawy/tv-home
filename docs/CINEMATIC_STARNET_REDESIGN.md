@@ -18,3 +18,9 @@ Run GitHub Actions **StarNet Android 9 test APK** and verify compilation/signing
 
 ## Safe install
 If an older CI-generated APK has a different signature, uninstall **only** `com.mihir.tvhome`, then install the new test APK; never remove `com.tosmart.glide` or any OEM package.
+
+## 2026-10-20: confirmed on-device image regression and fix
+
+User's screenshot shows a solid dark hero despite a photographic resource being expected. The earlier implementation relied solely on `AssetManager.list("wallpapers")` and async bitmap loading; absence/decoding failures could leave the hero blank. This patch adds a **compile-time Android drawable** `res/drawable-nodpi/cinematic_hero.jpg` copied from the repo's existing locally bundled `assets/wallpapers/01.jpg`, rendered immediately on both home and hero, with optional slideshow updates only after successful decode. The CI job now verifies that this resource was actually packaged into the APK, not just compiled in Java. Also merges one-card rows into a shared More to Explore shelf.
+
+APK compilation and photo packaging checks are necessary but not equivalent to confirming display output. On-device screenshot, low-light image visibility, DPI cropping, and remote navigation are required prior to merge.
