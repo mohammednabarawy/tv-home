@@ -5,9 +5,10 @@ This branch adapts [tv-home](https://github.com/mihirgupta0900/tv-home) for the 
 ## Changes
 - The upstream launcher requires Android 11 (API 30). This build has min/target SDK 28 for Android 9, **subject to on-device version verification**.
 - Discovers both TV/Leanback and ordinary Android application launcher activities.
-- Adds a regular LAUNCHER entry so you can open it without making it the default home.
+- Adds LAUNCHER and LEANBACK_LAUNCHER entries for safe testing. Deliberately omits HOME so the app cannot replace the stock StarNet home during receiver validation.
 - Uses safe default favorite applications; never hides/disables any StarNet or satellite/tuner component.
 - Keeps the original UI and rotating wallpapers.
+- All stock applications, IPTV settings and tuner services remain untouched; StarNet vendor features may be embedded rather than distinct Android apps.
 
 ## Diagnostic first
 
@@ -33,10 +34,14 @@ adb shell am start -n com.mihir.tvhome/.MainActivity
 
 Test D-pad, OK, Back, Wi-Fi, app dock, installed apps, remote HOME/EXIT, channel selection, satellite TV/IPTV and settings. Press Home to return to the vendor home. If needed, remove with `adb uninstall com.mihir.tvhome`.
 
-**Do not run upstream TCL debloat scripts or disable any stock receiver/system packages.** This variant's installer never calls `pm disable` or `set-home-activity`.
+**Do not run upstream TCL debloat scripts or disable any stock receiver/system packages.** This variant's installer never calls `pm disable` or `set-home-activity`; the test app doesn't declare HOME and cannot be selected as default via HOME chooser.
 
 ## What remains unverified
 
 Android version/firmware on the actual receiver; tuner app package/component, home-key interception, third-party app permissions, TV inputs APIs, screen resolution, and real remote key mapping. Do not set a default HOME until TV/tuner access and exit path are verified. A hardware test is required before calling the port compatible.
 
 To add the satellite-TV app after diagnosis: set the exact installed package in `launcher/res/values/config.xml` under `live_tv_package`, then rebuild. Some proprietary satellite apps are not exposed as launchable Android activities and will need a vendor-specific intent/shortcut.
+
+## Manufacturer UI integration
+
+The StarNet 4000 Twin Plus has a proprietary Android 9 satellite receiver launcher with firmware-specific functions (live TV, services, IPTV, satellite lists, favorites, EPG, recording, SAT/EPG/APP remote keys). Public firmware reports mention V4.0.0 dated 2026-10-17. These controls may live inside one vendor-owned package or may be private internal Activities, so generic app discovery alone does not guarantee them. Before any attempt to replace HOME, collect diagnostics (read-only), inspect package/activity wiring, map remote key behavior, and test dedicated links back to the vendor UI. This project should implement a cosmetic home-screen replacement, not any package debloat or stock system modification. Do not flash firmware to use the launcher.
