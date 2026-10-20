@@ -1,0 +1,218 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        7373b01 org.jellyfin.androidtv/.ui.startup.StartupActivity filter 275e508
+          Action: "android.intent.action.MAIN"
+          Action: "android.intent.action.SEARCH"
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+      android.intent.action.VIEW:
+        7373b01 org.jellyfin.androidtv/.ui.startup.StartupActivity filter 275e508
+          Action: "android.intent.action.MAIN"
+          Action: "android.intent.action.SEARCH"
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+      android.intent.action.SEARCH:
+        7373b01 org.jellyfin.androidtv/.ui.startup.StartupActivity filter 275e508
+          Action: "android.intent.action.MAIN"
+          Action: "android.intent.action.SEARCH"
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      android.intent.action.BATTERY_OKAY:
+        a449da6 org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy filter 52c03a2
+          Action: "android.intent.action.BATTERY_OKAY"
+          Action: "android.intent.action.BATTERY_LOW"
+      android.intent.action.ACTION_POWER_DISCONNECTED:
+        ba3e3e7 org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy filter a3ccb6d
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          Action: "android.intent.action.ACTION_POWER_DISCONNECTED"
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        fe29b94 org.jellyfin.androidtv/androidx.profileinstaller.ProfileInstallReceiver filter fce64fa
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      android.intent.action.DEVICE_STORAGE_LOW:
+        75b863d org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy filter e251833
+          Action: "android.intent.action.DEVICE_STORAGE_LOW"
+          Action: "android.intent.action.DEVICE_STORAGE_OK"
+      android.net.conn.CONNECTIVITY_CHANGE:
+        50cee32 org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy filter d9d07f0
+          Action: "android.net.conn.CONNECTIVITY_CHANGE"
+      android.intent.action.DEVICE_STORAGE_OK:
+        75b863d org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy filter e251833
+          Action: "android.intent.action.DEVICE_STORAGE_LOW"
+          Action: "android.intent.action.DEVICE_STORAGE_OK"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        fe29b94 org.jellyfin.androidtv/androidx.profileinstaller.ProfileInstallReceiver filter 462b31c
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      android.intent.action.BATTERY_LOW:
+        a449da6 org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy filter 52c03a2
+          Action: "android.intent.action.BATTERY_OKAY"
+          Action: "android.intent.action.BATTERY_LOW"
+      android.intent.action.TIMEZONE_CHANGED:
+        3c0d783 org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.RescheduleReceiver filter 7e7b169
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.TIME_SET:
+        3c0d783 org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.RescheduleReceiver filter 7e7b169
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      androidx.profileinstaller.action.SKIP_FILE:
+        fe29b94 org.jellyfin.androidtv/androidx.profileinstaller.ProfileInstallReceiver filter 440fb25
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        fe29b94 org.jellyfin.androidtv/androidx.profileinstaller.ProfileInstallReceiver filter 1015aab
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.BOOT_COMPLETED:
+        3c0d783 org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.RescheduleReceiver filter 7e7b169
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+      android.intent.action.ACTION_POWER_CONNECTED:
+        ba3e3e7 org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy filter a3ccb6d
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          Action: "android.intent.action.ACTION_POWER_DISCONNECTED"
+      androidx.work.diagnostics.REQUEST_DIAGNOSTICS:
+        d17dd00 org.jellyfin.androidtv/androidx.work.impl.diagnostics.DiagnosticsReceiver filter 90f048f
+          Action: "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+      androidx.work.impl.background.systemalarm.UpdateProxies:
+        67f4939 org.jellyfin.androidtv/androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver filter 5eab7ee
+          Action: "androidx.work.impl.background.systemalarm.UpdateProxies"
+
+Service Resolver Table:
+  Non-Data Actions:
+      androidx.media3.session.MediaSessionService:
+        797bb7e org.jellyfin.androidtv/org.jellyfin.playback.media3.session.AndroidMediaService filter cf5f784
+          Action: "androidx.media3.session.MediaSessionService"
+          Action: "android.media.browse.MediaBrowserService"
+      android.service.dreams.DreamService:
+        82f68df org.jellyfin.androidtv/.integration.dream.LibraryDreamService filter a1c7997 permission android.permission.BIND_DREAM_SERVICE
+          Action: "android.service.dreams.DreamService"
+          Category: "android.intent.category.DEFAULT"
+      android.accounts.AccountAuthenticator:
+        99dc92c org.jellyfin.androidtv/.auth.service.AuthenticatorService filter d703c16
+          Action: "android.accounts.AccountAuthenticator"
+      android.media.browse.MediaBrowserService:
+        797bb7e org.jellyfin.androidtv/org.jellyfin.playback.media3.session.AndroidMediaService filter cf5f784
+          Action: "androidx.media3.session.MediaSessionService"
+          Action: "android.media.browse.MediaBrowserService"
+
+Permissions:
+  Permission [org.jellyfin.androidtv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (f823ff5):
+    sourcePackage=org.jellyfin.androidtv
+    uid=10049 gids=null type=0 prot=signature
+    perm=Permission{670118a org.jellyfin.androidtv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{dcbb3fb org.jellyfin.androidtv/10049}
+
+Registered ContentProviders:
+  org.jellyfin.androidtv/.integration.provider.ImageProvider:
+    Provider{2a14479 org.jellyfin.androidtv/.integration.provider.ImageProvider}
+  org.jellyfin.androidtv/androidx.startup.InitializationProvider:
+    Provider{164a8d org.jellyfin.androidtv/androidx.startup.InitializationProvider}
+  org.jellyfin.androidtv/org.acra.attachment.AcraContentProvider:
+    Provider{5cb377f org.jellyfin.androidtv/org.acra.attachment.AcraContentProvider}
+  org.jellyfin.androidtv/.integration.MediaContentProvider:
+    Provider{9673805 org.jellyfin.androidtv/.integration.MediaContentProvider}
+
+ContentProvider Authorities:
+  [org.jellyfin.androidtv.content]:
+    Provider{9673805 org.jellyfin.androidtv/.integration.MediaContentProvider}
+      applicationInfo=ApplicationInfo{48962bd org.jellyfin.androidtv}
+  [org.jellyfin.androidtv.integration.provider.ImageProvider]:
+    Provider{2a14479 org.jellyfin.androidtv/.integration.provider.ImageProvider}
+      applicationInfo=ApplicationInfo{cc601e0 org.jellyfin.androidtv}
+  [org.jellyfin.androidtv.acra]:
+    Provider{5cb377f org.jellyfin.androidtv/org.acra.attachment.AcraContentProvider}
+      applicationInfo=ApplicationInfo{48962bd org.jellyfin.androidtv}
+  [org.jellyfin.androidtv.androidx-startup]:
+    Provider{164a8d org.jellyfin.androidtv/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{48962bd org.jellyfin.androidtv}
+
+Key Set Manager:
+  [org.jellyfin.androidtv]
+      Signing KeySets: 18
+
+Packages:
+  Package [org.jellyfin.androidtv] (dcbb3fb):
+    userId=10049
+    pkg=Package{fb44c18 org.jellyfin.androidtv}
+    codePath=/data/app/org.jellyfin.androidtv-j3EPIZ_4xKDcSP5JX95vqQ==
+    resourcePath=/data/app/org.jellyfin.androidtv-j3EPIZ_4xKDcSP5JX95vqQ==
+    legacyNativeLibraryDir=/data/app/org.jellyfin.androidtv-j3EPIZ_4xKDcSP5JX95vqQ==/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=191099 minSdk=21 targetSdk=36
+    versionName=0.19.10
+    splits=[base, config.armeabi_v7a, config.en, config.hdpi]
+    apkSigningVersion=3
+    applicationInfo=ApplicationInfo{48962bd org.jellyfin.androidtv}
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP LARGE_HEAP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/org.jellyfin.androidtv
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      androidx.window.extensions
+      androidx.window.sidecar
+    timeStamp=2026-08-20 20:15:00
+    firstInstallTime=2026-07-14 21:50:11
+    lastUpdateTime=2026-08-20 20:15:02
+    installerPackageName=com.android.vending
+    signatures=PackageSignatures{183e671 version:3, signatures:[e6d6378], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP LARGE_HEAP ]
+    declared permissions:
+      org.jellyfin.androidtv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      com.android.providers.tv.permission.WRITE_EPG_DATA
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.FOREGROUND_SERVICE
+      android.permission.RECORD_AUDIO
+      android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK
+      android.permission.WAKE_LOCK
+      android.permission.RECEIVE_BOOT_COMPLETED
+      com.android.providers.tv.permission.READ_EPG_DATA
+      org.jellyfin.androidtv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.android.providers.tv.permission.READ_EPG_DATA: granted=true
+      android.permission.INTERNET: granted=true
+      com.android.providers.tv.permission.WRITE_EPG_DATA: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      org.jellyfin.androidtv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=-4292737395 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+      enabledComponents:
+        androidx.work.impl.background.systemalarm.RescheduleReceiver
+        androidx.work.impl.background.systemjob.SystemJobService
+
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  [org.jellyfin.androidtv]
+    path: /data/app/org.jellyfin.androidtv-j3EPIZ_4xKDcSP5JX95vqQ==/base.apk
+      arm: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [org.jellyfin.androidtv]
+     base.apk - 6559

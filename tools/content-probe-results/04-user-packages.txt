@@ -1,0 +1,8 @@
+package:com.mxtech.videoplayer.pro
+package:com.mihir.tvhome
+package:com.logicyel.novastb
+package:com.marvelactivecode.marvel
+package:io.gh.reisxd.tizentube.fortaleza
+package:com.esaba.downloader
+package:com.stremio.one
+package:org.jellyfin.androidtv

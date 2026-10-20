@@ -1,0 +1,1041 @@
+Registered ContentProviders:
+  com.google.android.gms/com.google.android.location.reporting.service.utils.ReportingContentProvider:
+    Provider{eba0e41 com.google.android.gms/com.google.android.location.reporting.service.utils.ReportingContentProvider}
+  com.google.android.tvrecommendations/.promos.config.ConfigurationProvider:
+    Provider{cd60fe6 com.google.android.tvrecommendations/.promos.config.ConfigurationProvider}
+  com.tosmart.glide/androidx.startup.InitializationProvider:
+    Provider{5c87209 com.tosmart.glide/androidx.startup.InitializationProvider}
+  com.google.android.gms/.icing.proxy.InternalIcingCorporaProvider:
+    Provider{1e10927 com.google.android.gms/.icing.proxy.InternalIcingCorporaProvider}
+  com.android.chrome/org.chromium.chrome.browser.attribution_reporting.AttributionReportingProvider:
+    Provider{8c4f7d4 com.android.chrome/org.chromium.chrome.browser.attribution_reporting.AttributionReportingProvider}
+  com.google.android.gms/.common.stats.net.contentprovider.NetworkUsageContentProvider:
+    Provider{1584d7d com.google.android.gms/.common.stats.net.contentprovider.NetworkUsageContentProvider}
+  com.google.android.katniss/androidx.lifecycle.ProcessLifecycleOwnerInitializer:
+    Provider{5e34472 com.google.android.katniss/androidx.lifecycle.ProcessLifecycleOwnerInitializer}
+  com.netflix.mediaclient/com.google.firebase.provider.FirebaseInitProvider:
+    Provider{2cb10c3 com.netflix.mediaclient/com.google.firebase.provider.FirebaseInitProvider}
+  com.tosmart.localplayer/com.excellence.basetoolslibrary.assist.Provider:
+    Provider{963bd40 com.tosmart.localplayer/com.excellence.basetoolslibrary.assist.Provider}
+  org.jellyfin.androidtv/.integration.provider.ImageProvider:
+    Provider{2a14479 org.jellyfin.androidtv/.integration.provider.ImageProvider}
+  com.android.systemui/.keyguard.KeyguardSliceProvider:
+    Provider{1d35be com.android.systemui/.keyguard.KeyguardSliceProvider}
+  com.google.android.gms/.games.chimera.GamesContentProviderProxy:
+    Provider{1c3f61f com.google.android.gms/.games.chimera.GamesContentProviderProxy}
+  com.android.settings/.slices.SettingsSliceProvider:
+    Provider{676d6c com.android.settings/.slices.SettingsSliceProvider}
+  com.excellence.weather/androidx.startup.InitializationProvider:
+    Provider{ce8af35 com.excellence.weather/androidx.startup.InitializationProvider}
+  com.google.android.tvrecommendations/.ads.AdsSignalsContentProvider:
+    Provider{c72efca com.google.android.tvrecommendations/.ads.AdsSignalsContentProvider}
+  com.excellence.appstore/androidx.startup.InitializationProvider:
+    Provider{23bd53b com.excellence.appstore/androidx.startup.InitializationProvider}
+  com.android.settings/.dashboard.suggestions.SuggestionStateProvider:
+    Provider{513f458 com.android.settings/.dashboard.suggestions.SuggestionStateProvider}
+  com.google.android.gms/.app.search.GmsSearchIndexablesProvider:
+    Provider{20209b1 com.google.android.gms/.app.search.GmsSearchIndexablesProvider}
+  com.google.android.gsf/.settings.GoogleSettingsProvider:
+    Provider{9b83e96 com.google.android.gsf/.settings.GoogleSettingsProvider}
+  com.android.externalstorage/.TestDocumentsProvider:
+    Provider{4888a17 com.android.externalstorage/.TestDocumentsProvider}
+  com.droidlogic.tv.settings/.database.TvControlDataProvider:
+    Provider{cfffe04 com.droidlogic.tv.settings/.database.TvControlDataProvider}
+  com.android.deskclock/.provider.ClockProvider:
+    Provider{37c8fed com.android.deskclock/.provider.ClockProvider}
+  org.xbmc.kodi/.content.XBMCYTDLContentProvider:
+    Provider{e31ae22 org.xbmc.kodi/.content.XBMCYTDLContentProvider}
+  com.google.android.tvrecommendations/androidx.startup.InitializationProvider:
+    Provider{e81b0b3 com.google.android.tvrecommendations/androidx.startup.InitializationProvider}
+  com.logicyel.novastb/com.squareup.picasso.PicassoProvider:
+    Provider{e80f670 com.logicyel.novastb/com.squareup.picasso.PicassoProvider}
+  com.google.android.gms/.auth.account.be.accountstate.AccountStateContentProvider:
+    Provider{29f3de9 com.google.android.gms/.auth.account.be.accountstate.AccountStateContentProvider}
+  com.datesplus.iptv/com.excellence.basetoolslibrary.assist.Provider:
+    Provider{de08a6e com.datesplus.iptv/com.excellence.basetoolslibrary.assist.Provider}
+  com.google.android.katniss/androidx.core.content.FileProvider:
+    Provider{1dca50f com.google.android.katniss/androidx.core.content.FileProvider}
+  com.logicyel.novastb/com.google.firebase.provider.FirebaseInitProvider:
+    Provider{dd7099c com.logicyel.novastb/com.google.firebase.provider.FirebaseInitProvider}
+  com.android.providers.contacts/.debug.DumpFileProvider:
+    Provider{424cfa5 com.android.providers.contacts/.debug.DumpFileProvider}
+  com.google.android.syncadapters.contacts/.ProxyGalProvider:
+    Provider{98edf7a com.google.android.syncadapters.contacts/.ProxyGalProvider}
+  com.android.vending/com.google.android.finsky.tvaccountcontentprovider.TvAccountContentProvider:
+    Provider{c48832b com.android.vending/com.google.android.finsky.tvaccountcontentprovider.TvAccountContentProvider}
+  com.tosmart.tv.tvsettings/com.excellence.basetoolslibrary.assist.Provider:
+    Provider{1192388 com.tosmart.tv.tvsettings/com.excellence.basetoolslibrary.assist.Provider}
+  com.mxtech.videoplayer.pro/androidx.core.content.FileProvider:
+    Provider{3b7c121 com.mxtech.videoplayer.pro/androidx.core.content.FileProvider}
+  com.google.android.gsf/.gservices.GservicesProvider:
+    Provider{29b7946 com.google.android.gsf/.gservices.GservicesProvider}
+  com.excellence.appmanager/androidx.core.content.FileProvider:
+    Provider{d4a2707 com.excellence.appmanager/androidx.core.content.FileProvider}
+  com.google.android.syncadapters.contacts/.LocalGalProvider:
+    Provider{6e0f034 com.google.android.syncadapters.contacts/.LocalGalProvider}
+  com.tosmart.tv.tvsettings/.locker.LockerContentProvider:
+    Provider{32e4e5d com.tosmart.tv.tvsettings/.locker.LockerContentProvider}
+  com.tosmart.glide/com.blankj.utilcode.util.UtilsFileProvider:
+    Provider{50d7c0e com.tosmart.glide/com.blankj.utilcode.util.UtilsFileProvider}
+  com.android.providers.contacts/.ContactsProvider2:
+    Provider{f85e3d2 com.android.providers.contacts/.ContactsProvider2}
+  com.android.webview/.chromium.LicenseContentProvider:
+    Provider{dd82ca3 com.android.webview/.chromium.LicenseContentProvider}
+  com.google.android.katniss/com.google.android.apps.tvsearch.voice.controller.AudioFileDescriptorProvider:
+    Provider{bb6dba0 com.google.android.katniss/com.google.android.apps.tvsearch.voice.controller.AudioFileDescriptorProvider}
+  com.google.android.gms/.chromesync.sync.SyncContentProvider:
+    Provider{1867359 com.google.android.gms/.chromesync.sync.SyncContentProvider}
+  com.google.android.gms/.nearby.sharing.SharingSliceProvider:
+    Provider{d3a6b1e com.google.android.gms/.nearby.sharing.SharingSliceProvider}
+  com.google.android.gms/.security.provider.SecurityProvider:
+    Provider{5b6efff com.google.android.gms/.security.provider.SecurityProvider}
+  com.android.providers.tv/.TvProvider:
+    Provider{a3e11cc com.android.providers.tv/.TvProvider}
+  android/com.android.server.am.DumpHeapProvider:
+    Provider{5a1ec15 android/com.android.server.am.DumpHeapProvider}
+  com.marvelactivecode.marvel/com.google.firebase.provider.FirebaseInitProvider:
+    Provider{91e1b2a com.marvelactivecode.marvel/com.google.firebase.provider.FirebaseInitProvider}
+  com.android.chrome/org.chromium.chrome.browser.provider.ChromeBrowserProvider:
+    Provider{a948d1b com.android.chrome/org.chromium.chrome.browser.provider.ChromeBrowserProvider}
+  com.tosmart.tv.tvsettings/com.tosmart.ott.provider.AppProvider:
+    Provider{2207eb8 com.tosmart.tv.tvsettings/com.tosmart.ott.provider.AppProvider}
+  com.android.providers.telephony/.MmsSmsProvider:
+    Provider{8c23491 com.android.providers.telephony/.MmsSmsProvider}
+  com.android.providers.telephony/.HbpcdLookupProvider:
+    Provider{fdabff6 com.android.providers.telephony/.HbpcdLookupProvider}
+  com.android.providers.telephony/.MmsProvider:
+    Provider{4e4dff7 com.android.providers.telephony/.MmsProvider}
+  com.stremio.one/com.stremio.tv.providers.MediaContentProvider:
+    Provider{1bace64 com.stremio.one/com.stremio.tv.providers.MediaContentProvider}
+  com.google.android.tvrecommendations/.backdrop.BackdropInfoContentProvider:
+    Provider{cc488cd com.google.android.tvrecommendations/.backdrop.BackdropInfoContentProvider}
+  com.excellence.update/com.intelligent.appmarketcore.ContextProvider:
+    Provider{ceae582 com.excellence.update/com.intelligent.appmarketcore.ContextProvider}
+  com.excellence.appmanager/com.excellence.basetoolslibrary.assist.Provider:
+    Provider{67d8493 com.excellence.appmanager/com.excellence.basetoolslibrary.assist.Provider}
+  com.google.android.katniss/com.google.android.libraries.speech.transcription.recording.AudioRecordingProvider$AudioRecordingFileProvider:
+    Provider{e886cd0 com.google.android.katniss/com.google.android.libraries.speech.transcription.recording.AudioRecordingProvider$AudioRecordingFileProvider}
+  com.google.android.katniss/com.google.android.apps.tvsearch.providers.launcher.WidgetInfoProvider:
+    Provider{a1de4c9 com.google.android.katniss/com.google.android.apps.tvsearch.providers.launcher.WidgetInfoProvider}
+  org.xbmc.kodi/.content.XBMCMediaContentProvider:
+    Provider{6e5d7ce org.xbmc.kodi/.content.XBMCMediaContentProvider}
+  com.google.android.tts/com.android.car.ui.core.SearchResultsProvider:
+    Provider{ef1d6ef com.google.android.tts/com.android.car.ui.core.SearchResultsProvider}
+  com.google.android.gms/.accountsettings.content.SettingsSearchContentProvider:
+    Provider{84f85fc com.google.android.gms/.accountsettings.content.SettingsSearchContentProvider}
+  com.excellence.update/me.jessyan.autosize.InitProvider:
+    Provider{1970485 com.excellence.update/me.jessyan.autosize.InitProvider}
+  com.android.inputmethod.latin/com.android.inputmethod.dictionarypack.DictionaryProvider:
+    Provider{48ba2da com.android.inputmethod.latin/com.android.inputmethod.dictionarypack.DictionaryProvider}
+  com.logicyel.novastb/androidx.startup.InitializationProvider:
+    Provider{9aef30b com.logicyel.novastb/androidx.startup.InitializationProvider}
+  com.tosmart.glide/com.tosmart.appmarketcore.ContextProvider:
+    Provider{35e462f com.tosmart.glide/com.tosmart.appmarketcore.ContextProvider}
+  com.android.settings/android.support.v4.content.FileProvider:
+    Provider{30d05e8 com.android.settings/android.support.v4.content.FileProvider}
+  com.google.android.tvrecommendations/.ForegroundActivityContentProvider:
+    Provider{dc86401 com.google.android.tvrecommendations/.ForegroundActivityContentProvider}
+  com.android.providers.contacts/.ContactMetadataProvider:
+    Provider{69112a6 com.android.providers.contacts/.ContactMetadataProvider}
+  com.tosmart.glide/com.tosmart.dvb.common.provider.ProgramContentProvider:
+    Provider{fe0643c com.tosmart.glide/com.tosmart.dvb.common.provider.ProgramContentProvider}
+  com.android.providers.telephony/.TelephonyProvider:
+    Provider{1d7b4e7 com.android.providers.telephony/.TelephonyProvider}
+  com.tosmart.glide/com.tosmart.issuepush.model.IssueProvider:
+    Provider{37d25c5 com.tosmart.glide/com.tosmart.issuepush.model.IssueProvider}
+  com.tosmart.filemanagerpro/androidx.lifecycle.ProcessLifecycleOwnerInitializer:
+    Provider{3a09894 com.tosmart.filemanagerpro/androidx.lifecycle.ProcessLifecycleOwnerInitializer}
+  com.tosmart.filemanagerpro/me.jessyan.autosize.InitProvider:
+    Provider{563f3d com.tosmart.filemanagerpro/me.jessyan.autosize.InitProvider}
+  com.google.android.gms/.update.OtaSuggestionSummaryProvider:
+    Provider{22bb332 com.google.android.gms/.update.OtaSuggestionSummaryProvider}
+  com.google.android.gms/.games.provider.NotificationStubContentProvider:
+    Provider{7e0b883 com.google.android.gms/.games.provider.NotificationStubContentProvider}
+  com.android.bluetooth/.opp.BluetoothOppFileProvider:
+    Provider{b38aa00 com.android.bluetooth/.opp.BluetoothOppFileProvider}
+  com.stremio.one/com.google.firebase.provider.FirebaseInitProvider:
+    Provider{6ec9239 com.stremio.one/com.google.firebase.provider.FirebaseInitProvider}
+  com.datesplus.iptv/com.intelligent.cms.provide.OpenProvider:
+    Provider{85dd07e com.datesplus.iptv/com.intelligent.cms.provide.OpenProvider}
+  com.google.android.partnersetup/.RlzProvider:
+    Provider{4ec59df com.google.android.partnersetup/.RlzProvider}
+  com.tosmart.glide/com.tosmart.launcher.ottlauncher.ui.wallpaper.provider.WallpaperProvider:
+    Provider{9294b1a com.tosmart.glide/com.tosmart.launcher.ottlauncher.ui.wallpaper.provider.WallpaperProvider}
+  com.android.providers.contacts/.ShadowCallLogProvider:
+    Provider{d7e662c com.android.providers.contacts/.ShadowCallLogProvider}
+  com.android.vending/com.google.android.finsky.searchsuggestions.RecentSuggestionsProvider:
+    Provider{3fb18f5 com.android.vending/com.google.android.finsky.searchsuggestions.RecentSuggestionsProvider}
+  com.tosmart.glide/me.jessyan.autosize.InitProvider:
+    Provider{b93164b com.tosmart.glide/me.jessyan.autosize.InitProvider}
+  com.excellence.appstore/com.tosmart.appmarketcore.ContextProvider:
+    Provider{602768a com.excellence.appstore/com.tosmart.appmarketcore.ContextProvider}
+  com.google.android.gms/.instantapps.routing.InstantAppsContentProvider:
+    Provider{7e6b4fb com.google.android.gms/.instantapps.routing.InstantAppsContentProvider}
+  com.excellence.update/androidx.core.content.FileProvider:
+    Provider{d81b918 com.excellence.update/androidx.core.content.FileProvider}
+  com.google.android.gms/.location.preferences.LocationPreferencesContentProvider:
+    Provider{7314f71 com.google.android.gms/.location.preferences.LocationPreferencesContentProvider}
+  com.tosmart.message/.ServiceStatusProvider:
+    Provider{8997156 com.tosmart.message/.ServiceStatusProvider}
+  com.android.shell/android.support.v4.content.FileProvider:
+    Provider{861a5d7 com.android.shell/android.support.v4.content.FileProvider}
+  com.google.android.gms/.fonts.provider.FontsProvider:
+    Provider{d654ec4 com.google.android.gms/.fonts.provider.FontsProvider}
+  com.tosmart.glide/com.provider.BoxConfigProvider:
+    Provider{76d8828 com.tosmart.glide/com.provider.BoxConfigProvider}
+  com.google.android.gms/.common.app.GmsFileProvider:
+    Provider{1ba71ad com.google.android.gms/.common.app.GmsFileProvider}
+  com.tosmart.filemanagerpro/androidx.core.content.FileProvider:
+    Provider{3d34ce2 com.tosmart.filemanagerpro/androidx.core.content.FileProvider}
+  com.marvelactivecode.marvel/androidx.startup.InitializationProvider:
+    Provider{b30c873 com.marvelactivecode.marvel/androidx.startup.InitializationProvider}
+  com.google.android.katniss/com.google.firebase.provider.FirebaseInitProvider:
+    Provider{cca9330 com.google.android.katniss/com.google.firebase.provider.FirebaseInitProvider}
+  com.google.android.gms/.icing.proxy.AppsContentProvider:
+    Provider{2397ba9 com.google.android.gms/.icing.proxy.AppsContentProvider}
+  com.excellence.weather/me.jessyan.autosize.InitProvider:
+    Provider{3dd552e com.excellence.weather/me.jessyan.autosize.InitProvider}
+  io.gh.reisxd.tizentube.fortaleza/androidx.startup.InitializationProvider:
+    Provider{4c578cf io.gh.reisxd.tizentube.fortaleza/androidx.startup.InitializationProvider}
+  com.excellence.appstore/com.tosmart.appmarketnew.provider.AppContextProvider:
+    Provider{1fdb25c com.excellence.appstore/com.tosmart.appmarketnew.provider.AppContextProvider}
+  com.esaba.downloader/androidx.startup.InitializationProvider:
+    Provider{4852965 com.esaba.downloader/androidx.startup.InitializationProvider}
+  com.excellence.appstore/me.jessyan.autosize.InitProvider:
+    Provider{86d963a com.excellence.appstore/me.jessyan.autosize.InitProvider}
+  com.android.systemui/android.support.v4.content.FileProvider:
+    Provider{54ad2eb com.android.systemui/android.support.v4.content.FileProvider}
+  com.android.providers.calendar/.CalendarProvider2:
+    Provider{9e19848 com.android.providers.calendar/.CalendarProvider2}
+  com.tosmart.glide/androidx.core.content.FileProvider:
+    Provider{f5941 com.tosmart.glide/androidx.core.content.FileProvider}
+  com.android.chrome/org.chromium.chrome.browser.download.DownloadFileProvider:
+    Provider{123f6e1 com.android.chrome/org.chromium.chrome.browser.download.DownloadFileProvider}
+  com.mxtech.videoplayer.pro/com.google.firebase.provider.FirebaseInitProvider:
+    Provider{48edc06 com.mxtech.videoplayer.pro/com.google.firebase.provider.FirebaseInitProvider}
+  com.android.vending/com.google.android.finsky.systemupdate.SystemUpdateSettingsContentProvider:
+    Provider{a81b2c7 com.android.vending/com.google.android.finsky.systemupdate.SystemUpdateSettingsContentProvider}
+  com.google.android.gms/com.google.android.location.internal.LocationContentProvider:
+    Provider{a9bf0f4 com.google.android.gms/com.google.android.location.internal.LocationContentProvider}
+  com.google.android.gms/.people.service.PeopleContentProvider:
+    Provider{888201d com.google.android.gms/.people.service.PeopleContentProvider}
+  com.android.externalstorage/.ExternalStorageProvider:
+    Provider{f2cb292 com.android.externalstorage/.ExternalStorageProvider}
+  com.datesplus.iptv/androidx.startup.InitializationProvider:
+    Provider{35cb463 com.datesplus.iptv/androidx.startup.InitializationProvider}
+  com.google.android.tts/com.android.car.ui.core.CarUiInstaller:
+    Provider{5012860 com.google.android.tts/com.android.car.ui.core.CarUiInstaller}
+  com.google.android.gms/.auth.api.credentials.sync.CredentialContentProvider:
+    Provider{60ba119 com.google.android.gms/.auth.api.credentials.sync.CredentialContentProvider}
+  com.android.phone/.PhoneSearchIndexablesProvider:
+    Provider{5f65de com.android.phone/.PhoneSearchIndexablesProvider}
+  com.google.android.gms/.icing.indexapi.IndexApiContentProvider:
+    Provider{15c33bf com.google.android.gms/.icing.indexapi.IndexApiContentProvider}
+  com.android.vending/com.google.android.finsky.slice.PhoneskyContextualCardProvider:
+    Provider{c06a8c com.android.vending/com.google.android.finsky.slice.PhoneskyContextualCardProvider}
+  com.excellence.appstore/androidx.core.content.FileProvider:
+    Provider{6ac35d5 com.excellence.appstore/androidx.core.content.FileProvider}
+  com.excellence.update/com.excellence.basetoolslibrary.assist.Provider:
+    Provider{77801ea com.excellence.update/com.excellence.basetoolslibrary.assist.Provider}
+  com.tosmart.tv.tvsettings/androidx.startup.InitializationProvider:
+    Provider{3aa4cdb com.tosmart.tv.tvsettings/androidx.startup.InitializationProvider}
+  com.tosmart.filemanagerpro/com.excellence.basetoolslibrary.assist.Provider:
+    Provider{f4fa378 com.tosmart.filemanagerpro/com.excellence.basetoolslibrary.assist.Provider}
+  com.mxtech.videoplayer.pro/.VSSP:
+    Provider{f875a51 com.mxtech.videoplayer.pro/.VSSP}
+  com.stremio.one/androidx.startup.InitializationProvider:
+    Provider{5cc52b6 com.stremio.one/androidx.startup.InitializationProvider}
+  com.google.android.gms/androidx.lifecycle.ProcessLifecycleOwnerInitializer:
+    Provider{7f6dbb7 com.google.android.gms/androidx.lifecycle.ProcessLifecycleOwnerInitializer}
+  com.google.android.tts/androidx.lifecycle.ProcessLifecycleOwnerInitializer:
+    Provider{1977f24 com.google.android.tts/androidx.lifecycle.ProcessLifecycleOwnerInitializer}
+  org.jellyfin.androidtv/androidx.startup.InitializationProvider:
+    Provider{164a8d org.jellyfin.androidtv/androidx.startup.InitializationProvider}
+  com.excellence.weather/com.excellence.provider.CityInfoProvider:
+    Provider{a42e442 com.excellence.weather/com.excellence.provider.CityInfoProvider}
+  com.google.android.gms/.auth.account.be.accountstate.CredentialStateContentProvider:
+    Provider{d137c53 com.google.android.gms/.auth.account.be.accountstate.CredentialStateContentProvider}
+  org.xbmc.kodi/.content.XBMCFileContentProvider:
+    Provider{c5f6990 org.xbmc.kodi/.content.XBMCFileContentProvider}
+  com.tosmart.glide/com.excellence.basetoolslibrary.assist.Provider:
+    Provider{d00fee6 com.tosmart.glide/com.excellence.basetoolslibrary.assist.Provider}
+  com.android.tv.settings/android.support.v4.content.FileProvider:
+    Provider{c2a0289 com.android.tv.settings/android.support.v4.content.FileProvider}
+  com.google.android.katniss/com.google.android.apps.tvsearch.voice.hotword.contentprovider.KatnissHotwordStateContentProvider:
+    Provider{99f028e com.google.android.katniss/com.google.android.apps.tvsearch.voice.hotword.contentprovider.KatnissHotwordStateContentProvider}
+  com.marvelactivecode.marvel/com.crazecoder.openfile.FileProvider:
+    Provider{34f8aaf com.marvelactivecode.marvel/com.crazecoder.openfile.FileProvider}
+  com.netflix.mediaclient/o.aLf:
+    Provider{7798ebc com.netflix.mediaclient/o.aLf}
+  com.netflix.mediaclient/o.aaz:
+    Provider{9a73e45 com.netflix.mediaclient/o.aaz}
+  com.netflix.mediaclient/o.bgq:
+    Provider{f8cb99a com.netflix.mediaclient/o.bgq}
+  com.android.providers.contacts/.CallLogProvider:
+    Provider{69422cb com.android.providers.contacts/.CallLogProvider}
+  com.google.android.gms/.people.service.galprovider.PeopleGalProvider:
+    Provider{3aedaa8 com.google.android.gms/.people.service.galprovider.PeopleGalProvider}
+  com.android.providers.media/.MediaDocumentsProvider:
+    Provider{e0279c1 com.android.providers.media/.MediaDocumentsProvider}
+  com.android.packageinstaller/.wear.WearPackageIconProvider:
+    Provider{46cd566 com.android.packageinstaller/.wear.WearPackageIconProvider}
+  com.android.vending/com.google.android.finsky.addtohomescreen.AddToHomeScreenSettingProvider:
+    Provider{e4020a7 com.android.vending/com.google.android.finsky.addtohomescreen.AddToHomeScreenSettingProvider}
+  com.marvelactivecode.marvel/io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider:
+    Provider{36af954 com.marvelactivecode.marvel/io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider}
+  com.android.bluetooth/.opp.BluetoothOppProvider:
+    Provider{77bf0fd com.android.bluetooth/.opp.BluetoothOppProvider}
+  com.google.android.tvrecommendations/.ImageContentProvider:
+    Provider{3e0e1f2 com.google.android.tvrecommendations/.ImageContentProvider}
+  com.google.android.gms/.plus.provider.PlusProvider:
+    Provider{ec42043 com.google.android.gms/.plus.provider.PlusProvider}
+  com.android.providers.downloads/.DownloadStorageProvider:
+    Provider{22856c0 com.android.providers.downloads/.DownloadStorageProvider}
+  com.tosmart.glide/com.tosmart.ott.provider.AppProvider:
+    Provider{2facc27 com.tosmart.glide/com.tosmart.ott.provider.AppProvider}
+  com.datesplus.iptv/com.SecShell.SecShell.CP:
+    Provider{e1b9ff9 com.datesplus.iptv/com.SecShell.SecShell.CP}
+  com.android.providers.telephony/.CarrierIdProvider:
+    Provider{172b3e com.android.providers.telephony/.CarrierIdProvider}
+  com.tosmart.tv.tvsettings/com.blankj.utilcode.util.UtilsFileProvider:
+    Provider{8fe7d9f com.tosmart.tv.tvsettings/com.blankj.utilcode.util.UtilsFileProvider}
+  com.google.android.gsf/.subscribedfeeds.SubscribedFeedsProvider:
+    Provider{69c1eec com.google.android.gsf/.subscribedfeeds.SubscribedFeedsProvider}
+  com.android.providers.telephony/.SmsProvider:
+    Provider{86d42b5 com.android.providers.telephony/.SmsProvider}
+  com.google.android.gms/.appstate.provider.AppStateContentProvider:
+    Provider{dd6bd4a com.google.android.gms/.appstate.provider.AppStateContentProvider}
+  com.android.providers.telephony/.CarrierProvider:
+    Provider{35754bb com.android.providers.telephony/.CarrierProvider}
+  com.android.providers.downloads/.DownloadProvider:
+    Provider{ba23dd8 com.android.providers.downloads/.DownloadProvider}
+  com.android.bluetooth/.map.MmsFileProvider:
+    Provider{ffc5531 com.android.bluetooth/.map.MmsFileProvider}
+  com.android.chrome/com.google.android.apps.chrome.autofill.AutofillDataProvider:
+    Provider{54b6416 com.android.chrome/com.google.android.apps.chrome.autofill.AutofillDataProvider}
+  com.mxtech.videoplayer.pro/com.mxtech.videoplayer.mxtransfer.TransferFileProvider:
+    Provider{89c8197 com.mxtech.videoplayer.pro/com.mxtech.videoplayer.mxtransfer.TransferFileProvider}
+  com.google.android.gms/.drive.metadata.sync.syncadapter.StubContentProvider:
+    Provider{be95f84 com.google.android.gms/.drive.metadata.sync.syncadapter.StubContentProvider}
+  com.google.android.gms/.nearby.discovery.fastpair.slice.FastPairSliceProvider:
+    Provider{190136d com.google.android.gms/.nearby.discovery.fastpair.slice.FastPairSliceProvider}
+  com.android.settings/.search.SettingsSearchIndexablesProvider:
+    Provider{391aba2 com.android.settings/.search.SettingsSearchIndexablesProvider}
+  com.cwmp.tosmart/com.blankj.utilcode.util.Utils$FileProvider4UtilCode:
+    Provider{89da033 com.cwmp.tosmart/com.blankj.utilcode.util.Utils$FileProvider4UtilCode}
+  com.google.android.gms/.phenotype.provider.ConfigurationProvider:
+    Provider{c5eeff0 com.google.android.gms/.phenotype.provider.ConfigurationProvider}
+  com.android.providers.media/.MediaProvider:
+    Provider{5277969 com.android.providers.media/.MediaProvider}
+  com.android.vending/com.google.android.finsky.tvsettingssliceprovider.TvSettingsSliceProvider:
+    Provider{902dfee com.android.vending/com.google.android.finsky.tvsettingssliceprovider.TvSettingsSliceProvider}
+  com.google.android.configupdater/android.support.v4.content.FileProvider:
+    Provider{6880c8f com.google.android.configupdater/android.support.v4.content.FileProvider}
+  com.google.android.katniss/com.google.android.apps.tvsearch.providers.suggestionchips.SuggestionChipProvider:
+    Provider{15b1b1c com.google.android.katniss/com.google.android.apps.tvsearch.providers.suggestionchips.SuggestionChipProvider}
+  com.logicyel.novastb/androidx.core.content.FileProvider:
+    Provider{9b54325 com.logicyel.novastb/androidx.core.content.FileProvider}
+  com.google.android.gms/.common.download.provider.DownloadsProvider:
+    Provider{410cfa com.google.android.gms/.common.download.provider.DownloadsProvider}
+  com.tosmart.localplayer/androidx.lifecycle.ProcessLifecycleOwnerInitializer:
+    Provider{102e2ab com.tosmart.localplayer/androidx.lifecycle.ProcessLifecycleOwnerInitializer}
+  com.tosmart.localplayer/me.jessyan.autosize.InitProvider:
+    Provider{a8ccd08 com.tosmart.localplayer/me.jessyan.autosize.InitProvider}
+  com.android.vending/android.support.v4.content.FileProvider:
+    Provider{9beca1 com.android.vending/android.support.v4.content.FileProvider}
+  com.google.android.tvrecommendations/.NotificationContentProvider:
+    Provider{a02fec6 com.google.android.tvrecommendations/.NotificationContentProvider}
+  com.android.phone/.IccProvider:
+    Provider{afe87 com.android.phone/.IccProvider}
+  com.google.android.tts/com.google.android.libraries.speech.transcription.recording.AudioRecordingProvider$AudioRecordingFileProvider:
+    Provider{1a5b1b4 com.google.android.tts/com.google.android.libraries.speech.transcription.recording.AudioRecordingProvider$AudioRecordingFileProvider}
+  com.google.android.gms/.auth.account.be.legacy.AccountContentProvider:
+    Provider{4e9b1dd com.google.android.gms/.auth.account.be.legacy.AccountContentProvider}
+  com.android.tv.settings/.name.SuggestionContentProvider:
+    Provider{9a04152 com.android.tv.settings/.name.SuggestionContentProvider}
+  com.datesplus.iptv/com.intelligent.appmarketcore.ContextProvider:
+    Provider{48efc23 com.datesplus.iptv/com.intelligent.appmarketcore.ContextProvider}
+  com.google.android.gms/.chimera.container.GmsModuleProvider:
+    Provider{7c63520 com.google.android.gms/.chimera.container.GmsModuleProvider}
+  com.google.android.gms/.chimera.container.SharedModuleProvider:
+    Provider{a548ed9 com.google.android.gms/.chimera.container.SharedModuleProvider}
+  com.datesplus.iptv/me.jessyan.autosize.InitProvider:
+    Provider{e5d209e com.datesplus.iptv/me.jessyan.autosize.InitProvider}
+  org.jellyfin.androidtv/org.acra.attachment.AcraContentProvider:
+    Provider{5cb377f org.jellyfin.androidtv/org.acra.attachment.AcraContentProvider}
+  com.marvelactivecode.marvel/androidx.core.content.FileProvider:
+    Provider{da9834c com.marvelactivecode.marvel/androidx.core.content.FileProvider}
+  com.google.android.gms/.subscribedfeeds.GmsSubscribedFeedsProvider:
+    Provider{ff63f95 com.google.android.gms/.subscribedfeeds.GmsSubscribedFeedsProvider}
+  com.android.vending/com.google.android.finsky.slice.protect.ProtectPhaSliceProvider:
+    Provider{576a8aa com.android.vending/com.google.android.finsky.slice.protect.ProtectPhaSliceProvider}
+  com.esaba.downloader/com.google.android.gms.ads.MobileAdsInitProvider:
+    Provider{865cc9b com.esaba.downloader/com.google.android.gms.ads.MobileAdsInitProvider}
+  com.esaba.downloader/androidx.core.content.FileProvider:
+    Provider{2918838 com.esaba.downloader/androidx.core.content.FileProvider}
+  com.tosmart.glide/com.provider.ReadOnlyConfigProvider:
+    Provider{c26fed4 com.tosmart.glide/com.provider.ReadOnlyConfigProvider}
+  com.android.providers.telephony/.ServiceStateProvider:
+    Provider{2c84011 com.android.providers.telephony/.ServiceStateProvider}
+  com.android.providers.contacts/.VoicemailContentProvider:
+    Provider{eea576 com.android.providers.contacts/.VoicemailContentProvider}
+  com.tosmart.tv.tvsettings/me.jessyan.autosize.InitProvider:
+    Provider{b4a9777 com.tosmart.tv.tvsettings/me.jessyan.autosize.InitProvider}
+  com.google.android.gms/.nearby.discovery.fastpair.slice.FastPairContextualCardProvider:
+    Provider{5f2efe4 com.google.android.gms/.nearby.discovery.fastpair.slice.FastPairContextualCardProvider}
+  com.google.android.partnersetup/.RlzAppProvider:
+    Provider{bdfcc4d com.google.android.partnersetup/.RlzAppProvider}
+  com.excellence.update/androidx.startup.InitializationProvider:
+    Provider{f17a302 com.excellence.update/androidx.startup.InitializationProvider}
+  com.android.chrome/com.google.android.apps.chrome.icing.IcingProvider:
+    Provider{6473413 com.android.chrome/com.google.android.apps.chrome.icing.IcingProvider}
+  com.excellent.app.bootwizard/me.jessyan.autosize.InitProvider:
+    Provider{7e12650 com.excellent.app.bootwizard/me.jessyan.autosize.InitProvider}
+  com.android.chrome/org.chromium.chrome.browser.util.ChromeFileProvider:
+    Provider{669e049 com.android.chrome/org.chromium.chrome.browser.util.ChromeFileProvider}
+  com.android.shell/.BugreportStorageProvider:
+    Provider{ee0ed4e com.android.shell/.BugreportStorageProvider}
+  com.google.android.katniss/com.google.android.apps.tvsearch.providers.slice.AssistantSettingsSliceProvider:
+    Provider{666fe6f com.google.android.katniss/com.google.android.apps.tvsearch.providers.slice.AssistantSettingsSliceProvider}
+  com.datesplus.iptv/com.google.android.gms.ads.MobileAdsInitProvider:
+    Provider{43a577c com.datesplus.iptv/com.google.android.gms.ads.MobileAdsInitProvider}
+  org.jellyfin.androidtv/.integration.MediaContentProvider:
+    Provider{9673805 org.jellyfin.androidtv/.integration.MediaContentProvider}
+  com.android.providers.settings/.SettingsProvider:
+    Provider{ce2905a com.android.providers.settings/.SettingsProvider}
+  com.netflix.mediaclient/.ngpstore.impl.storage.cp.NgpContentProvider:
+    Provider{40f128b com.netflix.mediaclient/.ngpstore.impl.storage.cp.NgpContentProvider}
+  com.datesplus.iptv/androidx.core.content.FileProvider:
+    Provider{4936f68 com.datesplus.iptv/androidx.core.content.FileProvider}
+
+ContentProvider Authorities:
+  [com.google.android.gms.chimera.container.sharedmoduleprovider]:
+    Provider{a548ed9 com.google.android.gms/.chimera.container.SharedModuleProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.finsky.tvaccountcontentprovider]:
+    Provider{c48832b com.android.vending/com.google.android.finsky.tvaccountcontentprovider.TvAccountContentProvider}
+      applicationInfo=ApplicationInfo{cd31d65 com.android.vending}
+  [com.google.android.finsky.slice]:
+    Provider{c06a8c com.android.vending/com.google.android.finsky.slice.PhoneskyContextualCardProvider}
+      applicationInfo=ApplicationInfo{cd31d65 com.android.vending}
+  [com.android.server.heapdump]:
+    Provider{5a1ec15 android/com.android.server.am.DumpHeapProvider}
+      applicationInfo=ApplicationInfo{cb35c73 android}
+  [com.mxtech.videoplayer.pro.vssp]:
+    Provider{f875a51 com.mxtech.videoplayer.pro/.VSSP}
+      applicationInfo=ApplicationInfo{5295826 com.mxtech.videoplayer.pro}
+  [android.settings.slices]:
+    Provider{676d6c com.android.settings/.slices.SettingsSliceProvider}
+      applicationInfo=ApplicationInfo{eda4c67 com.android.settings}
+  [com.excellent.app.bootwizard.autosize-init-provider]:
+    Provider{7e12650 com.excellent.app.bootwizard/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{4e41a14 com.excellent.app.bootwizard}
+  [org.jellyfin.androidtv.content]:
+    Provider{9673805 org.jellyfin.androidtv/.integration.MediaContentProvider}
+      applicationInfo=ApplicationInfo{48962bd org.jellyfin.androidtv}
+  [com.datesplus.iptv.mobileadsinitprovider]:
+    Provider{43a577c com.datesplus.iptv/com.google.android.gms.ads.MobileAdsInitProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.google.android.tvrecommendations.androidx-startup]:
+    Provider{e81b0b3 com.google.android.tvrecommendations/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{b354803 com.google.android.tvrecommendations}
+  [com.excellence.appmanager.provider]:
+    Provider{d4a2707 com.excellence.appmanager/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{6f2c380 com.excellence.appmanager}
+  [com.android.contacts.metadata]:
+    Provider{69112a6 com.android.providers.contacts/.ContactMetadataProvider}
+      applicationInfo=ApplicationInfo{1ee6db9 com.android.providers.contacts}
+  [org.xbmc.kodi.media]:
+    Provider{6e5d7ce org.xbmc.kodi/.content.XBMCMediaContentProvider}
+      applicationInfo=ApplicationInfo{e0945fe org.xbmc.kodi}
+  [com.google.android.tts.CarUiInstaller]:
+    Provider{5012860 com.google.android.tts/com.android.car.ui.core.CarUiInstaller}
+      applicationInfo=ApplicationInfo{acdfccd com.google.android.tts}
+  [com.android.chrome.AutofillDataProvider]:
+    Provider{54b6416 com.android.chrome/com.google.android.apps.chrome.autofill.AutofillDataProvider}
+      applicationInfo=ApplicationInfo{c2f1c48 com.android.chrome}
+  [com.marvelactivecode.marvel.firebaseinitprovider]:
+    Provider{91e1b2a com.marvelactivecode.marvel/com.google.firebase.provider.FirebaseInitProvider}
+      applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+  [com.google.android.location.internal]:
+    Provider{a9bf0f4 com.google.android.gms/com.google.android.location.internal.LocationContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.tosmart.localplayer.lifecycle-process]:
+    Provider{102e2ab com.tosmart.localplayer/androidx.lifecycle.ProcessLifecycleOwnerInitializer}
+      applicationInfo=ApplicationInfo{8097ac com.tosmart.localplayer}
+  [com.tosmart.localplayer.autosize-init-provider]:
+    Provider{a8ccd08 com.tosmart.localplayer/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{8097ac com.tosmart.localplayer}
+  [com.google.android.finsky.slice.protect]:
+    Provider{576a8aa com.android.vending/com.google.android.finsky.slice.protect.ProtectPhaSliceProvider}
+      applicationInfo=ApplicationInfo{cd31d65 com.android.vending}
+  [com.tosmart.glide.autosize-init-provider]:
+    Provider{b93164b com.tosmart.glide/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.marvelactivecode.marvel.fileProvider.com.crazecoder.openfile]:
+    Provider{34f8aaf com.marvelactivecode.marvel/com.crazecoder.openfile.FileProvider}
+      applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+  [com.excellence.update.contextProvider]:
+    Provider{ceae582 com.excellence.update/com.intelligent.appmarketcore.ContextProvider}
+      applicationInfo=ApplicationInfo{fff2c75 com.excellence.update}
+  [com.google.android.gms.instantapps.provider.api]:
+    Provider{7e6b4fb com.google.android.gms/.instantapps.routing.InstantAppsContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.gms.security.provider]:
+    Provider{5b6efff com.google.android.gms/.security.provider.SecurityProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.mxtech.videoplayer.pro.mxtransfer.fileprovider]:
+    Provider{89c8197 com.mxtech.videoplayer.pro/com.mxtech.videoplayer.mxtransfer.TransferFileProvider}
+      applicationInfo=ApplicationInfo{5295826 com.mxtech.videoplayer.pro}
+  [com.tosmart.glide.contextprovider]:
+    Provider{37d25c5 com.tosmart.glide/com.tosmart.issuepush.model.IssueProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.glide.contextProvider]:
+    Provider{35e462f com.tosmart.glide/com.tosmart.appmarketcore.ContextProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.google.android.gms.people]:
+    Provider{888201d com.google.android.gms/.people.service.PeopleContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.droidlogic.tv.settings]:
+    Provider{cfffe04 com.droidlogic.tv.settings/.database.TvControlDataProvider}
+      applicationInfo=ApplicationInfo{6afc40a com.droidlogic.tv.settings}
+  [com.google.android.apps.tvsearch.fcm.firebaseinitprovider]:
+    Provider{cca9330 com.google.android.katniss/com.google.firebase.provider.FirebaseInitProvider}
+      applicationInfo=ApplicationInfo{4db47b com.google.android.katniss}
+  [com.google.android.gms.drive.sync]:
+    Provider{be95f84 com.google.android.gms/.drive.metadata.sync.syncadapter.StubContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.datesplus.iptv.FileProvider]:
+    Provider{4936f68 com.datesplus.iptv/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.android.tv.notifications.NotificationContentProvider]:
+    Provider{a02fec6 com.google.android.tvrecommendations/.NotificationContentProvider}
+      applicationInfo=ApplicationInfo{b354803 com.google.android.tvrecommendations}
+  [com.excellence.appstore.contextProvider]:
+    Provider{602768a com.excellence.appstore/com.tosmart.appmarketcore.ContextProvider}
+      applicationInfo=ApplicationInfo{358298 com.excellence.appstore}
+  [com.google.android.gms.common.stats.net.contentprovider]:
+    Provider{1584d7d com.google.android.gms/.common.stats.net.contentprovider.NetworkUsageContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.datesplus.iptv.CP]:
+    Provider{e1b9ff9 com.datesplus.iptv/com.SecShell.SecShell.CP}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.datesplus.iptv.provider]:
+    Provider{de08a6e com.datesplus.iptv/com.excellence.basetoolslibrary.assist.Provider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.android.chrome.icing]:
+    Provider{6473413 com.android.chrome/com.google.android.apps.chrome.icing.IcingProvider}
+      applicationInfo=ApplicationInfo{c2f1c48 com.android.chrome}
+  [com.excellence.appstore.FileProvider]:
+    Provider{6ac35d5 com.excellence.appstore/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{358298 com.excellence.appstore}
+  [com.google.contacts.local.gal.provider]:
+    Provider{6e0f034 com.google.android.syncadapters.contacts/.LocalGalProvider}
+      applicationInfo=ApplicationInfo{e231af1 com.google.android.syncadapters.contacts}
+  [com.tosmart.glide.provider.AppProvider]:
+    Provider{2facc27 com.tosmart.glide/com.tosmart.ott.provider.AppProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.filemanagerpro.fileProvider]:
+    Provider{3d34ce2 com.tosmart.filemanagerpro/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{e8e16d6 com.tosmart.filemanagerpro}
+  [com.marvelactivecode.marvel.provider]:
+    Provider{da9834c com.marvelactivecode.marvel/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+  [com.google.android.tvrecommendations.ads.signals.AdsSignalsContentProvider]:
+    Provider{c72efca com.google.android.tvrecommendations/.ads.AdsSignalsContentProvider}
+      applicationInfo=ApplicationInfo{b354803 com.google.android.tvrecommendations}
+  [com.android.shell.documents]:
+    Provider{ee0ed4e com.android.shell/.BugreportStorageProvider}
+      applicationInfo=ApplicationInfo{cf91d57 com.android.shell}
+  [com.android.voicemail]:
+    Provider{eea576 com.android.providers.contacts/.VoicemailContentProvider}
+      applicationInfo=ApplicationInfo{1ee6db9 com.android.providers.contacts}
+  [com.tosmart.tv.tvsettings.utilcode.fileprovider]:
+    Provider{8fe7d9f com.tosmart.tv.tvsettings/com.blankj.utilcode.util.UtilsFileProvider}
+      applicationInfo=ApplicationInfo{54c3044 com.tosmart.tv.tvsettings}
+  [com.stremio.one.firebaseinitprovider]:
+    Provider{6ec9239 com.stremio.one/com.google.firebase.provider.FirebaseInitProvider}
+      applicationInfo=ApplicationInfo{bd752d com.stremio.one}
+  [com.google.android.apps.tvsearch.providers.suggestionchips.SuggestionChipProvider]:
+    Provider{15b1b1c com.google.android.katniss/com.google.android.apps.tvsearch.providers.suggestionchips.SuggestionChipProvider}
+      applicationInfo=ApplicationInfo{4db47b com.google.android.katniss}
+  [com.google.android.configupdater.fileprovider]:
+    Provider{6880c8f com.google.android.configupdater/android.support.v4.content.FileProvider}
+      applicationInfo=ApplicationInfo{82cca62 com.google.android.configupdater}
+  [android.media.tv]:
+    Provider{a3e11cc com.android.providers.tv/.TvProvider}
+      applicationInfo=ApplicationInfo{a8837f3 com.android.providers.tv}
+  [com.android.contacts]:
+    Provider{f85e3d2 com.android.providers.contacts/.ContactsProvider2}
+      applicationInfo=ApplicationInfo{5fe0cb0 com.android.providers.contacts}
+  [com.google.android.tvrecommendations.backdrop.BackdropInfoContentProvider]:
+    Provider{cc488cd com.google.android.tvrecommendations/.backdrop.BackdropInfoContentProvider}
+      applicationInfo=ApplicationInfo{b354803 com.google.android.tvrecommendations}
+  [com.dvb.service.readonly.provider]:
+    Provider{c26fed4 com.tosmart.glide/com.provider.ReadOnlyConfigProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.datesplus.iptv.contextProvider]:
+    Provider{48efc23 com.datesplus.iptv/com.intelligent.appmarketcore.ContextProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.android.bluetooth.map.MmsFileProvider]:
+    Provider{ffc5531 com.android.bluetooth/.map.MmsFileProvider}
+      applicationInfo=ApplicationInfo{5293729 com.android.bluetooth}
+  [com.google.android.finsky.RecentSuggestionsProvider]:
+    Provider{3fb18f5 com.android.vending/com.google.android.finsky.searchsuggestions.RecentSuggestionsProvider}
+      applicationInfo=ApplicationInfo{cd31d65 com.android.vending}
+  [com.netflix.mediaclient.bugsnag-startup]:
+    Provider{f8cb99a com.netflix.mediaclient/o.bgq}
+      applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+  [com.google.android.katniss.sliceprovider.AssistantSettingsSliceProvider]:
+    Provider{666fe6f com.google.android.katniss/com.google.android.apps.tvsearch.providers.slice.AssistantSettingsSliceProvider}
+      applicationInfo=ApplicationInfo{4db47b com.google.android.katniss}
+  [com.marvelactivecode.marvel.flutterfirebasemessaginginitprovider]:
+    Provider{36af954 com.marvelactivecode.marvel/io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider}
+      applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+  [com.excellence.update.provider]:
+    Provider{77801ea com.excellence.update/com.excellence.basetoolslibrary.assist.Provider}
+      applicationInfo=ApplicationInfo{fff2c75 com.excellence.update}
+  [subscribedfeeds]:
+    Provider{69c1eec com.google.android.gsf/.subscribedfeeds.SubscribedFeedsProvider}
+      applicationInfo=ApplicationInfo{6e4604f com.google.android.gsf}
+  [com.google.android.gms.play-p2p-fileprovider]:
+    Provider{1ba71ad com.google.android.gms/.common.app.GmsFileProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.tvrecommendations.ForegroundActivityContentProvider]:
+    Provider{dc86401 com.google.android.tvrecommendations/.ForegroundActivityContentProvider}
+      applicationInfo=ApplicationInfo{b354803 com.google.android.tvrecommendations}
+  [contacts]:
+    Provider{f85e3d2 com.android.providers.contacts/.ContactsProvider2}
+      applicationInfo=ApplicationInfo{5fe0cb0 com.android.providers.contacts}
+  [com.android.webview.LicenseContentProvider]:
+    Provider{dd82ca3 com.android.webview/.chromium.LicenseContentProvider}
+      applicationInfo=ApplicationInfo{af43dc com.android.webview}
+  [carrier_information]:
+    Provider{35754bb com.android.providers.telephony/.CarrierProvider}
+      applicationInfo=ApplicationInfo{9751ce5 com.android.providers.telephony}
+  [com.google.android.gms.fileprovider]:
+    Provider{1ba71ad com.google.android.gms/.common.app.GmsFileProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.android.calendar]:
+    Provider{9e19848 com.android.providers.calendar/.CalendarProvider2}
+      applicationInfo=ApplicationInfo{3c943ba com.android.providers.calendar}
+  [com.google.android.gms.nearby.fastpair.card]:
+    Provider{5f2efe4 com.google.android.gms/.nearby.discovery.fastpair.slice.FastPairContextualCardProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.gsf.gservices]:
+    Provider{29b7946 com.google.android.gsf/.gservices.GservicesProvider}
+      applicationInfo=ApplicationInfo{6e4604f com.google.android.gsf}
+  [com.google.android.chimera]:
+    Provider{7c63520 com.google.android.gms/.chimera.container.GmsModuleProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.location.reporting]:
+    Provider{eba0e41 com.google.android.gms/com.google.android.location.reporting.service.utils.ReportingContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.gms.nearby.fastpair]:
+    Provider{190136d com.google.android.gms/.nearby.discovery.fastpair.slice.FastPairSliceProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.gms.subscribedfeeds]:
+    Provider{ff63f95 com.google.android.gms/.subscribedfeeds.GmsSubscribedFeedsProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.katniss.lifecycle-process]:
+    Provider{5e34472 com.google.android.katniss/androidx.lifecycle.ProcessLifecycleOwnerInitializer}
+      applicationInfo=ApplicationInfo{4db47b com.google.android.katniss}
+  [com.google.android.packageinstaller.wear.provider]:
+    Provider{46cd566 com.android.packageinstaller/.wear.WearPackageIconProvider}
+      applicationInfo=ApplicationInfo{b30b26b com.android.packageinstaller}
+  [com.android.chrome.ChromeBrowserProvider]:
+    Provider{a948d1b com.android.chrome/org.chromium.chrome.browser.provider.ChromeBrowserProvider}
+      applicationInfo=ApplicationInfo{c2f1c48 com.android.chrome}
+  [com.excellence.weather.autosize-init-provider]:
+    Provider{3dd552e com.excellence.weather/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{3dac1c8 com.excellence.weather}
+  [com.datesplus.iptv.androidx-startup]:
+    Provider{35cb463 com.datesplus.iptv/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.excellence.update.FileProvider]:
+    Provider{d81b918 com.excellence.update/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{fff2c75 com.excellence.update}
+  [com.android.inputmethod.dictionarypack.aosp]:
+    Provider{48ba2da com.android.inputmethod.latin/com.android.inputmethod.dictionarypack.DictionaryProvider}
+      applicationInfo=ApplicationInfo{3dfa261 com.android.inputmethod.latin}
+  [call_log]:
+    Provider{69422cb com.android.providers.contacts/.CallLogProvider}
+      applicationInfo=ApplicationInfo{1ee6db9 com.android.providers.contacts}
+  [com.google.android.gms.auth.accountstate]:
+    Provider{29f3de9 com.google.android.gms/.auth.account.be.accountstate.AccountStateContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.gms.update.phone]:
+    Provider{22bb332 com.google.android.gms/.update.OtaSuggestionSummaryProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.logicyel.novastb.com.squareup.picasso]:
+    Provider{e80f670 com.logicyel.novastb/com.squareup.picasso.PicassoProvider}
+      applicationInfo=ApplicationInfo{1b7e186 com.logicyel.novastb}
+  [com.netflix.mediaclient.firebaseinitprovider]:
+    Provider{2cb10c3 com.netflix.mediaclient/com.google.firebase.provider.FirebaseInitProvider}
+      applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+  [com.google.android.tvrecommendations]:
+    Provider{3e0e1f2 com.google.android.tvrecommendations/.ImageContentProvider}
+      applicationInfo=ApplicationInfo{b354803 com.google.android.tvrecommendations}
+  [com.stremio.one.content]:
+    Provider{1bace64 com.stremio.one/com.stremio.tv.providers.MediaContentProvider}
+      applicationInfo=ApplicationInfo{bd752d com.stremio.one}
+  [com.google.android.gms.people.gal.provider]:
+    Provider{3aedaa8 com.google.android.gms/.people.service.galprovider.PeopleGalProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.tts.SearchResultsProvider]:
+    Provider{ef1d6ef com.google.android.tts/com.android.car.ui.core.SearchResultsProvider}
+      applicationInfo=ApplicationInfo{acdfccd com.google.android.tts}
+  [com.android.settings.files]:
+    Provider{30d05e8 com.android.settings/android.support.v4.content.FileProvider}
+      applicationInfo=ApplicationInfo{eda4c67 com.android.settings}
+  [icc]:
+    Provider{afe87 com.android.phone/.IccProvider}
+      applicationInfo=ApplicationInfo{5a60a47 com.android.phone}
+  [mms]:
+    Provider{4e4dff7 com.android.providers.telephony/.MmsProvider}
+      applicationInfo=ApplicationInfo{9751ce5 com.android.providers.telephony}
+  [sms]:
+    Provider{86d42b5 com.android.providers.telephony/.SmsProvider}
+      applicationInfo=ApplicationInfo{9751ce5 com.android.providers.telephony}
+  [com.google.android.gms.phenotype]:
+    Provider{c5eeff0 com.google.android.gms/.phenotype.provider.ConfigurationProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.gms.location.preferences]:
+    Provider{7314f71 com.google.android.gms/.location.preferences.LocationPreferencesContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.tosmart.filemanagerpro.provider]:
+    Provider{f4fa378 com.tosmart.filemanagerpro/com.excellence.basetoolslibrary.assist.Provider}
+      applicationInfo=ApplicationInfo{e8e16d6 com.tosmart.filemanagerpro}
+  [com.tosmart.filemanagerpro.lifecycle-process]:
+    Provider{3a09894 com.tosmart.filemanagerpro/androidx.lifecycle.ProcessLifecycleOwnerInitializer}
+      applicationInfo=ApplicationInfo{e8e16d6 com.tosmart.filemanagerpro}
+  [call_log_shadow]:
+    Provider{d7e662c com.android.providers.contacts/.ShadowCallLogProvider}
+      applicationInfo=ApplicationInfo{1ee6db9 com.android.providers.contacts}
+  [com.excellence.update.androidx-startup]:
+    Provider{f17a302 com.excellence.update/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{fff2c75 com.excellence.update}
+  [com.dvb.service.provider]:
+    Provider{76d8828 com.tosmart.glide/com.provider.BoxConfigProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [media]:
+    Provider{5277969 com.android.providers.media/.MediaProvider}
+      applicationInfo=ApplicationInfo{8be3274 com.android.providers.media}
+  [com.tosmart.message.servicestatus]:
+    Provider{8997156 com.tosmart.message/.ServiceStatusProvider}
+      applicationInfo=ApplicationInfo{613039d com.tosmart.message}
+  [com.android.settings.slices]:
+    Provider{676d6c com.android.settings/.slices.SettingsSliceProvider}
+      applicationInfo=ApplicationInfo{eda4c67 com.android.settings}
+  [com.android.bluetooth.opp.fileprovider]:
+    Provider{b38aa00 com.android.bluetooth/.opp.BluetoothOppFileProvider}
+      applicationInfo=ApplicationInfo{5293729 com.android.bluetooth}
+  [com.android.chrome]:
+    Provider{a948d1b com.android.chrome/org.chromium.chrome.browser.provider.ChromeBrowserProvider}
+      applicationInfo=ApplicationInfo{c2f1c48 com.android.chrome}
+  [com.tosmart.glide.provider]:
+    Provider{d00fee6 com.tosmart.glide/com.excellence.basetoolslibrary.assist.Provider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.android.providers.downloads.documents]:
+    Provider{22856c0 com.android.providers.downloads/.DownloadStorageProvider}
+      applicationInfo=ApplicationInfo{9a09012 com.android.providers.downloads}
+  [com.google.android.gms]:
+    Provider{20209b1 com.google.android.gms/.app.search.GmsSearchIndexablesProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.gms.auth.accounts]:
+    Provider{4e9b1dd com.google.android.gms/.auth.account.be.legacy.AccountContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.android.chrome.DownloadFileProvider]:
+    Provider{123f6e1 com.android.chrome/org.chromium.chrome.browser.download.DownloadFileProvider}
+      applicationInfo=ApplicationInfo{c2f1c48 com.android.chrome}
+  [com.datesplus.iptv.autosize-init-provider]:
+    Provider{e5d209e com.datesplus.iptv/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.tosmart.tv.tvsettings.androidx-startup]:
+    Provider{3aa4cdb com.tosmart.tv.tvsettings/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{54c3044 com.tosmart.tv.tvsettings}
+  [com.tosmart.filemanagerpro.autosize-init-provider]:
+    Provider{563f3d com.tosmart.filemanagerpro/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{e8e16d6 com.tosmart.filemanagerpro}
+  [com.esaba.downloader.mobileadsinitprovider]:
+    Provider{865cc9b com.esaba.downloader/com.google.android.gms.ads.MobileAdsInitProvider}
+      applicationInfo=ApplicationInfo{52f03e3 com.esaba.downloader}
+  [org.jellyfin.androidtv.integration.provider.ImageProvider]:
+    Provider{2a14479 org.jellyfin.androidtv/.integration.provider.ImageProvider}
+      applicationInfo=ApplicationInfo{cc601e0 org.jellyfin.androidtv}
+  [com.google.android.gms.icing.proxy]:
+    Provider{1e10927 com.google.android.gms/.icing.proxy.InternalIcingCorporaProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.finsky.FileProvider]:
+    Provider{9beca1 com.android.vending/android.support.v4.content.FileProvider}
+      applicationInfo=ApplicationInfo{cd31d65 com.android.vending}
+  [org.jellyfin.androidtv.acra]:
+    Provider{5cb377f org.jellyfin.androidtv/org.acra.attachment.AcraContentProvider}
+      applicationInfo=ApplicationInfo{48962bd org.jellyfin.androidtv}
+  [com.netflix.mediaclient]:
+    Provider{40f128b com.netflix.mediaclient/.ngpstore.impl.storage.cp.NgpContentProvider}
+      applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+  [com.google.android.gms.accountsettings.content]:
+    Provider{84f85fc com.google.android.gms/.accountsettings.content.SettingsSearchContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.android.chrome.browser]:
+    Provider{a948d1b com.android.chrome/org.chromium.chrome.browser.provider.ChromeBrowserProvider}
+      applicationInfo=ApplicationInfo{c2f1c48 com.android.chrome}
+  [com.netflix.mediaclient.androidx-startup]:
+    Provider{7798ebc com.netflix.mediaclient/o.aLf}
+      applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+  [com.excellence.osd.fileProvider]:
+    Provider{f5941 com.tosmart.glide/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.tv.tvsettings.autosize-init-provider]:
+    Provider{b4a9777 com.tosmart.tv.tvsettings/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{54c3044 com.tosmart.tv.tvsettings}
+  [com.datesplus.ott.provider]:
+    Provider{85dd07e com.datesplus.iptv/com.intelligent.cms.provide.OpenProvider}
+      applicationInfo=ApplicationInfo{5c2d0b2 com.datesplus.iptv}
+  [com.android.externalstorage.documents]:
+    Provider{f2cb292 com.android.externalstorage/.ExternalStorageProvider}
+      applicationInfo=ApplicationInfo{8213c99 com.android.externalstorage}
+  [com.marvelactivecode.marvel.androidx-startup]:
+    Provider{b30c873 com.marvelactivecode.marvel/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{dba615f com.marvelactivecode.marvel}
+  [com.tosmart.dvb.common.program.provider]:
+    Provider{fe0643c com.tosmart.glide/com.tosmart.dvb.common.provider.ProgramContentProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.google.android.apps.tvsearch.voice.controller.AudioFileDescriptorProvider]:
+    Provider{bb6dba0 com.google.android.katniss/com.google.android.apps.tvsearch.voice.controller.AudioFileDescriptorProvider}
+      applicationInfo=ApplicationInfo{4db47b com.google.android.katniss}
+  [com.tosmart.tv.tvsettings.provider.AppProvider]:
+    Provider{2207eb8 com.tosmart.tv.tvsettings/com.tosmart.ott.provider.AppProvider}
+      applicationInfo=ApplicationInfo{54c3044 com.tosmart.tv.tvsettings}
+  [com.android.contacts.dumpfile]:
+    Provider{424cfa5 com.android.providers.contacts/.debug.DumpFileProvider}
+      applicationInfo=ApplicationInfo{1ee6db9 com.android.providers.contacts}
+  [com.android.tv.settings.name]:
+    Provider{9a04152 com.android.tv.settings/.name.SuggestionContentProvider}
+      applicationInfo=ApplicationInfo{df39b5e com.android.tv.settings}
+  [telephony]:
+    Provider{1d7b4e7 com.android.providers.telephony/.TelephonyProvider}
+      applicationInfo=ApplicationInfo{9751ce5 com.android.providers.telephony}
+  [carrier_id]:
+    Provider{172b3e com.android.providers.telephony/.CarrierIdProvider}
+      applicationInfo=ApplicationInfo{9751ce5 com.android.providers.telephony}
+  [com.google.android.gms.appstate]:
+    Provider{dd6bd4a com.google.android.gms/.appstate.provider.AppStateContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.netflix.mediaclient.provider]:
+    Provider{9a73e45 com.netflix.mediaclient/o.aaz}
+      applicationInfo=ApplicationInfo{4112aae com.netflix.mediaclient}
+  [com.google.android.partnersetup.rlzappprovider]:
+    Provider{bdfcc4d com.google.android.partnersetup/.RlzAppProvider}
+      applicationInfo=ApplicationInfo{2c3fb3f com.google.android.partnersetup}
+  [com.google.android.gms.auth.confirm]:
+    Provider{d137c53 com.google.android.gms/.auth.account.be.accountstate.CredentialStateContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.gms.chromesync]:
+    Provider{1867359 com.google.android.gms/.chromesync.sync.SyncContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.excellence.appstore.androidx-startup]:
+    Provider{23bd53b com.excellence.appstore/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{358298 com.excellence.appstore}
+  [com.android.chrome.AttributionReporting]:
+    Provider{8c4f7d4 com.android.chrome/org.chromium.chrome.browser.attribution_reporting.AttributionReportingProvider}
+      applicationInfo=ApplicationInfo{c2f1c48 com.android.chrome}
+  [com.google.android.gms.download]:
+    Provider{410cfa com.google.android.gms/.common.download.provider.DownloadsProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.mxtech.videoplayer.pro.firebaseinitprovider]:
+    Provider{48edc06 com.mxtech.videoplayer.pro/com.google.firebase.provider.FirebaseInitProvider}
+      applicationInfo=ApplicationInfo{5295826 com.mxtech.videoplayer.pro}
+  [service-state]:
+    Provider{2c84011 com.android.providers.telephony/.ServiceStateProvider}
+      applicationInfo=ApplicationInfo{9751ce5 com.android.providers.telephony}
+  [com.android.settings]:
+    Provider{391aba2 com.android.settings/.search.SettingsSearchIndexablesProvider}
+      applicationInfo=ApplicationInfo{eda4c67 com.android.settings}
+  [com.google.android.gms.plus]:
+    Provider{ec42043 com.google.android.gms/.plus.provider.PlusProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.gms.icing.proxy.apps]:
+    Provider{2397ba9 com.google.android.gms/.icing.proxy.AppsContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [mms-sms]:
+    Provider{8c23491 com.android.providers.telephony/.MmsSmsProvider}
+      applicationInfo=ApplicationInfo{9751ce5 com.android.providers.telephony}
+  [com.google.android.finsky.systemupdate.provider]:
+    Provider{a81b2c7 com.android.vending/com.google.android.finsky.systemupdate.SystemUpdateSettingsContentProvider}
+      applicationInfo=ApplicationInfo{cd31d65 com.android.vending}
+  [hbpcd_lookup]:
+    Provider{fdabff6 com.android.providers.telephony/.HbpcdLookupProvider}
+      applicationInfo=ApplicationInfo{9751ce5 com.android.providers.telephony}
+  [com.google.android.gms.plus.action]:
+    Provider{ec42043 com.google.android.gms/.plus.provider.PlusProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.katniss.AudioRecordingProvider]:
+    Provider{e886cd0 com.google.android.katniss/com.google.android.libraries.speech.transcription.recording.AudioRecordingProvider$AudioRecordingFileProvider}
+      applicationInfo=ApplicationInfo{4db47b com.google.android.katniss}
+  [downloads]:
+    Provider{ba23dd8 com.android.providers.downloads/.DownloadProvider}
+      applicationInfo=ApplicationInfo{9a09012 com.android.providers.downloads}
+  [com.cwmp.tosmart.utilcode.provider]:
+    Provider{89da033 com.cwmp.tosmart/com.blankj.utilcode.util.Utils$FileProvider4UtilCode}
+      applicationInfo=ApplicationInfo{5b95c0c com.cwmp.tosmart}
+  [io.gh.reisxd.tizentube.fortaleza.androidx-startup]:
+    Provider{4c578cf io.gh.reisxd.tizentube.fortaleza/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{7400955 io.gh.reisxd.tizentube.fortaleza}
+  [com.google.android.gms.icing.indexapi]:
+    Provider{15c33bf com.google.android.gms/.icing.indexapi.IndexApiContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [org.jellyfin.androidtv.androidx-startup]:
+    Provider{164a8d org.jellyfin.androidtv/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{48962bd org.jellyfin.androidtv}
+  [com.android.vending.addtohomescreen]:
+    Provider{e4020a7 com.android.vending/com.google.android.finsky.addtohomescreen.AddToHomeScreenSettingProvider}
+      applicationInfo=ApplicationInfo{cd31d65 com.android.vending}
+  [com.logicyel.novastb.provider]:
+    Provider{9b54325 com.logicyel.novastb/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{1b7e186 com.logicyel.novastb}
+  [com.esaba.downloader]:
+    Provider{2918838 com.esaba.downloader/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{52f03e3 com.esaba.downloader}
+  [settings]:
+    Provider{ce2905a com.android.providers.settings/.SettingsProvider}
+      applicationInfo=ApplicationInfo{4fb9556 com.android.providers.settings}
+  [com.android.settings.suggestions.status]:
+    Provider{513f458 com.android.settings/.dashboard.suggestions.SuggestionStateProvider}
+      applicationInfo=ApplicationInfo{eda4c67 com.android.settings}
+  [com.tosmart.glide.androidx-startup]:
+    Provider{5c87209 com.tosmart.glide/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.tosmart.appmarket.AppContextProvider]:
+    Provider{1fdb25c com.excellence.appstore/com.tosmart.appmarketnew.provider.AppContextProvider}
+      applicationInfo=ApplicationInfo{5da0f6a com.excellence.appstore}
+  [com.google.android.tts.lifecycle-process]:
+    Provider{1977f24 com.google.android.tts/androidx.lifecycle.ProcessLifecycleOwnerInitializer}
+      applicationInfo=ApplicationInfo{acdfccd com.google.android.tts}
+  [com.google.android.tvrecommendations.NotificationContentProvider]:
+    Provider{a02fec6 com.google.android.tvrecommendations/.NotificationContentProvider}
+      applicationInfo=ApplicationInfo{b354803 com.google.android.tvrecommendations}
+  [com.android.chrome.FileProvider]:
+    Provider{669e049 com.android.chrome/org.chromium.chrome.browser.util.ChromeFileProvider}
+      applicationInfo=ApplicationInfo{c2f1c48 com.android.chrome}
+  [com.esaba.downloader.androidx-startup]:
+    Provider{4852965 com.esaba.downloader/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{52f03e3 com.esaba.downloader}
+  [com.android.phone]:
+    Provider{5f65de com.android.phone/.PhoneSearchIndexablesProvider}
+      applicationInfo=ApplicationInfo{5a60a47 com.android.phone}
+  [com.android.shell]:
+    Provider{861a5d7 com.android.shell/android.support.v4.content.FileProvider}
+      applicationInfo=ApplicationInfo{cf91d57 com.android.shell}
+  [com.google.android.tts.AudioRecordingProvider]:
+    Provider{1a5b1b4 com.google.android.tts/com.google.android.libraries.speech.transcription.recording.AudioRecordingProvider$AudioRecordingFileProvider}
+      applicationInfo=ApplicationInfo{acdfccd com.google.android.tts}
+  [org.xbmc.kodi.file]:
+    Provider{c5f6990 org.xbmc.kodi/.content.XBMCFileContentProvider}
+      applicationInfo=ApplicationInfo{e0945fe org.xbmc.kodi}
+  [org.xbmc.kodi.ytdl]:
+    Provider{e31ae22 org.xbmc.kodi/.content.XBMCYTDLContentProvider}
+      applicationInfo=ApplicationInfo{e0945fe org.xbmc.kodi}
+  [com.google.android.gms.lifecycle-process]:
+    Provider{7f6dbb7 com.google.android.gms/androidx.lifecycle.ProcessLifecycleOwnerInitializer}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.excellence.weather.androidx-startup]:
+    Provider{ce8af35 com.excellence.weather/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{3dac1c8 com.excellence.weather}
+  [com.android.deskclock]:
+    Provider{37c8fed com.android.deskclock/.provider.ClockProvider}
+      applicationInfo=ApplicationInfo{4870c5b com.android.deskclock}
+  [com.google.android.gms.chimera]:
+    Provider{7c63520 com.google.android.gms/.chimera.container.GmsModuleProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.partnersetup.rlzprovider]:
+    Provider{4ec59df com.google.android.partnersetup/.RlzProvider}
+      applicationInfo=ApplicationInfo{2c3fb3f com.google.android.partnersetup}
+  [com.android.providers.media.documents]:
+    Provider{e0279c1 com.android.providers.media/.MediaDocumentsProvider}
+      applicationInfo=ApplicationInfo{8be3274 com.android.providers.media}
+  [com.android.systemui.fileprovider]:
+    Provider{54ad2eb com.android.systemui/android.support.v4.content.FileProvider}
+      applicationInfo=ApplicationInfo{ca62cf8 com.android.systemui}
+  [com.mxtech.videoplayer.pro.fileprovider]:
+    Provider{3b7c121 com.mxtech.videoplayer.pro/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{5295826 com.mxtech.videoplayer.pro}
+  [com.google.settings]:
+    Provider{9b83e96 com.google.android.gsf/.settings.GoogleSettingsProvider}
+      applicationInfo=ApplicationInfo{6e4604f com.google.android.gsf}
+  [com.stremio.one.androidx-startup]:
+    Provider{5cc52b6 com.stremio.one/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{bd752d com.stremio.one}
+  [com.example.documents]:
+    Provider{4888a17 com.android.externalstorage/.TestDocumentsProvider}
+      applicationInfo=ApplicationInfo{8213c99 com.android.externalstorage}
+  [com.tosmart.launcher.ottlauncher.ui.wallpaper.provider]:
+    Provider{9294b1a com.tosmart.glide/com.tosmart.launcher.ottlauncher.ui.wallpaper.provider.WallpaperProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.google.android.katniss.search.WidgetInfoProvider]:
+    Provider{a1de4c9 com.google.android.katniss/com.google.android.apps.tvsearch.providers.launcher.WidgetInfoProvider}
+      applicationInfo=ApplicationInfo{4db47b com.google.android.katniss}
+  [com.google.android.gms.fonts]:
+    Provider{d654ec4 com.google.android.gms/.fonts.provider.FontsProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.gms.games]:
+    Provider{7e0b883 com.google.android.gms/.games.provider.NotificationStubContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.katniss.search.searchapi.VoiceInteractionProvider]:
+    Provider{99f028e com.google.android.katniss/com.google.android.apps.tvsearch.voice.hotword.contentprovider.KatnissHotwordStateContentProvider}
+      applicationInfo=ApplicationInfo{4db47b com.google.android.katniss}
+  [com.android.bluetooth.opp]:
+    Provider{77bf0fd com.android.bluetooth/.opp.BluetoothOppProvider}
+      applicationInfo=ApplicationInfo{5293729 com.android.bluetooth}
+  [com.excellence.appstore.autosize-init-provider]:
+    Provider{86d963a com.excellence.appstore/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{358298 com.excellence.appstore}
+  [com.tosmart.tvsetting.lockerProvider]:
+    Provider{32e4e5d com.tosmart.tv.tvsettings/.locker.LockerContentProvider}
+      applicationInfo=ApplicationInfo{54c3044 com.tosmart.tv.tvsettings}
+  [com.logicyel.novastb.androidx-startup]:
+    Provider{9aef30b com.logicyel.novastb/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{1b7e186 com.logicyel.novastb}
+  [com.google.android.apps.tvsearch.fileprovider]:
+    Provider{1dca50f com.google.android.katniss/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{4db47b com.google.android.katniss}
+  [com.google.android.gms.games.background]:
+    Provider{1c3f61f com.google.android.gms/.games.chimera.GamesContentProviderProxy}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.excellence.update.autosize-init-provider]:
+    Provider{1970485 com.excellence.update/me.jessyan.autosize.InitProvider}
+      applicationInfo=ApplicationInfo{fff2c75 com.excellence.update}
+  [com.android.systemui.keyguard]:
+    Provider{1d35be com.android.systemui/.keyguard.KeyguardSliceProvider}
+      applicationInfo=ApplicationInfo{ca62cf8 com.android.systemui}
+  [com.tosmart.localplayer.provider]:
+    Provider{963bd40 com.tosmart.localplayer/com.excellence.basetoolslibrary.assist.Provider}
+      applicationInfo=ApplicationInfo{8097ac com.tosmart.localplayer}
+  [com.google.android.gms.nearby.sharing]:
+    Provider{d3a6b1e com.google.android.gms/.nearby.sharing.SharingSliceProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.logicyel.novastb.firebaseinitprovider]:
+    Provider{dd7099c com.logicyel.novastb/com.google.firebase.provider.FirebaseInitProvider}
+      applicationInfo=ApplicationInfo{1b7e186 com.logicyel.novastb}
+  [com.google.android.gms.auth.api.credentials]:
+    Provider{60ba119 com.google.android.gms/.auth.api.credentials.sync.CredentialContentProvider}
+      applicationInfo=ApplicationInfo{1284f81 com.google.android.gms}
+  [com.google.android.finsky.tvsettingssliceprovider]:
+    Provider{902dfee com.android.vending/com.google.android.finsky.tvsettingssliceprovider.TvSettingsSliceProvider}
+      applicationInfo=ApplicationInfo{cd31d65 com.android.vending}
+  [com.weather.city.provider]:
+    Provider{a42e442 com.excellence.weather/com.excellence.provider.CityInfoProvider}
+      applicationInfo=ApplicationInfo{444e5d1 com.excellence.weather}
+  [com.tosmart.glide.utilcode.fileprovider]:
+    Provider{50d7c0e com.tosmart.glide/com.blankj.utilcode.util.UtilsFileProvider}
+      applicationInfo=ApplicationInfo{a37487d com.tosmart.glide}
+  [com.google.contacts.gal.provider]:
+    Provider{98edf7a com.google.android.syncadapters.contacts/.ProxyGalProvider}
+      applicationInfo=ApplicationInfo{e231af1 com.google.android.syncadapters.contacts}
+  [tvrecs.config]:
+    Provider{cd60fe6 com.google.android.tvrecommendations/.promos.config.ConfigurationProvider}
+      applicationInfo=ApplicationInfo{b354803 com.google.android.tvrecommendations}
+  [com.tosmart.tv.tvsettings.provider]:
+    Provider{1192388 com.tosmart.tv.tvsettings/com.excellence.basetoolslibrary.assist.Provider}
+      applicationInfo=ApplicationInfo{54c3044 com.tosmart.tv.tvsettings}

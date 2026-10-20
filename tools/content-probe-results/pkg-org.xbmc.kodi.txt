@@ -1,0 +1,680 @@
+Activity Resolver Table:
+  Full MIME Types:
+      audio/*:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      video/*:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      image/*:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Wild MIME Types:
+      audio:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      image:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      video:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Schemes:
+      dav:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      ftp:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      mms:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      rtp:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      smb:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      ssh:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      davs:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      file:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      ftps:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      http:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      rtsp:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      sftp:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      https:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      content:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        5e2d61e org.xbmc.kodi/.Splash filter 721f733
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+      com.google.android.gms.actions.SEARCH_ACTION:
+        8067eff org.xbmc.kodi/.XBMCSearchableActivity filter 77862ee
+          Action: "com.google.android.gms.actions.SEARCH_ACTION"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+      android.intent.action.SEARCH:
+        8067eff org.xbmc.kodi/.XBMCSearchableActivity filter 3c52869
+          Action: "android.intent.action.SEARCH"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+
+  MIME Typed Actions:
+      android.intent.action.VIEW:
+        5e2d61e org.xbmc.kodi/.Splash filter 739faf0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "file"
+          Scheme: "content"
+          Scheme: "http"
+          Scheme: "https"
+          Scheme: "ftp"
+          Scheme: "ftps"
+          Scheme: "rtp"
+          Scheme: "rtsp"
+          Scheme: "mms"
+          Scheme: "dav"
+          Scheme: "davs"
+          Scheme: "ssh"
+          Scheme: "sftp"
+          Scheme: "smb"
+          Type: "video"
+          Type: "audio"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      android.intent.action.DREAMING_STOPPED:
+        daff4cc org.xbmc.kodi/.XBMCBroadcastReceiver filter 8a4fea2
+          Action: "android.intent.action.DREAMING_STOPPED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.intent.action.MEDIA_BUTTON"
+          Action: "android.intent.action.BOOT_COMPLETED"
+      android.intent.action.BOOT_COMPLETED:
+        daff4cc org.xbmc.kodi/.XBMCBroadcastReceiver filter 8a4fea2
+          Action: "android.intent.action.DREAMING_STOPPED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.intent.action.MEDIA_BUTTON"
+          Action: "android.intent.action.BOOT_COMPLETED"
+      android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED:
+        daff4cc org.xbmc.kodi/.XBMCBroadcastReceiver filter 8a4fea2
+          Action: "android.intent.action.DREAMING_STOPPED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.intent.action.MEDIA_BUTTON"
+          Action: "android.intent.action.BOOT_COMPLETED"
+      android.intent.action.MEDIA_BUTTON:
+        daff4cc org.xbmc.kodi/.XBMCBroadcastReceiver filter 8a4fea2
+          Action: "android.intent.action.DREAMING_STOPPED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.intent.action.MEDIA_BUTTON"
+          Action: "android.intent.action.BOOT_COMPLETED"
+
+Registered ContentProviders:
+  org.xbmc.kodi/.content.XBMCYTDLContentProvider:
+    Provider{e31ae22 org.xbmc.kodi/.content.XBMCYTDLContentProvider}
+  org.xbmc.kodi/.content.XBMCMediaContentProvider:
+    Provider{6e5d7ce org.xbmc.kodi/.content.XBMCMediaContentProvider}
+  org.xbmc.kodi/.content.XBMCFileContentProvider:
+    Provider{c5f6990 org.xbmc.kodi/.content.XBMCFileContentProvider}
+
+ContentProvider Authorities:
+  [org.xbmc.kodi.media]:
+    Provider{6e5d7ce org.xbmc.kodi/.content.XBMCMediaContentProvider}
+      applicationInfo=ApplicationInfo{e0945fe org.xbmc.kodi}
+  [org.xbmc.kodi.file]:
+    Provider{c5f6990 org.xbmc.kodi/.content.XBMCFileContentProvider}
+      applicationInfo=ApplicationInfo{e0945fe org.xbmc.kodi}
+  [org.xbmc.kodi.ytdl]:
+    Provider{e31ae22 org.xbmc.kodi/.content.XBMCYTDLContentProvider}
+      applicationInfo=ApplicationInfo{e0945fe org.xbmc.kodi}
+
+Key Set Manager:
+  [org.xbmc.kodi]
+      Signing KeySets: 11
+
+Packages:
+  Package [org.xbmc.kodi] (2499315):
+    userId=10032
+    pkg=Package{b62362a org.xbmc.kodi}
+    codePath=/data/app/org.xbmc.kodi-7plOC6zarYNxhQBY8HMESA==
+    resourcePath=/data/app/org.xbmc.kodi-7plOC6zarYNxhQBY8HMESA==
+    legacyNativeLibraryDir=/data/app/org.xbmc.kodi-7plOC6zarYNxhQBY8HMESA==/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=2102000 minSdk=21 targetSdk=34
+    versionName=21.2
+    splits=[base, config.armeabi_v7a, config.en, config.es, config.hdpi]
+    apkSigningVersion=3
+    applicationInfo=ApplicationInfo{e0945fe org.xbmc.kodi}
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA UPDATED_SYSTEM_APP ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION HAS_DOMAIN_URLS ]
+    dataDir=/data/user/0/org.xbmc.kodi
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-07-16 21:13:20
+    firstInstallTime=2008-12-31 19:00:00
+    lastUpdateTime=2026-07-16 21:13:23
+    installerPackageName=com.android.vending
+    signatures=PackageSignatures{3ce0c1b version:3, signatures:[f2ff8474], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA UPDATED_SYSTEM_APP ALLOW_BACKUP ]
+    requested permissions:
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.MANAGE_EXTERNAL_STORAGE
+      android.permission.INTERNET
+      android.permission.BLUETOOTH
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.MODIFY_AUDIO_SETTINGS
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.RECORD_AUDIO
+      com.android.providers.tv.permission.WRITE_EPG_DATA
+      com.android.providers.tv.permission.READ_EPG_DATA
+      android.permission.READ_EXTERNAL_STORAGE
+    install permissions:
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.android.providers.tv.permission.READ_EPG_DATA: granted=true
+      android.permission.BLUETOOTH: granted=true
+      android.permission.INTERNET: granted=true
+      com.android.providers.tv.permission.WRITE_EPG_DATA: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+    User 0: ceDataInode=-4292869853 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3002, 3003]
+      runtime permissions:
+
+Hidden system packages:
+  Package [org.xbmc.kodi] (e4d91b8):
+    userId=10032
+    pkg=Package{5bd4b91 org.xbmc.kodi}
+    codePath=/system/app/kodi
+    resourcePath=/system/app/kodi
+    legacyNativeLibraryDir=/system/app/kodi/lib
+    primaryCpuAbi=armeabi-v7a
+    secondaryCpuAbi=null
+    versionCode=1803000 minSdk=21 targetSdk=26
+    versionName=18.3
+    splits=[base]
+    apkSigningVersion=0
+    applicationInfo=ApplicationInfo{1c58af6 org.xbmc.kodi}
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION HAS_DOMAIN_URLS ]
+    dataDir=/data/user/0/org.xbmc.kodi
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesLibraries:
+      org.apache.http.legacy
+    timeStamp=2008-12-31 19:00:00
+    firstInstallTime=2008-12-31 19:00:00
+    lastUpdateTime=2008-12-31 19:00:00
+    signatures=PackageSignatures{1b74ef7 version:0, signatures:[], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    requested permissions:
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.INTERNET
+      android.permission.WAKE_LOCK
+      android.permission.GET_TASKS
+      android.permission.BLUETOOTH
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.MODIFY_AUDIO_SETTINGS
+      android.permission.ACCESS_NETWORK_STATE
+      com.android.providers.tv.permission.WRITE_EPG_DATA
+      com.android.providers.tv.permission.READ_EPG_DATA
+      android.permission.READ_EXTERNAL_STORAGE
+    install permissions:
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.android.providers.tv.permission.READ_EPG_DATA: granted=true
+      android.permission.BLUETOOTH: granted=true
+      android.permission.GET_TASKS: granted=true
+      android.permission.INTERNET: granted=true
+      com.android.providers.tv.permission.WRITE_EPG_DATA: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=0 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3002, 3003]
+      runtime permissions:
+
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  [org.xbmc.kodi]
+    path: /data/app/org.xbmc.kodi-7plOC6zarYNxhQBY8HMESA==/base.apk
+      arm: [status=verify] [reason=boot]
+
+
+Compiler stats:
+  [org.xbmc.kodi]
+     base.apk - 187
+     kodi.apk - 937

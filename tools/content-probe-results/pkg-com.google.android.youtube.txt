@@ -1,0 +1,16 @@
+Package Changes:
+  Sequence number=47
+  User 0:
+    seq=20, package=com.android.settings
+    seq=30, package=com.google.android.tvlauncher
+    seq=34, package=com.google.android.tvrecommendations
+    seq=36, package=com.google.android.gms
+    seq=46, package=com.mihir.tvhome
+
+
+Dexopt state:
+  Unable to find package: com.google.android.youtube
+
+
+Compiler stats:
+  Unable to find package: com.google.android.youtube
