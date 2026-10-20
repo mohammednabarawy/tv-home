@@ -112,7 +112,10 @@ public class MainActivity extends Activity {
 
     private View heroCard;
     private TextView heroBadge, heroTitle, heroSubtitle, heroActionBtn, heroFrameTag;
-    private ImageView heroPreviewImage;
+    private ImageView heroPreviewImage, heroArtwork;
+    private View showcaseView, favoritesView, browseAppsButton;
+    private boolean catalogMode = false;
+    private int homeHeroHeight;
     private FrameLayout heroPreviewBox;
     private App currentHeroApp;
 
@@ -189,14 +192,16 @@ public class MainActivity extends Activity {
         super.onNewIntent(intent);
         // Home pressed while already home: jump back to the first dock app.
         if (inputsPopup != null) inputsPopup.dismiss();
-        if (!dockCards.isEmpty()) dockCards.get(0).requestFocus();
-        scroll.smoothScrollTo(0, 0);
+        showAppCatalog(false);
     }
 
     @Override
     public void onBackPressed() {
-        // Home has nowhere to go back to; Back from the grid returns to the dock.
-        if (scroll.getScrollY() > 0 && !dockCards.isEmpty()) dockCards.get(0).requestFocus();
+        if (catalogMode) {
+            showAppCatalog(false);
+        } else if (scroll.getScrollY() > 0 && !dockCards.isEmpty()) {
+            dockCards.get(0).requestFocus();
+        }
     }
 
     // ---------------------------------------------------------------- layout
@@ -213,7 +218,7 @@ public class MainActivity extends Activity {
         // Scrim: darker at the top (clock, pills) and bottom (dock) so text stays readable.
         View scrim = new View(this);
         scrim.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{0xB3000000, 0x40000000, 0x26000000, 0x8C000000, 0xE6000000}));
+                new int[]{0x56000000, 0x14000000, 0x33000516, 0xD9000714, 0xF9000714}));
         root.addView(scrim, new FrameLayout.LayoutParams(-1, -1));
         gridShade = new View(this);
         gridShade.setBackgroundColor(0xB3000000);
@@ -243,21 +248,23 @@ public class MainActivity extends Activity {
         hero = new FrameLayout(this);
         hero.setClipChildren(false);
         int screenH = getResources().getDisplayMetrics().heightPixels;
-        int heroHeight = Math.max(dp(345), Math.round(screenH * 0.75f));
-        content.addView(hero, new LinearLayout.LayoutParams(-1, heroHeight));
+        homeHeroHeight = Math.max(dp(385), Math.round(screenH * 0.68f));
+        content.addView(hero, new LinearLayout.LayoutParams(-1, homeHeroHeight));
 
         hero.addView(buildHeader(), lp(-1, -2, Gravity.TOP, dp(48), dp(36), dp(48), 0));
 
-        // Modern Hero Stage Showcase (Apple TV / Projectivy inspired)
-        hero.addView(buildHeroCard(), lp(-1, -2, Gravity.TOP, dp(48), dp(130), dp(48), 0));
+        // Full-bleed photographic artwork (not a bordered promotional placeholder).
+        showcaseView = buildHeroCard();
+        hero.addView(showcaseView, lp(-1, -1, Gravity.TOP, 0, dp(90), 0, dp(136)));
 
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.VERTICAL);
         bottom.setClipChildren(false);
         bottom.setClipToPadding(false);
-        hero.addView(bottom, lp(-1, -2, Gravity.BOTTOM, dp(48), 0, dp(48), dp(28)));
+        favoritesView = bottom;
+        hero.addView(bottom, lp(-1, -2, Gravity.BOTTOM, dp(48), 0, dp(48), dp(15)));
 
-        title = text(13, "sans-serif-medium", 0x99FFFFFF);
+        title = text(12, "sans-serif-medium", 0xD9FFFFFF);
         title.setLetterSpacing(0.2f);
         title.setShadowLayer(dp(10), 0, 0, 0x66000000);
         title.setSingleLine(true);
@@ -269,11 +276,10 @@ public class MainActivity extends Activity {
         dockRow.setGravity(Gravity.CENTER);
         dockRow.setClipChildren(false);
         dockRow.setClipToPadding(false);
-        dockRow.setPadding(dp(20), dp(22), dp(20), dp(22));
+        dockRow.setPadding(dp(2), dp(5), dp(2), dp(5));
         GradientDrawable band = new GradientDrawable();
-        band.setCornerRadius(dp(26));
-        band.setColor(0x1FFFFFFF);
-        band.setStroke(dp(1), 0x14FFFFFF);
+        band.setCornerRadius(dp(12));
+        band.setColor(0x10000000);
         dockRow.setBackground(band);
         bottom.addView(dockRow, new LinearLayout.LayoutParams(-1, -2));
 
@@ -281,101 +287,133 @@ public class MainActivity extends Activity {
         channelContainer.setOrientation(LinearLayout.VERTICAL);
         channelContainer.setClipChildren(false);
         channelContainer.setClipToPadding(false);
-        channelContainer.setPadding(dp(48), dp(6), dp(48), dp(16));
+        channelContainer.setPadding(dp(48), dp(3), dp(48), dp(30));
         content.addView(channelContainer, new LinearLayout.LayoutParams(-1, -2));
 
-        appsLabel = text(12, "sans-serif-medium", 0xFFE5E9F5);
-        appsLabel.setText("ALL INSTALLED APPS");
-        appsLabel.setLetterSpacing(0.22f);
-        content.addView(appsLabel, llp(-2, -2, dp(68), dp(8), 0, dp(18)));
+        appsLabel = text(22, "sans-serif-medium", 0xFFE5E9F5);
+        appsLabel.setText("All Apps");
+        appsLabel.setPadding(0, dp(15), 0, dp(5));
+        content.addView(appsLabel, llp(-2, -2, dp(60), dp(8), 0, dp(18)));
+        appsLabel.setVisibility(View.GONE);
 
         grid = new LinearLayout(this);
         grid.setOrientation(LinearLayout.VERTICAL);
         grid.setClipChildren(false);
         grid.setClipToPadding(false);
-        content.addView(grid, llp(-1, -2, dp(68), 0, dp(68), dp(160)));
+        content.addView(grid, llp(-1, -2, dp(60), 0, dp(60), dp(100)));
+        grid.setVisibility(View.GONE);
         return root;
     }
 
-    /** Google TV-inspired top tabs, preserving all stock StarNet activities and HOME behavior. */
+    /** Clean top navigation inspired by Android TV, no permanent pill outlines. */
     private View buildHeader() {
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.HORIZONTAL);
         header.setGravity(Gravity.CENTER_VERTICAL);
         header.setClipChildren(false);
-        header.setClipToPadding(false);
 
         LinearLayout tabs = new LinearLayout(this);
-        tabs.setOrientation(LinearLayout.HORIZONTAL);
         tabs.setGravity(Gravity.CENTER_VERTICAL);
         tabs.setClipChildren(false);
-
-        TextView homeTab = pill("Home", "⌂");
-        homeTab.setOnClickListener(v -> {
-            scroll.smoothScrollTo(0, 0);
-            if (heroActionBtn != null) heroActionBtn.requestFocus();
-        });
-        TextView satelliteTab = pill("Live TV", "◉");
-        satelliteTab.setOnClickListener(v -> openSatelliteTv());
-        TextView appsTab = pill("Apps", "▦");
-        appsTab.setOnClickListener(v -> scrollToAllApps());
-        TextView glideTab = pill("Glide", "↩");
+        TextView homeTab = navTab("Home");
+        homeTab.setOnClickListener(v -> showAppCatalog(false));
+        TextView liveTab = navTab("Live TV");
+        liveTab.setOnClickListener(v -> openSatelliteTv());
+        TextView appsTab = navTab("Apps");
+        appsTab.setOnClickListener(v -> showAppCatalog(true));
+        TextView glideTab = navTab("Original Glide");
         glideTab.setOnClickListener(v -> openOriginalHome());
-        TextView inputsTab = pill("Inputs", "⇥");
-        inputsTab.setOnClickListener(v -> showInputs(v));
-        for (TextView p : new TextView[]{homeTab, satelliteTab, appsTab, glideTab, inputsTab}) {
-            tabs.addView(p, llp(-2, dp(32), 0, 0, dp(7), 0));
-            pills.add(p);
+        TextView inputTab = navTab("Inputs");
+        inputTab.setOnClickListener(v -> showInputs(v));
+        for (TextView tab : new TextView[]{homeTab, liveTab, appsTab, glideTab, inputTab}) {
+            tabs.addView(tab, llp(-2, dp(37), 0, 0, dp(18), 0));
+            pills.add(tab);
         }
         header.addView(tabs, new LinearLayout.LayoutParams(0, -2, 1f));
 
         LinearLayout status = new LinearLayout(this);
-        status.setOrientation(LinearLayout.HORIZONTAL);
         status.setGravity(Gravity.CENTER_VERTICAL);
-        status.setClipChildren(false);
-        wifiPill = pill("Wi-Fi", "◉");
+        wifiPill = navTab("Wi-Fi");
         wifiPill.setOnClickListener(v -> launch(new Intent(Settings.ACTION_WIFI_SETTINGS)));
-        status.addView(wifiPill, llp(-2, dp(32), dp(5), 0, 0, 0));
+        status.addView(wifiPill);
         pills.add(wifiPill);
 
-        LinearLayout timeStack = new LinearLayout(this);
-        timeStack.setOrientation(LinearLayout.VERTICAL);
-        timeStack.setGravity(Gravity.CENTER);
-        greeting = text(9, "sans-serif-medium", 0x99FFFFFF);
-        clock = text(23, "sans-serif-medium", Color.WHITE);
+        LinearLayout clockStack = new LinearLayout(this);
+        clockStack.setOrientation(LinearLayout.VERTICAL);
+        clockStack.setGravity(Gravity.CENTER);
+        greeting = text(9, "sans-serif", 0x99FFFFFF);
+        clock = text(24, "sans-serif-medium", Color.WHITE);
         ampm = text(10, "sans-serif", 0xB3FFFFFF);
         date = text(9, "sans-serif", 0xB3FFFFFF);
-        LinearLayout clockLine = new LinearLayout(this);
-        clockLine.setGravity(Gravity.CENTER_VERTICAL);
-        clockLine.addView(clock);
-        clockLine.addView(ampm, llp(-2, -2, dp(4), 0, 0, 0));
-        timeStack.addView(clockLine);
-        timeStack.addView(date);
-        // Greeting remains updated by updateClock but is not added to save space.
-        status.addView(timeStack, llp(-2, -2, dp(12), 0, dp(10), 0));
-        TextView settingsTab = pill("Settings", "⚙");
+        LinearLayout timeLine = new LinearLayout(this);
+        timeLine.setGravity(Gravity.CENTER);
+        timeLine.addView(clock);
+        timeLine.addView(ampm, llp(-2, -2, dp(4), 0, 0, 0));
+        clockStack.addView(timeLine);
+        clockStack.addView(date);
+        status.addView(clockStack, llp(-2, -2, dp(12), 0, dp(8), 0));
+        TextView settingsTab = navTab("⚙");
         settingsTab.setOnClickListener(v -> launch(new Intent(Settings.ACTION_SETTINGS)));
-        status.addView(settingsTab, llp(-2, dp(32), 0, 0, 0, 0));
+        status.addView(settingsTab);
         pills.add(settingsTab);
         header.addView(status);
         return header;
     }
 
-    /** Smoothly scroll down to the full applications grid and focus first item. */
-    private void scrollToAllApps() {
-        scroll.smoothScrollTo(0, hero.getHeight());
-        if (!gridCards.isEmpty()) gridCards.get(0).requestFocus();
+    private TextView navTab(String label) {
+        TextView tab = text(13, "sans-serif-medium", 0xC8FFFFFF);
+        tab.setText(label);
+        tab.setGravity(Gravity.CENTER);
+        tab.setPadding(dp(10), 0, dp(10), 0);
+        tab.setId(View.generateViewId());
+        tab.setFocusable(true);
+        tab.setClickable(true);
+        tab.setBackground(new GradientDrawable());
+        tab.setOnFocusChangeListener((v, hasFocus) -> {
+            tab.setTextColor(hasFocus ? Color.WHITE : 0xC8FFFFFF);
+            tab.setScaleX(hasFocus ? 1.06f : 1f);
+            tab.setScaleY(hasFocus ? 1.06f : 1f);
+            tab.setPaintFlags(hasFocus ?
+                    (tab.getPaintFlags() | android.graphics.Paint.UNDERLINE_TEXT_FLAG) :
+                    (tab.getPaintFlags() & ~android.graphics.Paint.UNDERLINE_TEXT_FLAG));
+            if (hasFocus) lastFocusedId = v.getId();
+        });
+        return tab;
     }
 
-    /** Return to the stock StarNet HOME. This never disables packages or changes the HOME setting. */
+    /** Switch between elegant home and dedicated complete app catalog. */
+    private void showAppCatalog(boolean showCatalog) {
+        catalogMode = showCatalog;
+        if (hero != null) {
+            ViewGroup.LayoutParams params = hero.getLayoutParams();
+            params.height = catalogMode ? dp(100) : homeHeroHeight;
+            hero.setLayoutParams(params);
+        }
+        if (showcaseView != null) showcaseView.setVisibility(catalogMode ? View.GONE : View.VISIBLE);
+        if (favoritesView != null) favoritesView.setVisibility(catalogMode ? View.GONE : View.VISIBLE);
+        if (channelContainer != null) channelContainer.setVisibility(catalogMode ? View.GONE : View.VISIBLE);
+        if (appsLabel != null) appsLabel.setVisibility(catalogMode ? View.VISIBLE : View.GONE);
+        if (grid != null) grid.setVisibility(catalogMode ? View.VISIBLE : View.GONE);
+        if (scroll != null) scroll.scrollTo(0, 0);
+        if (catalogMode) {
+            if (!gridCards.isEmpty()) gridCards.get(0).requestFocus();
+        } else if (!dockCards.isEmpty()) {
+            dockCards.get(0).requestFocus();
+        } else if (heroActionBtn != null) {
+            heroActionBtn.requestFocus();
+        }
+    }
+
+    /** Keep an explicit entry point for the complete set of applications. */
+    private void scrollToAllApps() { showAppCatalog(true); }
+
     private void openOriginalHome() {
-        Intent home = new Intent(Intent.ACTION_MAIN)
+        Intent glide = new Intent(Intent.ACTION_MAIN)
                 .addCategory(Intent.CATEGORY_HOME)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        if (!launch(home)) {
-            android.widget.Toast.makeText(this,
-                    "Original Home is unavailable. Press the remote HOME key.",
-                    android.widget.Toast.LENGTH_LONG).show();
+        if (!launch(glide)) {
+            Toast.makeText(this, "Use your remote HOME to return to Glide",
+                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -403,150 +441,106 @@ public class MainActivity extends Activity {
 
     // ---------------------------------------------------------------- hero stage
 
+    /** Immersive photographic hero. Uses local licensed wallpaper, not a fake live preview. */
     private View buildHeroCard() {
-        LinearLayout card = new LinearLayout(this);
-        card.setOrientation(LinearLayout.HORIZONTAL);
-        card.setGravity(Gravity.CENTER_VERTICAL);
-        card.setPadding(dp(28), dp(18), dp(28), dp(18));
-        card.setClipChildren(false);
+        FrameLayout panel = new FrameLayout(this);
+        panel.setBackgroundColor(0xFF091421);
+        panel.setClipChildren(false);
 
-        GradientDrawable bg = new GradientDrawable();
-        bg.setCornerRadius(dp(22));
-        bg.setColors(new int[]{0x59152238, 0x330B132B});
-        bg.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
-        bg.setStroke(dp(1), 0x2EFFFFFF);
-        card.setBackground(bg);
+        heroArtwork = new ImageView(this);
+        heroArtwork.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        panel.addView(heroArtwork, new FrameLayout.LayoutParams(-1, -1));
 
-        // Left column: Badge, Title, Subtitle, Action button
-        LinearLayout left = new LinearLayout(this);
-        left.setOrientation(LinearLayout.VERTICAL);
-        left.setGravity(Gravity.CENTER_VERTICAL);
-        left.setLayoutParams(new LinearLayout.LayoutParams(0, -2, 1f));
+        View vignette = new View(this);
+        vignette.setBackground(new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{0xFB050E1B, 0xED06111E, 0xA0081424, 0x1A051020}));
+        panel.addView(vignette, new FrameLayout.LayoutParams(-1, -1));
 
-        heroBadge = text(10, "sans-serif-medium", 0xFF00E5FF);
-        heroBadge.setLetterSpacing(0.2f);
+        View bottomFade = new View(this);
+        bottomFade.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[]{0x00030A14, 0x12030A14, 0xEF030A14}));
+        panel.addView(bottomFade, new FrameLayout.LayoutParams(-1, -1));
+
+        LinearLayout copy = new LinearLayout(this);
+        copy.setOrientation(LinearLayout.VERTICAL);
+        copy.setGravity(Gravity.CENTER_VERTICAL);
+        copy.setClipChildren(false);
+        int screenW = getResources().getDisplayMetrics().widthPixels;
+        int copyWidth = Math.min(dp(530), Math.round(screenW * .55f));
+        FrameLayout.LayoutParams copyLp = new FrameLayout.LayoutParams(
+                copyWidth, -1, Gravity.START | Gravity.CENTER_VERTICAL);
+        copyLp.setMargins(dp(56), 0, 0, 0);
+
+        heroBadge = text(12, "sans-serif-medium", 0xFF65CAFF);
+        heroBadge.setLetterSpacing(0.1f);
         heroBadge.setSingleLine(true);
-        GradientDrawable badgeBg = new GradientDrawable();
-        badgeBg.setCornerRadius(dp(6));
-        badgeBg.setColor(0x40000000);
-        badgeBg.setStroke(dp(1), 0x22FFFFFF);
-        heroBadge.setBackground(badgeBg);
-        heroBadge.setPadding(dp(10), dp(3), dp(10), dp(3));
-        left.addView(heroBadge, new LinearLayout.LayoutParams(-2, -2));
+        copy.addView(heroBadge, llp(-1, -2, 0, 0, 0, dp(10)));
 
-        heroTitle = text(26, "sans-serif", Color.WHITE);
+        heroTitle = text(37, "sans-serif", Color.WHITE);
         heroTitle.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
-        heroTitle.setShadowLayer(dp(12), 0, dp(1), 0x99000000);
+        heroTitle.setShadowLayer(dp(10), 0, dp(2), 0xCC000000);
         heroTitle.setSingleLine(true);
-        LinearLayout.LayoutParams titleLp = new LinearLayout.LayoutParams(-2, -2);
-        titleLp.setMargins(0, dp(6), 0, dp(4));
-        left.addView(heroTitle, titleLp);
+        heroTitle.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        copy.addView(heroTitle, llp(-1, -2, 0, 0, 0, dp(8)));
 
-        heroSubtitle = text(12, "sans-serif", 0xB3FFFFFF);
+        heroSubtitle = text(15, "sans-serif", 0xE6FFFFFF);
         heroSubtitle.setMaxLines(2);
-        heroSubtitle.setLineSpacing(dp(2), 1f);
         heroSubtitle.setEllipsize(android.text.TextUtils.TruncateAt.END);
-        LinearLayout.LayoutParams subLp = new LinearLayout.LayoutParams(-1, -2);
-        subLp.setMargins(0, 0, dp(24), dp(12));
-        left.addView(heroSubtitle, subLp);
+        heroSubtitle.setLineSpacing(dp(3), 1f);
+        copy.addView(heroSubtitle, llp(-1, -2, 0, 0, dp(6), dp(18)));
 
-        heroActionBtn = text(12, "sans-serif-medium", 0xFFFFFFFF);
-        heroActionBtn.setGravity(Gravity.CENTER);
+        heroActionBtn = text(15, "sans-serif-medium", 0xFF121923);
         heroActionBtn.setPadding(dp(22), 0, dp(22), 0);
+        heroActionBtn.setGravity(Gravity.CENTER);
         heroActionBtn.setFocusable(true);
         heroActionBtn.setId(View.generateViewId());
-        GradientDrawable btnBg = new GradientDrawable();
-        btnBg.setCornerRadius(dp(18));
-        btnBg.setColor(0x4DFFFFFF);
-        btnBg.setStroke(dp(1), 0x33FFFFFF);
-        heroActionBtn.setBackground(btnBg);
-        heroActionBtn.setOnFocusChangeListener((v, has) -> {
-            btnBg.setColor(has ? 0xFFFFFFFF : 0x4DFFFFFF);
-            ((TextView) v).setTextColor(has ? 0xFF111111 : 0xFFFFFFFF);
-            v.animate().scaleX(has ? 1.06f : 1f).scaleY(has ? 1.06f : 1f)
-                    .setInterpolator(new OvershootInterpolator(2f)).setDuration(220).start();
-            if (has) {
+        GradientDrawable cta = new GradientDrawable();
+        cta.setColor(0xFFF6F8FA);
+        cta.setCornerRadius(dp(22));
+        heroActionBtn.setBackground(cta);
+        heroActionBtn.setOnClickListener(v -> launchApp(currentHeroApp));
+        heroActionBtn.setOnFocusChangeListener((v, focused) -> {
+            cta.setColor(focused ? 0xFFFFFFFF : 0xE7F5F8FA);
+            v.animate().scaleX(focused ? 1.06f : 1f).scaleY(focused ? 1.06f : 1f)
+                    .setDuration(140).start();
+            if (focused) {
                 lastFocusedId = v.getId();
                 scroll.smoothScrollTo(0, 0);
-                fadeGlow(1f);
             }
         });
-        heroActionBtn.setOnClickListener(v -> launchApp(currentHeroApp));
-        left.addView(heroActionBtn, new LinearLayout.LayoutParams(-2, dp(36)));
+        copy.addView(heroActionBtn, new LinearLayout.LayoutParams(-2, dp(42)));
+        panel.addView(copy, copyLp);
 
-        card.addView(left);
-
-        // Right column: Preview Monitor Frame
+        // Small *app identity* tile, not a fake TV/film preview screen.
         heroPreviewBox = new FrameLayout(this);
-        GradientDrawable boxBg = new GradientDrawable();
-        boxBg.setCornerRadius(dp(16));
-        boxBg.setColors(new int[]{0x4D000000, 0x80000000});
-        boxBg.setStroke(dp(1), 0x33FFFFFF);
-        heroPreviewBox.setBackground(boxBg);
-        heroPreviewBox.setOutlineProvider(new ViewOutlineProvider() {
-            @Override public void getOutline(View view, Outline outline) {
-                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), dp(16));
-            }
-        });
-        heroPreviewBox.setClipToOutline(true);
-
+        GradientDrawable previewBg = new GradientDrawable();
+        previewBg.setColor(0xCC09121E);
+        previewBg.setCornerRadius(dp(14));
+        previewBg.setStroke(dp(1), 0x55FFFFFF);
+        heroPreviewBox.setBackground(previewBg);
         heroPreviewImage = new ImageView(this);
         heroPreviewImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        heroPreviewImage.setPadding(dp(20), dp(14), dp(20), dp(14));
+        heroPreviewImage.setPadding(dp(7), dp(7), dp(7), dp(7));
         heroPreviewBox.addView(heroPreviewImage, new FrameLayout.LayoutParams(-1, -1));
+        heroFrameTag = text(10, "sans-serif-medium", Color.WHITE);
+        heroFrameTag.setText("");
+        heroFrameTag.setGravity(Gravity.CENTER);
+        panel.addView(heroPreviewBox, lp(dp(78), dp(62), Gravity.BOTTOM | Gravity.RIGHT, 0, 0, dp(55), dp(30)));
+        panel.addView(heroFrameTag, lp(dp(88), dp(20), Gravity.BOTTOM | Gravity.RIGHT, 0, 0, dp(50), dp(7)));
 
-        heroFrameTag = text(9, "sans-serif-bold", 0xCCFFFFFF);
-        heroFrameTag.setText("PREVIEW");
-        heroFrameTag.setLetterSpacing(0.18f);
-        heroFrameTag.setPadding(dp(8), dp(2), dp(8), dp(2));
-        GradientDrawable tagBg = new GradientDrawable();
-        tagBg.setCornerRadius(dp(6));
-        tagBg.setColor(0x99000000);
-        heroFrameTag.setBackground(tagBg);
-        heroPreviewBox.addView(heroFrameTag, lp(-2, -2, Gravity.TOP | Gravity.END, 0, dp(8), dp(8), 0));
-
-        LinearLayout.LayoutParams boxLp = new LinearLayout.LayoutParams(dp(210), dp(130));
-        boxLp.setMargins(dp(16), 0, 0, 0);
-        card.addView(heroPreviewBox, boxLp);
-
-        heroCard = card;
-        return card;
+        heroCard = panel;
+        return panel;
     }
 
     private void updateHero(App app, boolean animate) {
         if (app == null || heroCard == null) return;
         currentHeroApp = app;
-
-        String badge = getAppBadge(app);
-        String titleText = app.label != null ? app.label : "";
-        String sub = getAppSubtitle(app);
-        String act = getAppActionText(app);
-        String tag = getAppFrameTag(app);
-        Drawable art = app.art;
-        int accentColor = app.color != 0 ? app.color : 0xFF00E5FF;
-
-        if (!animate) {
-            heroBadge.setText(badge);
-            heroBadge.setTextColor(accentColor);
-            heroTitle.setText(titleText);
-            heroSubtitle.setText(sub);
-            heroActionBtn.setText(act);
-            heroFrameTag.setText(tag);
-            heroPreviewImage.setImageDrawable(art);
-            heroCard.setAlpha(1f);
-            return;
-        }
-
-        heroCard.animate().alpha(0.35f).setDuration(90).withEndAction(() -> {
-            heroBadge.setText(badge);
-            heroBadge.setTextColor(accentColor);
-            heroTitle.setText(titleText);
-            heroSubtitle.setText(sub);
-            heroActionBtn.setText(act);
-            heroFrameTag.setText(tag);
-            heroPreviewImage.setImageDrawable(art);
-            heroCard.animate().alpha(1f).setDuration(150).start();
-        }).start();
+        heroBadge.setText(getAppBadge(app));
+        heroTitle.setText(app.label == null ? "" : app.label);
+        heroSubtitle.setText(getAppSubtitle(app));
+        heroActionBtn.setText(getAppActionText(app));
+        heroPreviewImage.setImageDrawable(app.art);
+        heroFrameTag.setText(getAppFrameTag(app));
     }
 
     private String getAppBadge(App app) {
@@ -563,7 +557,7 @@ public class MainActivity extends Activity {
     }
 
     private String getAppSubtitle(App app) {
-        if (app.isSatellite) return "Direct satellite broadcast channels • Nilesat (7.0°W) & Hotbird\nPress OK to watch live full screen TV";
+        if (app.isSatellite) return "Watch satellite channels through your StarNet DVB receiver. Original tuner and channel settings are preserved.";
         if (app.isPlus) return "Pin another favorite application to your dock for instant 1-click access";
         if (app.pkg != null) {
             if (app.pkg.contains("youtube") || app.pkg.contains("tizentube")) return "Watch trending videos, subscribed channels, and music playlists";
@@ -578,9 +572,9 @@ public class MainActivity extends Activity {
     }
 
     private String getAppActionText(App app) {
-        if (app.isSatellite) return "▶  Watch Live  (مشاهدة البث)";
-        if (app.isPlus) return "＋  Add to Dock  (إضافة للدوك)";
-        return "▶  Open App  (تشغيل التطبيق)";
+        if (app.isSatellite) return "▶  Watch Live TV";
+        if (app.isPlus) return "＋  Add Favorite";
+        return "▶  Open App";
     }
 
     private String getAppFrameTag(App app) {
@@ -637,7 +631,7 @@ public class MainActivity extends Activity {
             }
         }
 
-        // Keep the discovered map before pulling out favorites; category rows may share the same apps.
+        // Preserve the installed-app inventory for the Apps tab; home rows filter pinned favorites.
         Map<String, App> allAppsForChannels = new HashMap<>(byPkg);
         List<App> dock = new ArrayList<>();
         // Satellite playback is an exported Glide activity-alias, not a separate Android app.
@@ -658,13 +652,12 @@ public class MainActivity extends Activity {
             }
         }
         dock.add(buildPlusEntry());
-        List<App> rest = new ArrayList<>(byPkg.values());
+        List<App> rest = new ArrayList<>(allAppsForChannels.values());
         Collections.sort(rest, (x, y) -> x.label.compareToIgnoreCase(y.label));
         // Ensure the dock works even if upstream Android TV app IDs aren't installed.
         if (dock.size() <= 1 && !rest.isEmpty()) {
             int count = Math.min(5, rest.size());
             dock.addAll(new ArrayList<>(rest.subList(0, count)));
-            rest.subList(0, count).clear();
         }
 
         dockRow.removeAllViews();
@@ -703,8 +696,8 @@ public class MainActivity extends Activity {
             p.setMargins(dp(10), 0, i == cols - 1 ? 0 : dp(10), 0);
             row.addView(new View(this), p);
         }
-        appsLabel.setVisibility(rest.isEmpty() ? View.GONE : View.VISIBLE);
         buildChannelRows(allAppsForChannels, satellite);
+        showAppCatalogVisibilityOnly();
         wireFocus();
 
         if (!dock.isEmpty()) {
@@ -825,6 +818,13 @@ public class MainActivity extends Activity {
             scroll.smoothScrollTo(0, Math.max(0, y));
         });
         return outer;
+    }
+
+    /** Keep view visibility in sync after apps are rescanned. */
+    private void showAppCatalogVisibilityOnly() {
+        if (channelContainer != null) channelContainer.setVisibility(catalogMode ? View.GONE : View.VISIBLE);
+        if (grid != null) grid.setVisibility(catalogMode ? View.VISIBLE : View.GONE);
+        if (appsLabel != null) appsLabel.setVisibility(catalogMode ? View.VISIBLE : View.GONE);
     }
 
     /** A StarNet satellite entry using the owner's observed Glide DVB activity alias. */
@@ -1413,7 +1413,7 @@ public class MainActivity extends Activity {
         g.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         g.setGradientCenter(0.5f, 0.78f);
         g.setGradientRadius(getResources().getDisplayMetrics().widthPixels * 0.62f);
-        g.setColors(new int[]{withAlpha(color, 0.5f), withAlpha(color, 0.14f), Color.TRANSPARENT});
+        g.setColors(new int[]{withAlpha(color, 0.18f), withAlpha(color, 0.05f), Color.TRANSPARENT});
         glow.setBackground(g);
     }
 
@@ -1471,6 +1471,7 @@ public class MainActivity extends Activity {
         root.removeView(wallFront);
         root.addView(wallFront, 1, new FrameLayout.LayoutParams(-1, -1));
         wallFront.setImageBitmap(bm);
+        if (heroArtwork != null) heroArtwork.setImageBitmap(bm);
         wallFront.setAlpha(0f);
         wallFront.animate().alpha(1f).setDuration(firstWallpaper ? 600 : 2000).withEndAction(() -> {
             wallBack.setImageDrawable(null); // release the previous photo
